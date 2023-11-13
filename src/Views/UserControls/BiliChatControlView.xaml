@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<basemodel:BiliChatControl
+    x:Class="Views.UserControls.BiliChatControlView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:basemodel="using:Views.Models"
+    xmlns:converter="using:BiliStart.WinUI3.UI.Converter"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:selector="using:Views.Selecter"
+    xmlns:ui3="using:BiliStart.WinUI3.UI.Controls"
+    xmlns:uservm="using:IAppContracts.IUserControlsViewModels"
+    d:DataContext="{x:Bind uservm:IBIliChatViewModel}"
+    mc:Ignorable="d">
+    <i:Interaction.Behaviors>
+        <core:EventTriggerBehavior EventName="Loaded">
+            <core:InvokeCommandAction Command="{Binding LoadedCommand, Mode=OneWay}" />
+        </core:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <basemodel:BiliChatControl.Resources>
+        <converter:BiliContentChatRichBoxConverter x:Key="BiliContentChatRichBoxConverter" />
+        <converter:BiliUsingListChatRichBoxConverter x:Key="BiliUsingListChatRichBoxConverter" />
+    </basemodel:BiliChatControl.Resources>
+    <ScrollView Width="350" Height="700">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <StackPanel HorizontalAlignment="Center">
+                <TextBlock
+                    FontSize="20"
+                    HorizontalTextAlignment="Center"
+                    TextWrapping="Wrap">
+                    <Run Text="AI搜索" />
+                    <Run
+                        FontSize="12"
+                        Foreground="{ThemeResource AccentAAFillColorDefaultBrush}"
+                        Text="（预览版）" />
+                </TextBlock>
+                <TextBlock
+                    MaxWidth="150"
+                    Margin="0,10,0,0"
+                    FontSize="12"
+                    Foreground="{ThemeResource SystemChromeGrayColor}"
+                    Text="{Binding SSID, Mode=OneWay}"
+                    TextTrimming="CharacterEllipsis" />
+            </StackPanel>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <ui3:UICardBorder
+                    Grid.Row="0"
+                    Padding="20"
+                    CornerRadius="5">
+                    <ContentControl Content="{Binding Model, Converter={StaticResource BiliContentChatRichBoxConverter}, ConverterParameter='Content'}" />
+                </ui3:UICardBorder>
+                <ui3:UICardBorder
+                    Grid.Row="1"
+                    Margin="0,10,0,0"
+                    Padding="20"
+                    CornerRadius="5">
+                    <ScrollViewer>
+                        <ContentControl
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            Content="{Binding Model, Converter={StaticResource BiliUsingListChatRichBoxConverter}, ConverterParameter='Content'}" />
+                    </ScrollViewer>
+                </ui3:UICardBorder>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button
+                    Width="35"
+                    Height="35"
+                    Padding="0"
+                    Command="{x:Bind ViewModel.ClearAskCommand}"
+                    CornerRadius="35"
+                    ToolTipService.ToolTip="让我们重新开始">
+                    <FontIcon
+                        FontFamily="Segoe UI Emoji"
+                        FontSize="13"
+                        Glyph="&#x1F44F;" />
+                </Button>
+                <AutoSuggestBox
+                    x:Name="askBox"
+                    Grid.Column="1"
+                    Margin="10,0,0,0"
+                    VerticalContentAlignment="Center"
+                    AutoMaximizeSuggestionArea="True"
+                    PlaceholderText="{Binding AskTip, Mode=OneWay}"
+                    QueryIcon="Go"
+                    UpdateTextOnSelect="True">
+                    <i:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="QuerySubmitted">
+                            <core:InvokeCommandAction Command="{Binding RefreshAskCommand, Mode=OneWay}" CommandParameter="{x:Bind askBox.Text, Mode=OneWay}" />
+                        </core:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </AutoSuggestBox>
+
+            </Grid>
+        </Grid>
+    </ScrollView>
+</basemodel:BiliChatControl>

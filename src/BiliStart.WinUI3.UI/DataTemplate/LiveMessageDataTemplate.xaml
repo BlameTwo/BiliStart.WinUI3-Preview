@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:uimodel="using:ViewConverter.Models.Live.Message">
+    <DataTemplate x:Key="LiveDanmakuDefaultDT">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Foreground="{ThemeResource AccentAAFillColorDefaultBrush}" Text="{Binding Format.UserName}" />
+            <TextBlock Text="  :  " />
+            <TextBlock Text="{Binding Format.MSG, Mode=OneWay}" TextWrapping="Wrap" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="LiveUserGoRoomDefaultDT">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Foreground="{ThemeResource SystemChromeGrayColor}" Text="{Binding Uname, Mode=OneWay}" />
+            <TextBlock Foreground="{ThemeResource SystemChromeGrayColor}" Text="  进入了房间" />
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

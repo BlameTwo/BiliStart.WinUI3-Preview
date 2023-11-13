@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" 
+  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" 
+  xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  IgnorableNamespaces="uap rescap">
+
+  <Identity
+    Name="504feb3f-12ed-4056-be83-7fe6f33f3486"
+    Publisher="CN=Blame"
+    Version="0.0.5.0" />
+
+  <mp:PhoneIdentity PhoneProductId="504feb3f-12ed-4056-be83-7fe6f33f3479" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
+  <Properties>
+    <DisplayName>BiliStart-Preview</DisplayName>
+    <PublisherDisplayName>Blame</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0" />
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="x-generate"/>
+  </Resources>
+
+  <Applications>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="$targetentrypoint$">
+      <uap:VisualElements
+        DisplayName="BiliStart-Preview"
+        Description="BiliStart"
+        BackgroundColor="transparent"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
+        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+      </uap:VisualElements>
+      <Extensions>
+		<desktop:Extension Category="windows.toastNotificationActivation">
+			<desktop:ToastNotificationActivation ToastActivatorCLSID="C4A45C0B-00D4-D8F5-AFD6-0231E1B29CAA" />
+		</desktop:Extension>
+		  <com:Extension Category="windows.comServer">
+			  <com:ComServer>
+				  <com:ExeServer Executable="BiliStart\BiliStart.exe" DisplayName="BiliStart" Arguments="----AppNotificationActivated:">
+					  <com:Class Id="C4A45C0B-00D4-D8F5-AFD6-0231E1B29CAA" />
+				  </com:ExeServer>
+			  </com:ComServer>
+		  </com:Extension>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="bilistart">
+            <uap:DisplayName>BiliStart</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="bilibili">
+            <uap:DisplayName>BiliStart</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+</Package>

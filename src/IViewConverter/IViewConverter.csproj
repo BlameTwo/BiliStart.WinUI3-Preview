@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LanguageExt.Core" Version="4.4.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bili.Grpc\BiliStart.Grpc.Models.csproj" />
+    <ProjectReference Include="..\Network.Models\Network.Models.csproj" />
+    <ProjectReference Include="..\ViewConverter.Models\ViewConverter.Models.csproj" />
+  </ItemGroup>
+
+</Project>

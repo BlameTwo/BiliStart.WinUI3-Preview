@@ -1,0 +1,33 @@
+<Page
+    x:Class="Views.PgcPages.MoviePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:itemus="using:Views.ItemsControls.PgcItem"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pgcmodel="using:IAppContracts.ItemsViewModels"
+    xmlns:ui3="using:BiliStart.WinUI3.UI.Controls"
+    Margin="10"
+    mc:Ignorable="d">
+    <ui3:AdaptiveView
+        x:Name="gridview"
+        Grid.Row="1"
+        AddDataCommand="{x:Bind ViewModel.AddDataCommand, Mode=OneWay}"
+        ItemOrientation="Horizontal"
+        ItemsSource="{x:Bind ViewModel.PgcSource, Mode=OneWay}"
+        MinItemVerticalValue="600"
+        OpenVerticalChanged="True">
+        <ui3:AdaptiveView.ItemTemplate>
+            <DataTemplate x:DataType="pgcmodel:IPgcItemViewModel">
+                <itemus:PgcItem ViewModel="{x:Bind}" />
+            </DataTemplate>
+        </ui3:AdaptiveView.ItemTemplate>
+        <ui3:AdaptiveView.UniformGridLayout>
+            <UniformGridLayout
+                ItemsJustification="Start"
+                ItemsStretch="Uniform"
+                MinItemHeight="180"
+                MinItemWidth="290" />
+        </ui3:AdaptiveView.UniformGridLayout>
+    </ui3:AdaptiveView>
+</Page>

@@ -1,0 +1,119 @@
+<local:PlayerReplyCommon
+    x:Class="Views.UserControls.PlayerReplyCommonControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:biliresource="using:Views"
+    xmlns:biliui="using:BiliStart.WinUI3.UI.Controls"
+    xmlns:converter="using:BiliStart.WinUI3.UI.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Views.Models.ViewControl"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <local:PlayerReplyCommon.Resources>
+        <converter:RichTextConverter x:Key="RichTextConverter" />
+    </local:PlayerReplyCommon.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Button Command="{x:Bind ViewModel.BackGoMainCommand, Mode=OneWay}">
+            <StackPanel Orientation="Horizontal">
+                <FontIcon
+                    FontFamily="Segoe Fluent Icons"
+                    FontSize="12"
+                    Glyph="&#xE0A6;" />
+                <TextBlock Margin="10,0,0,0" Text="{x:Bind biliresource:BiliResourceLoader.ReadViewResourceString('Player_ReplyComment_First')}" />
+            </StackPanel>
+        </Button>
+        <Grid Grid.Row="1" Margin="0,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Border
+                Margin="5,0,5,0"
+                Padding="10"
+                Background="{ThemeResource ControlFillColorDefault}"
+                CornerRadius="3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <StackPanel
+                        Grid.Row="0"
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal">
+                        <biliui:ImageEx
+                            Height="35"
+                            CornerRadius="35"
+                            Source="{x:Bind ViewModel.CommentReplyList.Main.ReplyUp.Face, Mode=OneWay}" />
+                        <StackPanel Margin="10,0,0,0" Orientation="Vertical">
+                            <TextBlock FontSize="12" Text="{x:Bind ViewModel.CommentReplyList.Main.ReplyUp.Face, Mode=OneWay}" />
+                            <TextBlock
+                                Margin="0,3,0,0"
+                                FontSize="10"
+                                Text="{x:Bind ViewModel.CommentReplyList.Main.PublishTime, Mode=OneWay, Converter={StaticResource UnixTimeConverter}, ConverterParameter=M}" />
+                        </StackPanel>
+                    </StackPanel>
+                    <ContentControl
+                        Grid.Row="1"
+                        Margin="10"
+                        Content="{x:Bind ViewModel.CommentReplyList.Main.ReplyContent, Mode=OneWay, Converter={StaticResource RichTextConverter}, ConverterParameter=6}" />
+                    <Grid Grid.Row="2">
+                        <StackPanel Orientation="Horizontal">
+                            <ToggleButton
+                                Padding="0"
+                                Command="{x:Bind ViewModel.LikeCommand, Mode=OneWay}"
+                                FontSize="12"
+                                IsChecked="{x:Bind ViewModel.IsLike, Mode=OneWay}"
+                                IsEnabled="{x:Bind ViewModel.IsLikeing, Mode=OneWay}">
+                                <biliui:IconText Icon="&#xE19F;" Text="{x:Bind ViewModel.LikeCount, Mode=OneWay}" />
+                            </ToggleButton>
+                            <biliui:IconText
+                                Margin="5,0,0,0"
+                                FontSize="12"
+                                Foreground="{ThemeResource AccentAAFillColorDefaultBrush}"
+                                Icon="&#xE15F;"
+                                Text="{x:Bind ViewModel.CommentReplyList.Main.Count, Mode=OneWay}" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+            <MenuFlyoutSeparator Grid.Row="1" Margin="10,10" />
+            <biliui:BiliItemControls
+                Grid.Row="2"
+                AddDataCommand="{x:Bind ViewModel.AddDataCommand, Mode=OneWay}"
+                Background="Transparent"
+                IsItemClickEnabled="False"
+                ItemContainerStyle="{ThemeResource BiliDefaultListViewItem}"
+                ItemTemplate="{StaticResource DefaultReplyItem}"
+                ItemsSource="{x:Bind ViewModel.RepliesList, Mode=OneWay}"
+                SelectionMode="None" />
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox />
+            <Button
+                x:Name="SendBth"
+                Grid.Column="1"
+                Margin="5,0,0,0"
+                Style="{ThemeResource AccentButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon
+                        FontFamily="Segoe Fluent Icons"
+                        FontSize="12"
+                        Glyph="&#xE724;" />
+                    <TextBlock Margin="5,0,0,0" Text="Send" />
+                </StackPanel>
+            </Button>
+        </Grid>
+    </Grid>
+</local:PlayerReplyCommon>

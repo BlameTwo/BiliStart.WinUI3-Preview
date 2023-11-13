@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App_Plugin_Manager" xml:space="preserve">
+    <value>打开插件管理器</value>
+  </data>
+  <data name="Main_Account_Manager" xml:space="preserve">
+    <value>管理账号</value>
+  </data>
+  <data name="Main_AutoSuggestBox_Text" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="Main_Navigation_About" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="PGC_Navigation_MoviePlayer" xml:space="preserve">
+    <value>综艺</value>
+  </data>
+  <data name="Main_Navigation_Class" xml:space="preserve">
+    <value>分区</value>
+  </data>
+  <data name="Main_Navigation_Download" xml:space="preserve">
+    <value>下载</value>
+  </data>
+  <data name="Main_Navigation_Dynamic" xml:space="preserve">
+    <value>动态</value>
+  </data>
+  <data name="Main_Navigation_Header_Home" xml:space="preserve">
+    <value>首页</value>
+  </data>
+  <data name="PGC_Navigation_TVPlayer" xml:space="preserve">
+    <value>电视剧</value>
+  </data>
+  <data name="Main_Navigation_Like" xml:space="preserve">
+    <value>推荐</value>
+  </data>
+  <data name="PGC_Navigation_Movie" xml:space="preserve">
+    <value>电影</value>
+  </data>
+  <data name="PGC_Navigation_REC" xml:space="preserve">
+    <value>纪录片</value>
+  </data>
+  <data name="Main_Navigation_Pgc" xml:space="preserve">
+    <value>流媒体</value>
+  </data>
+  <data name="Main_Navigation_Settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="Main_Navigation_Total" xml:space="preserve">
+    <value>综合</value>
+  </data>
+  <data name="Main_Navigation_TV" xml:space="preserve">
+    <value>电影</value>
+  </data>
+  <data name="Main_Nvagation_Header_Movie" xml:space="preserve">
+    <value>影视</value>
+  </data>
+  <data name="Main_Token_Add" xml:space="preserve">
+    <value>增加账号</value>
+  </data>
+  <data name="Main_Token_Manager" xml:space="preserve">
+    <value>账号认证管理</value>
+  </data>
+  <data name="Main_User" xml:space="preserve">
+    <value>个人中心</value>
+  </data>
+  <data name="Main_User_Fav" xml:space="preserve">
+    <value>我的收藏</value>
+  </data>
+  <data name="Main_User_History" xml:space="preserve">
+    <value>历史纪律</value>
+  </data>
+  <data name="Main_User_LastLook" xml:space="preserve">
+    <value>稍后再看</value>
+  </data>
+  <data name="Page_Loading" xml:space="preserve">
+    <value>加载中……</value>
+  </data>
+  <data name="Page_Refersh" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="Player_ReplyComment_First" xml:space="preserve">
+    <value>返回上一级</value>
+  </data>
+  <data name="Player_Right_First" xml:space="preserve">
+    <value>评论</value>
+  </data>
+  <data name="Player_Right_Second" xml:space="preserve">
+    <value>推荐</value>
+  </data>
+  <data name="Player_Right_Three" xml:space="preserve">
+    <value>选集</value>
+  </data>
+  <data name="Plugin_Install" xml:space="preserve">
+    <value>安装插件</value>
+  </data>
+  <data name="Plugin_Install_BSL" xml:space="preserve">
+    <value>从.bsl文件中安装</value>
+  </data>
+  <data name="Plugin_Install_Folder" xml:space="preserve">
+    <value>移动整个插件文件夹</value>
+  </data>
+  <data name="Plugin_Install_ZIP" xml:space="preserve">
+    <value>从安装包安装</value>
+  </data>
+  <data name="Plugin_TItle" xml:space="preserve">
+    <value>插件</value>
+  </data>
+  <data name="Root_Header_Title" xml:space="preserve">
+    <value>Up空间</value>
+  </data>
+  <data name="Root_User_F" xml:space="preserve">
+    <value>粉丝</value>
+  </data>
+  <data name="Root_User_L" xml:space="preserve">
+    <value>关注</value>
+  </data>
+  <data name="Root_User_Pivot_Item1" xml:space="preserve">
+    <value>主页</value>
+  </data>
+  <data name="Root_User_Pivot_Item2" xml:space="preserve">
+    <value>动态</value>
+  </data>
+  <data name="Root_User_TL" xml:space="preserve">
+    <value>获赞</value>
+  </data>
+  <data name="Search_Order" xml:space="preserve">
+    <value>排序：</value>
+  </data>
+  <data name="Search_Order_Danmaku" xml:space="preserve">
+    <value>弹幕多</value>
+  </data>
+  <data name="Search_Order_Default" xml:space="preserve">
+    <value>默认排序</value>
+  </data>
+  <data name="Search_Order_Player" xml:space="preserve">
+    <value>播放多</value>
+  </data>
+  <data name="Search_Order_Publish" xml:space="preserve">
+    <value>新发布</value>
+  </data>
+  <data name="Search_Total_Subtitle" xml:space="preserve">
+    <value>为什么会看到这个：因为开发者的接口没有获取到信息内容。</value>
+  </data>
+  <data name="Search_Total_Title" xml:space="preserve">
+    <value>内容正在修正</value>
+  </data>
+  <data name="Total_GoLook" xml:space="preserve">
+    <value>入站必刷</value>
+  </data>
+  <data name="Total_Hot" xml:space="preserve">
+    <value>热门</value>
+  </data>
+  <data name="Total_HotSearch" xml:space="preserve">
+    <value>热搜榜</value>
+  </data>
+  <data name="Total_HotSearch_Item" xml:space="preserve">
+    <value>商业</value>
+  </data>
+  <data name="Total_HotSearch_Title" xml:space="preserve">
+    <value>热搜</value>
+  </data>
+  <data name="Total_Hot_TItle" xml:space="preserve">
+    <value>热门</value>
+  </data>
+  <data name="Total_MusicRank" xml:space="preserve">
+    <value>音乐排行榜</value>
+  </data>
+  <data name="Total_MusicRank_ComboBox_First" xml:space="preserve">
+    <value>第</value>
+  </data>
+  <data name="Total_MusicRank_ComboBox_Second" xml:space="preserve">
+    <value>期</value>
+  </data>
+  <data name="Total_MusicRank_ItemButton" xml:space="preserve">
+    <value>看MV</value>
+  </data>
+  <data name="Total_MusicRank_Switch" xml:space="preserve">
+    <value>订阅开关</value>
+  </data>
+  <data name="Total_Rank" xml:space="preserve">
+    <value>排行榜</value>
+  </data>
+  <data name="Total_Rank_Item_First" xml:space="preserve">
+    <value>综合评分</value>
+  </data>
+  <data name="Total_Rank_Title" xml:space="preserve">
+    <value>排行信息</value>
+  </data>
+  <data name="PGC_Movie_List" xml:space="preserve">
+    <value>进入当前媒体索引</value>
+  </data>
+  <data name="NotifyExit" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="NotifyShow" xml:space="preserve">
+    <value>显示\隐藏</value>
+  </data>
+  <data name="Main_User_Vip" xml:space="preserve">
+    <value>大会员</value>
+  </data>
+  <data name="NotifyView_Home" xml:space="preserve">
+    <value>首页</value>
+  </data>
+  <data name="NotifyView_Page" xml:space="preserve">
+    <value>功能</value>
+  </data>
+  <data name="Main_Navigation_Live" xml:space="preserve">
+    <value>直播</value>
+  </data>
+  <data name="Main_Navigation_ChinaAnimation" xml:space="preserve">
+    <value>动画</value>
+  </data>
+  <data name="Live_List_OrderBy" xml:space="preserve">
+    <value>分类</value>
+  </data>
+  <data name="Live_Tag_Title" xml:space="preserve">
+    <value>直播分类</value>
+  </data>
+  <data name="Main_Dynamic" xml:space="preserve">
+    <value>我的动态</value>
+  </data>
+</root>

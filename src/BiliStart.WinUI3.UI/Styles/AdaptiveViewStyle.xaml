@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:a="using:CommunityToolkit.WinUI.Animations"
+    xmlns:ui="using:BiliStart.WinUI3.UI.Controls"
+    xmlns:uiprovider="using:BiliStart.WinUI3.UI.TransitionProviders">
+    <Style TargetType="ui:AdaptiveView">
+        <Setter Property="UniformGridLayout">
+            <Setter.Value>
+                <UniformGridLayout
+                    ItemsJustification="Start"
+                    ItemsStretch="Uniform"
+                    MinItemHeight="180"
+                    MinItemWidth="280" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="StackLayout">
+            <Setter.Value>
+                <StackLayout Orientation="Vertical" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ui:AdaptiveView">
+                    <ScrollView
+                        x:Name="PART_ScrollView"
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        HorizontalAnchorRatio="NaN">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <ContentControl Content="{TemplateBinding Header}" />
+                            <ItemsRepeater
+                                x:Name="PART_ItemsRepeater"
+                                Grid.Row="1"
+                                VerticalAlignment="Top"
+                                HorizontalCacheLength="0"
+                                ItemTemplate="{TemplateBinding ItemTemplate}"
+                                ItemsSource="{TemplateBinding ItemsSource}">
+                                <ItemsRepeater.ItemTransitionProvider>
+                                    <LinedFlowLayoutItemCollectionTransitionProvider />
+                                </ItemsRepeater.ItemTransitionProvider>
+                            </ItemsRepeater>
+                        </Grid>
+                    </ScrollView>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style TargetType="ui:ItemsControlView">
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled" />
+        <Setter Property="ScrollViewer.IsHorizontalRailEnabled" Value="False" />
+        <Setter Property="ScrollViewer.VerticalScrollMode" Value="Enabled" />
+        <Setter Property="ScrollViewer.IsVerticalRailEnabled" Value="True" />
+        <Setter Property="ScrollViewer.ZoomMode" Value="Disabled" />
+        <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False" />
+        <Setter Property="ScrollViewer.BringIntoViewOnFocusChange" Value="True" />
+        <Setter Property="ThransitionCollection">
+            <Setter.Value>
+                <TransitionCollection>
+                    <AddDeleteThemeTransition />
+                    <ReorderThemeTransition />
+                    <EntranceThemeTransition IsStaggeringEnabled="False" />
+                </TransitionCollection>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ui:ItemsControlView">
+                    <ScrollView
+                        x:Name="PART_ScrollView"
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        HorizontalAnchorRatio="NaN"
+                        HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                        HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
+                        TabNavigation="{TemplateBinding TabNavigation}"
+                        VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                        VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                        ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
+                        <ItemsControl
+                            x:Name="PART_ItemsRepeater"
+                            VerticalAlignment="Top"
+                            ItemContainerTransitions="{TemplateBinding ThransitionCollection}"
+                            ItemTemplate="{TemplateBinding ItemTemplate}"
+                            ItemTemplateSelector="{TemplateBinding DataTemplateSelecter}"
+                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                            ItemsSource="{TemplateBinding ItemsSource}" />
+                    </ScrollView>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

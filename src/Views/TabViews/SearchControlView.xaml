@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:SearchControlBase
+    x:Class="Views.TabViews.SearchControlView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:base="using:Views.TabViews.Bases"
+    xmlns:biliui="using:BiliStart.WinUI3.UI.Controls"
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    xmlns:converter="using:BiliStart.WinUI3.UI.Converter"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:local="using:Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:selecter="using:Views.Selecter"
+    mc:Ignorable="d">
+
+    <base:SearchControlBase.Resources>
+        <converter:CountBoolConverter x:Key="CountBoolConverter" />
+        <converter:BoolToVisibiltyConverter x:Key="BoolToVisibilityConverter" IsBack="False" />
+        <!--  反转布尔  -->
+        <converter:BoolToVisibiltyConverter x:Key="BackBoolToVisibilityConverter" IsBack="True" />
+        <selecter:SearchAllSelecter
+            x:Key="SearchAllSelecter"
+            Article="{StaticResource ArtcleSearchItem}"
+            Default="{StaticResource VideoSearchItem}"
+            Live="{StaticResource LiveSearchItem}"
+            Movie="{StaticResource MovieSearchItem}"
+            User="{StaticResource UserSearchItem}"
+            Video="{StaticResource VideoSearchItem}" />
+    </base:SearchControlBase.Resources>
+    <i:Interaction.Behaviors>
+        <core:EventTriggerBehavior EventName="Loaded">
+            <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand}" />
+        </core:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Grid Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <NavigationView
+            Grid.Row="0"
+            Margin="15"
+            IsBackButtonVisible="Collapsed"
+            IsSettingsVisible="False"
+            MenuItemsSource="{x:Bind ViewModel.Navs, Mode=OneWay}"
+            PaneDisplayMode="Top"
+            SelectedItem="{x:Bind ViewModel.SelectNavitem, Mode=TwoWay}">
+            <NavigationView.MenuItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <Run Text="{Binding Name, Mode=OneWay}" />
+                        <Run Text="(" />
+                        <Run Text="{Binding Total, Mode=OneWay}" />
+                        <Run Text=")" />
+                    </TextBlock>
+                </DataTemplate>
+            </NavigationView.MenuItemTemplate>
+        </NavigationView>
+        <Grid Grid.Row="1" Margin="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <StackPanel
+                Margin="25,0,0,0"
+                Orientation="Horizontal"
+                Visibility="{x:Bind ViewModel.AllMenuShow, Mode=OneWay}">
+                <TextBlock VerticalAlignment="Center" Text="{x:Bind local:BiliResourceLoader.ReadViewResourceString('Search_Order')}" />
+                <ComboBox
+                    x:Name="ComboBoxOrderBy"
+                    Margin="5,0,0,0"
+                    VerticalAlignment="Center"
+                    IsEnabled="{x:Bind ViewModel.Fillterenable, Mode=OneWay}"
+                    ItemsSource="{x:Bind ViewModel.OrderBy, Mode=OneWay}"
+                    SelectedItem="{x:Bind ViewModel.SelectOrder, Mode=TwoWay}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name, Mode=OneWay}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            <biliui:ErrorCard
+                Title="{x:Bind local:BiliResourceLoader.ReadViewResourceString('Search_Total_Title')}"
+                Grid.RowSpan="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                SubTitle="{x:Bind local:BiliResourceLoader.ReadViewResourceString('Search_Total_Subtitle')}"
+                Visibility="{x:Bind ViewModel.ErrorShow, Mode=OneWay}" />
+            <biliui:ItemsControlView
+                x:Name="gridview"
+                Grid.Row="1"
+                Margin="10"
+                AddDataCommand="{x:Bind ViewModel.AddDataCommand}"
+                Background="Transparent"
+                DataTemplateSelecter="{ThemeResource SearchAllSelecter}"
+                ItemsSource="{x:Bind ViewModel.SearchItems, Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.ItemShow, Mode=OneWay}">
+                <biliui:ItemsControlView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <controls:StaggeredPanel />
+                    </ItemsPanelTemplate>
+                </biliui:ItemsControlView.ItemsPanel>
+            </biliui:ItemsControlView>
+        </Grid>
+    </Grid>
+</base:SearchControlBase>

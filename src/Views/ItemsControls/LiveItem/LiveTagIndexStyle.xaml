@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cm="using:CommunityToolkit.WinUI"
+    xmlns:local="using:Views.ItemsControls.LiveItem"
+    xmlns:ui3="using:BiliStart.WinUI3.UI.Controls">
+    <Style x:Key="LiveTagIndexHorizontalStyle" TargetType="local:LiveTagIndex">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:LiveTagIndex">
+                    <ui3:UICardBorder
+                        cm:UIElementExtensions.ClipToBounds="True"
+                        Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.GoActionCommand}"
+                        CornerRadius="5">
+                        <ToolTipService.ToolTip>
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon FontFamily="Segoe UI Emoji" Glyph="&#x1F30F;" />
+                                <TextBlock VerticalAlignment="Center" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.Online, Mode=OneWay}" />
+                            </StackPanel>
+                        </ToolTipService.ToolTip>
+                        <Grid>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="7*" />
+                                <RowDefinition Height="3*" />
+                            </Grid.RowDefinitions>
+                            <ui3:ImageEx
+                                CornerRadius="5 5 0 0"
+                                Source="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.Cover, Mode=OneWay}"
+                                Stretch="UniformToFill" />
+                            <Border
+                                Margin="0,0,0,5"
+                                Padding="10,5"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                CornerRadius="5">
+                                <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.Title, Mode=OneWay}" />
+                            </Border>
+
+                            <StackPanel
+                                Grid.Row="1"
+                                Margin="10,0,0,0"
+                                Orientation="Horizontal">
+                                <ui3:ImageEx
+                                    Width="30"
+                                    Height="30"
+                                    CornerRadius="30"
+                                    Source="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.Face, Mode=OneWay}" />
+                                <TextBlock
+                                    Margin="5,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.Uname, Mode=OneWay}" />
+                            </StackPanel>
+                        </Grid>
+                    </ui3:UICardBorder>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="LiveTagIndexVerticalStyle" TargetType="local:LiveTagIndex">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:LiveTagIndex">
+                    <ui3:UICardBorder
+                        Padding="5"
+                        Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.GoActionCommand, Mode=OneWay}"
+                        CornerRadius="5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <ui3:ImageEx
+                                Width="150"
+                                Height="100"
+                                CornerRadius="5"
+                                IsCacheEnabled="True"
+                                Source="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.Cover, Mode=OneWay}"
+                                Stretch="UniformToFill" />
+                            <Grid Grid.Column="1" Margin="10,0,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.Title, Mode=OneWay}" />
+                                <StackPanel
+                                    Grid.Row="1"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal">
+                                    <ui3:ImageEx
+                                        Width="30"
+                                        Height="30"
+                                        CornerRadius="30"
+                                        Source="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.Face, Mode=OneWay}" />
+                                    <TextBlock
+                                        Margin="5,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.Uname, Mode=OneWay}" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                    <Border
+                                        Padding="3"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Background="{ThemeResource AccentAAFillColorDefaultBrush}"
+                                        CornerRadius="3">
+                                        <StackPanel Orientation="Horizontal">
+                                            <FontIcon
+                                                FontFamily="Segoe Fluent Icons"
+                                                FontSize="10"
+                                                Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                                                Glyph="&#xECCB;" />
+                                            <TextBlock
+                                                Margin="5,0,0,0"
+                                                FontSize="10"
+                                                Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.Online, Mode=OneWay}" />
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </ui3:UICardBorder>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

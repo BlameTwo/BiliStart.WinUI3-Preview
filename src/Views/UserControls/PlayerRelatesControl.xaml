@@ -1,0 +1,64 @@
+<local:PlayerRelates
+    x:Class="Views.UserControls.PlayerRelatesControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:biliui="using:BiliStart.WinUI3.UI.Controls"
+    xmlns:controlbase="using:IAppContracts.IUserControlsViewModels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Views.Models.ViewControl"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui3="using:BiliStart.WinUI3.UI.Controls"
+    mc:Ignorable="d">
+    <Grid>
+        <biliui:BiliItemControls
+            Background="Transparent"
+            IsItemClickEnabled="True"
+            ItemClick="ListView_ItemClick"
+            ItemContainerStyle="{ThemeResource BiliDefaultListViewItem}"
+            ItemsSource="{x:Bind ViewModel.RelatesVideo, Mode=OneWay}"
+            SelectionMode="None">
+            <biliui:BiliItemControls.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="7*" />
+                        </Grid.ColumnDefinitions>
+                        <ui3:ImageEx
+                            CornerRadius="5"
+                            IsCacheEnabled="False"
+                            Source="{Binding Cover, Mode=OneWay}" />
+                        <Grid
+                            Grid.Column="1"
+                            Margin="10,0,0,0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch">
+                            <StackPanel>
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    Text="{Binding Title, Mode=OneWay}"
+                                    TextTrimming="CharacterEllipsis"
+                                    TextWrapping="NoWrap" />
+                                <TextBlock
+                                    Margin="0,5,0,0"
+                                    FontSize="12"
+                                    Foreground="{ThemeResource SystemChromeGrayColor}"
+                                    Text="{Binding Up.Name, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal">
+                                <biliui:IconText
+                                    FontSize="12"
+                                    Icon="&#xE116;"
+                                    Text="{Binding View, Mode=OneWay}" />
+                                <biliui:IconText
+                                    FontSize="12"
+                                    Icon="&#xE1D2;"
+                                    Text="{Binding Coin, Mode=OneWay}" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </biliui:BiliItemControls.ItemTemplate>
+        </biliui:BiliItemControls>
+    </Grid>
+</local:PlayerRelates>

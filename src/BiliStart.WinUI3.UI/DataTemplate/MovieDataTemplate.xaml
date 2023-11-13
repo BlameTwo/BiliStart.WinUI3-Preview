@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ui3="using:BiliStart.WinUI3.UI.Controls">
+    <DataTemplate x:Key="DefaultPgcItemDataTemplate">
+        <ui3:UICardBorder Command="{Binding GoPGCCommand, Mode=OneWay}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="6*" />
+                </Grid.ColumnDefinitions>
+                <ui3:ImageEx
+                    CornerRadius="5"
+                    Source="{Binding Base.Cover, Mode=OneWay}"
+                    Stretch="UniformToFill" />
+                <Grid Grid.Column="1" Margin="5,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Width="120"
+                        HorizontalAlignment="Left"
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Text="{Binding Base.Title, Mode=OneWay}"
+                        TextTrimming="CharacterEllipsis" />
+                    <Grid HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Border
+                            Background="{ThemeResource AccentAAFillColorDefaultBrush}"
+                            CornerRadius="4"
+                            Opacity="0.8" />
+                        <TextBlock
+                            Margin="3"
+                            FontSize="10"
+                            Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                            Text="{Binding Base.Badge, Mode=OneWay}" />
+                    </Grid>
+                    <StackPanel
+                        Grid.Row="1"
+                        Margin="0,15,0,0"
+                        VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="13"
+                            Foreground="{ThemeResource SystemChromeGrayColor}"
+                            Text="{Binding Base.Desc, Mode=OneWay}" />
+                        <TextBlock
+                            FontSize="13"
+                            Foreground="{ThemeResource SystemChromeGrayColor}"
+                            Text="{Binding Base.Stat.FollowView, Mode=OneWay}" />
+
+                    </StackPanel>
+                    <Grid Grid.Row="2" VerticalAlignment="Bottom">
+                        <TextBlock
+                            MaxWidth="95"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            FontSize="13"
+                            Foreground="{ThemeResource SystemChromeGrayColor}"
+                            Text="{Binding Base.MovieSession, Mode=OneWay}"
+                            TextTrimming="CharacterEllipsis" />
+                    </Grid>
+                </Grid>
+            </Grid>
+        </ui3:UICardBorder>
+    </DataTemplate>
+</ResourceDictionary>

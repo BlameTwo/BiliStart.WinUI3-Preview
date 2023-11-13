@@ -1,0 +1,217 @@
+<bases:ViewerPageBase
+    x:Class="Views.TotalPages.MusicRankPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animations="using:CommunityToolkit.WinUI.Animations"
+    xmlns:appsetting="using:Views"
+    xmlns:bases="using:Views.Bases"
+    xmlns:bili="using:BiliStart.WinUI3.UI"
+    xmlns:converter="using:BiliStart.WinUI3.UI.Converter"
+    xmlns:convertermodel="using:ViewConverter.Models"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:local="using:Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:totalmodel="using:Network.Models.Totals"
+    Margin="10"
+    NavigationCacheMode="Disabled"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <converter:BoolConverter x:Key="BoolConverter" />
+        <converter:UnixTimeConverter x:Key="UnixTime" />
+    </Page.Resources>
+    <i:Interaction.Behaviors>
+        <core:EventTriggerBehavior EventName="Loaded">
+            <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand}" />
+        </core:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock
+            Margin="10"
+            FontSize="25"
+            Text="{x:Bind local:BiliResourceLoader.ReadViewResourceString('Total_MusicRank')}" />
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <ComboBox
+                VerticalAlignment="Center"
+                ItemsSource="{x:Bind ViewModel.IDList, Mode=OneWay}"
+                SelectedItem="{x:Bind ViewModel.Selectyear, Mode=TwoWay}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="totalmodel:YearData">
+                        <TextBlock Text="{x:Bind Year, Mode=OneWay}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <ComboBox
+                Margin="5,0,0,0"
+                VerticalAlignment="Center"
+                ItemsSource="{x:Bind ViewModel.MusicId, Mode=OneWay}"
+                SelectedItem="{x:Bind ViewModel.SelectId, Mode=TwoWay}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="totalmodel:MusicRankIDItem">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontWeight="Bold">
+                                <Run Text="{x:Bind local:BiliResourceLoader.ReadViewResourceString('Total_MusicRank_ComboBox_First')}" />
+                                <Run Text="{x:Bind Priod, Mode=OneWay}" />
+                                <Run Text="{x:Bind local:BiliResourceLoader.ReadViewResourceString('Total_MusicRank_ComboBox_Second')}" />
+                            </TextBlock>
+                            <TextBlock Margin="5,0,0,0" Text="{x:Bind Publish, Mode=OneWay, Converter={StaticResource UnixTime}, ConverterParameter=M}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock
+                Margin="15,0,0,0"
+                VerticalAlignment="Center"
+                Text="{x:Bind local:BiliResourceLoader.ReadViewResourceString('Total_MusicRank_Switch')}" />
+            <ToggleSwitch
+                x:Name="checkopen"
+                Margin="5,0,-60,0"
+                IsOn="{x:Bind ViewModel.IsRegister, Mode=TwoWay, Converter={StaticResource BoolConverter}}"
+                OffContent=""
+                OnContent=""
+                Toggled="ToggleSwitch_Toggled" />
+        </StackPanel>
+        <ListView
+            x:Name="gridview"
+            Grid.Row="1"
+            animations:ItemsReorderAnimation.Duration="0:0:0.2"
+            ItemContainerStyle="{ThemeResource DefaultGridViewItem}"
+            ItemsSource="{x:Bind ViewModel.MusicItems, Mode=OneWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="convertermodel:MusicRankCard">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*" />
+                            <RowDefinition Height="4*" />
+                        </Grid.RowDefinitions>
+                        <Border
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="3">
+                            <Grid Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <bili:UIImage
+                                    Width="100"
+                                    Height="100"
+                                    HorizontalAlignment="Left"
+                                    Source="{x:Bind TopCard.Cover, Mode=OneWay}"
+                                    Stretch="Uniform" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Margin="15,0,0,0"
+                                    FontSize="16"
+                                    FontWeight="Bold"
+                                    HorizontalTextAlignment="Left"
+                                    Text="{x:Bind TopCard.Title, Mode=OneWay}"
+                                    TextTrimming="CharacterEllipsis" />
+                                <Button
+                                    Grid.Column="1"
+                                    Padding="5"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center">
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon
+                                            FontFamily="Segoe Fluent Icons"
+                                            FontSize="12"
+                                            Glyph="&#xE979;" />
+                                        <TextBlock
+                                            Margin="5,0,0,0"
+                                            FontSize="12"
+                                            Text="{x:Bind local:BiliResourceLoader.ReadViewResourceString('Total_MusicRank_ItemButton')}" />
+                                    </StackPanel>
+                                </Button>
+                                <StackPanel
+                                    Grid.Column="1"
+                                    Margin="15,0,0,0"
+                                    VerticalAlignment="Bottom"
+                                    Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon
+                                            FontFamily="Segoe Fluent Icons"
+                                            FontSize="15"
+                                            Foreground="Red"
+                                            Glyph="&#xE00B;" />
+                                        <TextBlock
+                                            Margin="3,0,0,0"
+                                            FontSize="15"
+                                            Text="{x:Bind TopCard.Heat, Mode=OneWay}" />
+                                    </StackPanel>
+                                    <TextBlock FontSize="12" TextTrimming="CharacterEllipsis">
+                                        <Run Text="{x:Bind TopCard.Album, Mode=OneWay}" />
+                                        <Run Text="{x:Bind TopCard.Singer, Mode=OneWay}" />
+                                    </TextBlock>
+
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                        <Border
+                            Grid.Row="1"
+                            Margin="5,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="3">
+                            <Grid Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <bili:UIImage Source="{x:Bind BootomCard.Cover, Mode=OneWay}" />
+                                <StackPanel
+                                    Grid.Column="1"
+                                    Margin="10,0,0,0"
+                                    Orientation="Vertical">
+                                    <TextBlock
+                                        FontSize="15"
+                                        Text="{x:Bind BootomCard.Title, Mode=OneWay}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </StackPanel>
+                                <StackPanel
+                                    Grid.Column="1"
+                                    Margin="10,0,0,0"
+                                    VerticalAlignment="Bottom"
+                                    Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Path
+                                            Width="15"
+                                            VerticalAlignment="Center"
+                                            Data="{x:Bind appsetting:AppSetting.UpIcon, Mode=OneWay}"
+                                            Fill="{ThemeResource AccentAAFillColorDefaultBrush}" />
+                                        <TextBlock
+                                            Margin="5,0,0,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="12"
+                                            Text="{x:Bind BootomCard.UpName, Mode=OneWay}" />
+                                    </StackPanel>
+                                    <StackPanel Margin="3,0,0,0" Orientation="Horizontal">
+                                        <FontIcon
+                                            VerticalAlignment="Center"
+                                            FontFamily="Segoe Fluent Icons"
+                                            FontSize="12"
+                                            Glyph="&#xE116;" />
+                                        <TextBlock
+                                            Margin="8,0,0,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="12"
+                                            Text="{x:Bind BootomCard.PlayCount, Mode=OneWay}" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</bases:ViewerPageBase>

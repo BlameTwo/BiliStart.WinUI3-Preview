@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Views.ItemsControls.LiveItem"
+    xmlns:ui3="using:BiliStart.WinUI3.UI.Controls"
+    xmlns:uicon="using:CommunityToolkit.WinUI">
+    <Style x:Key="LiveHorizontalStyle" TargetType="local:LiveItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:LiveItem">
+                    <ui3:UICardBorder
+                        Margin="5"
+                        Padding="5"
+                        Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.GoActionCommand, Mode=OneWay}"
+                        CornerRadius="5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+
+                            <ui3:ImageEx
+                                CornerRadius="5"
+                                Source="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.LiveCardData.SmallCardV1.Cover, Mode=OneWay}"
+                                Stretch="UniformToFill" />
+                            <Border
+                                Margin="0,5,5,0"
+                                Padding="5"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Background="{ThemeResource AccentAAFillColorDefaultBrush}"
+                                CornerRadius="3">
+                                <TextBlock
+                                    FontSize="10"
+                                    Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.LiveCardData.SmallCardV1.AreaName, Mode=OneWay}" />
+                            </Border>
+                            <Border
+                                Margin="5,5,0,0"
+                                Padding="5"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                                CornerRadius="3">
+                                <TextBlock FontSize="12">
+                                    <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.LiveCardData.SmallCardV1.Online, Mode=OneWay}" />
+                                    <Run Text="观看" />
+                                </TextBlock>
+                            </Border>
+                            <Border
+                                Margin="0,0,0,5"
+                                Padding="5"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                                CornerRadius="3">
+                                <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.LiveCardData.SmallCardV1.Title, Mode=OneWay}" TextTrimming="CharacterEllipsis" />
+                            </Border>
+                            <StackPanel Grid.Row="1" Margin="10">
+                                <StackPanel Orientation="Horizontal">
+                                    <ui3:ImageEx
+                                        Width="35"
+                                        Height="35"
+                                        CornerRadius="35"
+                                        Source="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.LiveCardData.SmallCardV1.Face, Mode=OneWay}" />
+                                    <TextBlock
+                                        Margin="5,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.LiveCardData.SmallCardV1.Uname, Mode=OneWay}" />
+                                </StackPanel>
+                            </StackPanel>
+
+                        </Grid>
+                    </ui3:UICardBorder>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="LiveVerticalStyle" TargetType="local:LiveItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:LiveItem">
+                    <ui3:UICardBorder
+                        Padding="8"
+                        Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.GoActionCommand}"
+                        CornerRadius="5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <ui3:ImageEx
+                                Width="150"
+                                Height="100"
+                                uicon:VisualExtensions.NormalizedCenterPoint="0.5"
+                                CornerRadius="5"
+                                Source="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.LiveCardData.SmallCardV1.Cover, Mode=OneWay}"
+                                Stretch="UniformToFill" />
+                            <Grid Grid.Column="1" Margin="10,0,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.LiveCardData.SmallCardV1.Title, Mode=OneWay}" TextTrimming="CharacterEllipsis" />
+                                <StackPanel
+                                    Grid.Row="1"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal">
+                                    <ui3:ImageEx
+                                        Width="30"
+                                        Height="30"
+                                        BorderBrush="{ThemeResource TextFillColorPrimary}"
+                                        BorderThickness="1"
+                                        CornerRadius="30"
+                                        Source="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.LiveCardData.SmallCardV1.Face, Mode=OneWay}" />
+                                    <TextBlock
+                                        Margin="5,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.LiveCardData.SmallCardV1.Uname, Mode=OneWay}" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                    <Border
+                                        Padding="5"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Background="{ThemeResource AccentAAFillColorDefaultBrush}"
+                                        CornerRadius="3">
+                                        <TextBlock
+                                            FontSize="10"
+                                            Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.LiveCardData.SmallCardV1.AreaName, Mode=OneWay}" />
+                                    </Border>
+                                    <Border
+                                        Margin="5,0,0,0"
+                                        Padding="5"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Background="{ThemeResource AccentAAFillColorDefaultBrush}"
+                                        CornerRadius="3">
+                                        <StackPanel Orientation="Horizontal">
+                                            <FontIcon
+                                                FontFamily="Segoe Fluent Icons"
+                                                FontSize="10"
+                                                Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                                                Glyph="&#xECCB;" />
+                                            <TextBlock
+                                                Margin="5,0,0,0"
+                                                FontSize="10"
+                                                Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.LiveCardData.SmallCardV1.Online, Mode=OneWay}" />
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </ui3:UICardBorder>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

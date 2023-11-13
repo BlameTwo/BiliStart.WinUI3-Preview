@@ -1,0 +1,65 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animation="using:CommunityToolkit.WinUI.Animations">
+
+    <animation:AnimationSet x:Key="GridVideoEnter">
+        <animation:ScaleAnimation
+            EasingMode="EaseOut"
+            EasingType="Cubic"
+            To="1.2"
+            Duration="0:0:0.5" />
+    </animation:AnimationSet>
+    <animation:AnimationSet x:Key="GridVideoExit">
+        <animation:ScaleAnimation
+            EasingMode="EaseOut"
+            EasingType="Cubic"
+            To="1"
+            Duration="0:0:0.5" />
+    </animation:AnimationSet>
+
+    <Style x:Key="DefaultGridViewItem" TargetType="GridViewItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="GridViewItem">
+                    <Grid>
+                        <ContentPresenter x:Name="content" RenderTransformOrigin="0.5 0.5">
+                            <ContentPresenter.RenderTransform>
+                                <TransformGroup>
+                                    <TranslateTransform Y="0" />
+                                </TransformGroup>
+                            </ContentPresenter.RenderTransform>
+                        </ContentPresenter>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="content"
+                                            Storyboard.TargetProperty="(ContentPresenter.RenderTransform).(TransfromGroup.Children)[0].(TranslateTransform.Y)"
+                                            From="-5"
+                                            To="0"
+                                            Duration="0:0:0.1" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="content"
+                                            Storyboard.TargetProperty="(ContentPresenter.RenderTransform).(TransfromGroup.Children)[0].(TranslateTransform.Y)"
+                                            From="0"
+                                            To="-4"
+                                            Duration="0:0:0.1" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+</ResourceDictionary>

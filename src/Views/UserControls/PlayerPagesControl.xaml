@@ -1,0 +1,21 @@
+<local:PlayerPages
+    x:Class="Views.UserControls.PlayerPagesControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Views.Models.ViewControl"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <!--  不采用绑定  -->
+    <ListView
+        x:Name="pagesView"
+        SelectionChanged="ListView_SelectionChanged"
+        SelectionMode="Single">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <TextBlock Text="{Binding Title, Mode=OneWay}" />
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</local:PlayerPages>

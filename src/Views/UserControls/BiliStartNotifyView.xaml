@@ -1,0 +1,38 @@
+<base:BiliStartNotifyControl
+    x:Class="Views.UserControls.BiliStartNotifyView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:base="using:Views.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:h="using:H.NotifyIcon"
+    xmlns:local="using:Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <h:TaskbarIcon x:Name="baricon" ToolTipText="BiliStart">
+        <h:TaskbarIcon.ContextFlyout>
+            <MenuFlyout AreOpenCloseAnimationsEnabled="True">
+                <MenuFlyoutItem Command="{x:Bind ViewModel.ShowCommand, Mode=OneWay}" Text="{x:Bind local:BiliResourceLoader.ReadViewResourceString('NotifyShow')}">
+                    <MenuFlyoutItem.Icon>
+                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE10F;" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+                <MenuFlyoutSubItem Text="{x:Bind local:BiliResourceLoader.ReadViewResourceString('NotifyView_Page')}">
+                    <MenuFlyoutSubItem.Icon>
+                        <FontIcon FontFamily="Segoe UI Emoji" Glyph="&#x1F451;" />
+                    </MenuFlyoutSubItem.Icon>
+                    <MenuFlyoutItem Command="{x:Bind ViewModel.GoHomeCommand, Mode=OneWay}" Text="{x:Bind local:BiliResourceLoader.ReadViewResourceString('NotifyView_Home')}">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="Segoe UI Emoji" Glyph="&#x1F3E0;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                </MenuFlyoutSubItem>
+                <MenuFlyoutSeparator />
+                <MenuFlyoutItem Command="{x:Bind ViewModel.ExitCommand, Mode=OneWay}" Text="{x:Bind local:BiliResourceLoader.ReadViewResourceString('NotifyExit')}">
+                    <MenuFlyoutItem.Icon>
+                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE106;" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+            </MenuFlyout>
+        </h:TaskbarIcon.ContextFlyout>
+    </h:TaskbarIcon>
+</base:BiliStartNotifyControl>

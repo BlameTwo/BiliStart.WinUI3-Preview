@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<bases:PlayerVideoControlBase
+    x:Class="Views.TabViews.PlayerControlView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:bases="using:Views.TabViews.Bases"
+    xmlns:control="using:CommunityToolkit.WinUI.Controls"
+    xmlns:converter="using:BiliStart.WinUI3.UI.Converter"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:local="using:Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="using:Network.Models.Videos"
+    xmlns:modeltwo="using:Bilibili.App.View.V1"
+    xmlns:uc="using:Views.UserControls"
+    xmlns:ui3="using:BiliStart.WinUI3.UI.Controls"
+    Unloaded="PlayerVideoControlBase_Unloaded"
+    mc:Ignorable="d">
+    <bases:PlayerVideoControlBase.Resources>
+        <converter:UnixTimeConverter x:Key="UnixConverter" />
+    </bases:PlayerVideoControlBase.Resources>
+    <i:Interaction.Behaviors>
+        <core:EventTriggerBehavior EventName="Loaded">
+            <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand}" CommandParameter="{x:Bind playerelement, Mode=OneWay}" />
+        </core:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Grid
+        x:Name="content"
+        Grid.Row="1"
+        Padding="15"
+        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="330" />
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="LeftControl">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <ui3:DashMediaPlayerElement
+                x:Name="playerelement"
+                Padding="0"
+                MaxScreenClick="playerelement_MaxScreenClick"
+                MediaState="{x:Bind MediaState, Mode=OneWay}"
+                QualityList="{x:Bind ViewModel.Qualitylist, Mode=OneWay}"
+                TopScreenClick="playerelement_TopScreenClick">
+                <ui3:DashMediaPlayerElement.QualityItemTemplate>
+                    <DataTemplate x:DataType="model:Support_Formats">
+                        <TextBlock Margin="3" Text="{x:Bind New_description, Mode=OneWay}" />
+                    </DataTemplate>
+                </ui3:DashMediaPlayerElement.QualityItemTemplate>
+            </ui3:DashMediaPlayerElement>
+            <ScrollViewer
+                x:Name="PlayerSession"
+                Grid.Row="1"
+                Margin="8,10,8,8"
+                Visibility="Visible">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="3*" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            FontSize="15"
+                            FontWeight="SemiLight"
+                            MaxLines="2"
+                            Text="{x:Bind ViewModel.ViewReply.PlayerSession.Title, Mode=OneWay}"
+                            TextTrimming="CharacterEllipsis"
+                            TextWrapping="Wrap"
+                            ToolTipService.ToolTip="{x:Bind ViewModel.ViewReply.PlayerSession.Title, Mode=OneWay}" />
+                        <RichTextBlock
+                            Grid.Row="1"
+                            Margin="0,5,0,0"
+                            HorizontalAlignment="Left"
+                            FontSize="12"
+                            Foreground="{ThemeResource SystemColorGrayTextColor}"
+                            MaxLines="5"
+                            TextTrimming="CharacterEllipsis">
+                            <Paragraph>
+                                <Run Text="{x:Bind ViewModel.ViewReply.PlayerSession.Desc, Mode=OneWay}" />
+                            </Paragraph>
+                        </RichTextBlock>
+                        <StackPanel
+                            Grid.Row="2"
+                            Margin="0,10,0,0"
+                            VerticalAlignment="Bottom"
+                            Orientation="Horizontal">
+                            <StackPanel Margin="10,0,0,0" Orientation="Vertical">
+                                <ToggleButton
+                                    Width="40"
+                                    Height="40"
+                                    CornerRadius="40"
+                                    FontSize="10"
+                                    IsChecked="{x:Bind ViewModel.ViewReply.PlayerUserStat.IsLike, Mode=OneWay}"
+                                    ToolTipService.ToolTip="进行投币">
+                                    <FontIcon
+                                        FontFamily="Segoe Fluent Icons"
+                                        FontSize="12"
+                                        Glyph="&#xE19F;" />
+                                </ToggleButton>
+                                <TextBlock
+                                    Margin="0,5,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    Text="点赞" />
+                            </StackPanel>
+                            <StackPanel Margin="10,0,0,0" Orientation="Vertical">
+                                <ToggleButton
+                                    Width="40"
+                                    Height="40"
+                                    CornerRadius="40"
+                                    FontSize="12"
+                                    IsChecked="{x:Bind ViewModel.ViewReply.PlayerUserStat.IsCoin, Mode=OneWay}"
+                                    ToolTipService.ToolTip="进行投币">
+                                    <FontIcon
+                                        FontFamily="Segoe Fluent Icons"
+                                        FontSize="12"
+                                        Glyph="&#xE1D2;" />
+                                </ToggleButton>
+                                <TextBlock
+                                    Margin="0,5,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    Text="投币" />
+                            </StackPanel>
+
+                            <StackPanel Margin="10,0,0,0" Orientation="Vertical">
+                                <ToggleButton
+                                    Width="40"
+                                    Height="40"
+                                    CornerRadius="40"
+                                    FontSize="12"
+                                    IsChecked="{x:Bind ViewModel.ViewReply.PlayerUserStat.IsCoin, Mode=OneWay}"
+                                    ToolTipService.ToolTip="进行收藏">
+                                    <FontIcon
+                                        FontFamily="Segoe Fluent Icons"
+                                        FontSize="10"
+                                        Glyph="&#xE734;" />
+                                </ToggleButton>
+                                <TextBlock
+                                    Margin="0,5,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="10"
+                                    Text="收藏" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Column="1" Margin="10,0,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <StackPanel
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            VerticalAlignment="Top"
+                            Orientation="Horizontal">
+                            <PersonPicture Height="45" ProfilePicture="{x:Bind ViewModel.ViewReply.Playerup.Cover, Mode=OneWay}" />
+                            <StackPanel VerticalAlignment="Center" Orientation="Vertical">
+                                <TextBlock
+                                    Margin="5,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Text="{x:Bind ViewModel.ViewReply.Playerup.Name, Mode=OneWay}" />
+                                <ToggleButton
+                                    Margin="5,5,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Content="关注"
+                                    FontSize="8"
+                                    IsChecked="{x:Bind ViewModel.ViewReply.Playerup.IsLike, Mode=OneWay}" />
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            VerticalAlignment="Top"
+                            Orientation="Vertical">
+                            <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                                <ui3:IconText
+                                    FontSize="12"
+                                    Foreground="{ThemeResource SystemChromeGrayColor}"
+                                    Icon="&#xE116;"
+                                    Text="{x:Bind ViewModel.ViewReply.PlayerSession.ViewCount, Mode=OneWay}"
+                                    ToolTipService.ToolTip="观看数量" />
+                                <ui3:IconText
+                                    FontSize="12"
+                                    Foreground="{ThemeResource SystemChromeGrayColor}"
+                                    Icon="&#xE1D2;"
+                                    Text="{x:Bind ViewModel.ViewReply.PlayerSession.ViewCoins, Mode=OneWay}"
+                                    ToolTipService.ToolTip="硬币数量" />
+                                <ui3:IconText
+                                    FontSize="12"
+                                    Foreground="{ThemeResource SystemChromeGrayColor}"
+                                    Icon="&#xE1CF;"
+                                    Text="{x:Bind ViewModel.ViewReply.PlayerSession.ViewFavorites, Mode=OneWay}"
+                                    ToolTipService.ToolTip="收藏数量" />
+                                <ui3:IconText
+                                    FontSize="12"
+                                    Foreground="{ThemeResource SystemChromeGrayColor}"
+                                    Icon="&#xE75A;"
+                                    Text="{x:Bind ViewModel.ViewReply.PlayerSession.ViewDanmaku, Mode=OneWay}"
+                                    ToolTipService.ToolTip="历史弹幕数量" />
+                                <ui3:IconText
+                                    FontSize="12"
+                                    Foreground="{ThemeResource SystemChromeGrayColor}"
+                                    Icon="&#xEC92;"
+                                    Text="{x:Bind ViewModel.ViewReply.PlayerSession.ViewPublish, Mode=OneWay, Converter={StaticResource UnixConverter}, ConverterParameter=yyyy年MM月dd日}"
+                                    ToolTipService.ToolTip="发布时间" />
+                            </StackPanel>
+                            <ItemsControl
+                                Grid.Row="1"
+                                Margin="0,10,0,0"
+                                VerticalAlignment="Bottom"
+                                ItemsSource="{x:Bind ViewModel.ViewReply.Tags, Mode=OneWay}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <control:WrapPanel
+                                            VerticalAlignment="Top"
+                                            HorizontalSpacing="5"
+                                            Orientation="Horizontal"
+                                            VerticalSpacing="3" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="modeltwo:Tag">
+                                        <Button
+                                            Margin="3,0"
+                                            Padding="3"
+                                            CornerRadius="5">
+                                            <TextBlock FontSize="10" Text="{x:Bind Name}" />
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                        <StackPanel
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Orientation="Horizontal">
+                            <Button FontSize="12" Style="{ThemeResource TransparentButtonStyle}">
+                                <StackPanel Orientation="Horizontal">
+                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE896;" />
+                                </StackPanel>
+                            </Button>
+                            <Button
+                                Margin="5,0,0,0"
+                                FontSize="12"
+                                Style="{ThemeResource TransparentButtonStyle}">
+                                <StackPanel Orientation="Horizontal">
+                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE163;" />
+                                </StackPanel>
+                            </Button>
+                            <Button
+                                Margin="5,0,0,0"
+                                Command="{x:Bind ViewModel.ClipLineCommand}"
+                                FontSize="12"
+                                Style="{ThemeResource TransparentButtonStyle}">
+                                <StackPanel Orientation="Horizontal">
+                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE72D;" />
+
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+        <Grid
+            x:Name="RightControl"
+            Grid.Column="1"
+            Margin="15,-15,15,15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <NavigationView
+                x:Name="navgrid"
+                Background="Transparent"
+                IsBackButtonVisible="Collapsed"
+                IsPaneToggleButtonVisible="False"
+                IsSettingsVisible="False"
+                PaneDisplayMode="Top"
+                SelectedItem="{x:Bind navigationPageitem, Mode=OneWay}"
+                SelectionChanged="navgrid_SelectionChanged">
+                <NavigationView.MenuItems>
+                    <NavigationViewItem
+                        x:Name="navigationPageitem"
+                        Content="{x:Bind local:BiliResourceLoader.ReadViewResourceString('Player_Right_Three')}"
+                        Tag="Pages"
+                        Visibility="{x:Bind ViewModel.PlayerPageNavitemVisibility}" />
+                    <NavigationViewItem
+                        x:Name="firstNavigationItem"
+                        Content="{x:Bind local:BiliResourceLoader.ReadViewResourceString('Player_Right_First')}"
+                        Tag="Command" />
+                    <NavigationViewItem Content="{x:Bind local:BiliResourceLoader.ReadViewResourceString('Player_Right_Second')}" Tag="Relate" />
+                </NavigationView.MenuItems>
+            </NavigationView>
+            <Grid Grid.Row="1">
+                <!--  推荐列表  -->
+                <uc:PlayerRelatesControl ViewModel="{x:Bind ViewModel.PlayerRelatesVm, Mode=TwoWay}" Visibility="{x:Bind ViewModel.PlayerRelatesVisibility, Mode=OneWay}" />
+                <!--  回复列表  -->
+                <uc:PlayerReplaysControl ViewModel="{x:Bind ViewModel.PlayerReplysVm, Mode=TwoWay}" Visibility="{x:Bind ViewModel.PlayerCommandVisibility, Mode=OneWay}" />
+                <!--  选集菜单  -->
+                <uc:PlayerPagesControl
+                    x:Name="pagecontrol"
+                    PageSelectionEvent="Pagecontrol_PageSelectionEvent"
+                    ViewModel="{x:Bind ViewModel.PlayerPagesVm, Mode=TwoWay}"
+                    Visibility="{x:Bind ViewModel.PlayerPagesVisibility, Mode=OneWay}" />
+            </Grid>
+            <!--  二级回复菜单  -->
+            <uc:PlayerReplyCommonControl
+                Grid.Row="1"
+                Grid.RowSpan="1"
+                ViewModel="{x:Bind ViewModel.PlayerCommonsViewModel, Mode=TwoWay}"
+                Visibility="{x:Bind ViewModel.PlayerReplyCommonsVisibility, Mode=OneWay}" />
+        </Grid>
+    </Grid>
+</bases:PlayerVideoControlBase>

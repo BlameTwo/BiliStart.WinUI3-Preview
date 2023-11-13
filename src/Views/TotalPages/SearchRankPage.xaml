@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="Views.TotalPages.SearchRankPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animations="using:CommunityToolkit.WinUI.Animations"
+    xmlns:base="using:Views.Bases"
+    xmlns:biliui="using:BiliStart.WinUI3.UI"
+    xmlns:converter="using:BiliStart.WinUI3.UI.Converter"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:local="using:Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="using:Network.Models.Totals"
+    xmlns:ui="using:CommunityToolkit.WinUI.UI.Controls"
+    Margin="10"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <converter:SearchRankConverter x:Key="SearchConverter" />
+    </Page.Resources>
+    <i:Interaction.Behaviors>
+        <core:EventTriggerBehavior EventName="Loaded">
+            <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand}" />
+        </core:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock
+            Margin="10"
+            FontSize="25"
+            Text="{x:Bind local:BiliResourceLoader.ReadViewResourceString('Total_HotSearch_Title')}" />
+        <ListView
+            x:Name="gridview"
+            Grid.Row="1"
+            animations:ItemsReorderAnimation.Duration="0:0:0.2"
+            ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="model:HotSearchData">
+                    <Border Margin="10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontFamily="等线"
+                                FontSize="15"
+                                FontStyle="Italic"
+                                Text="{x:Bind Position, Mode=OneWay}" />
+                            <StackPanel
+                                Grid.Column="1"
+                                Margin="10,0,0,0"
+                                Orientation="Horizontal">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    FontSize="15"
+                                    Text="{x:Bind Title, Mode=OneWay}" />
+                            </StackPanel>
+                            <Border
+                                Grid.Column="2"
+                                Margin="5,0,0,0"
+                                Padding="5"
+                                BorderBrush="{ThemeResource AccentAAFillColorDefaultBrush}"
+                                BorderThickness="1"
+                                CornerRadius="3"
+                                Visibility="{x:Bind IsCommercial, Mode=OneWay, Converter={StaticResource SearchConverter}}">
+                                <TextBlock Text="{x:Bind local:BiliResourceLoader.ReadViewResourceString('Total_HotSearch_Item')}" />
+                            </Border>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

@@ -1,0 +1,437 @@
+<Page
+    x:Class="Views.ShellPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+    xmlns:cm="using:BiliStart.WinUI3.UI.Controls"
+    xmlns:convert="using:BiliStart.WinUI3.UI.Converter"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:itemvm="using:ViewModels.ItemViewModels"
+    xmlns:local="using:Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:navigation="using:Lib.Helper"
+    xmlns:source="using:Views"
+    xmlns:ui="using:CommunityToolkit.WinUI"
+    xmlns:ui3="using:BiliStart.WinUI3.UI.Controls"
+    xmlns:us="using:Views.UserControls"
+    NavigationCacheMode="Enabled"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <convert:LevelNumberToPathConvert x:Key="PathConvert" />
+        <convert:LevelNumberToBrush x:Key="BrushConvert" />
+        <convert:NullOrNumberConvert x:Key="VipConvert" />
+    </Page.Resources>
+    <i:Interaction.Behaviors>
+        <core:EventTriggerBehavior EventName="Loaded">
+            <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand, Mode=OneWay}" />
+        </core:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Grid x:Name="grid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <ui3:TitleBar
+            x:Name="AppTitleBar"
+            VerticalContentAlignment="Center"
+            ContentRects="{x:Bind ContentRect, Mode=OneWay}"
+            FooterHorizontalAlignment="Center"
+            FooterVerticalAlignment="Center"
+            IsExtendsContentIntoTitleBar="True"
+            IsMaxButtonVisibility="True"
+            IsMinButtonVisibility="True"
+            TitleMode="Tall"
+            Visibility="{x:Bind ViewModel.TabVisibility, Mode=OneWay}">
+            <ui3:TitleBar.Header>
+                <StackPanel
+                    Grid.Column="1"
+                    Margin="0,7,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <StackPanel.ChildrenTransitions>
+                        <TransitionCollection>
+                            <EntranceThemeTransition IsStaggeringEnabled="False" />
+                            <RepositionThemeTransition IsStaggeringEnabled="False" />
+                        </TransitionCollection>
+                    </StackPanel.ChildrenTransitions>
+                    <Button
+                        x:Name="UserBth"
+                        Width="35"
+                        Height="35"
+                        Margin="8,0,0,0"
+                        Padding="3"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        Command="{x:Bind ViewModel.ShowLoginDialogCommand}"
+                        CornerRadius="25"
+                        Style="{ThemeResource ButtonRevealStyle}">
+                        <PersonPicture
+                            Width="25"
+                            Height="25"
+                            ProfilePicture="{x:Bind ViewModel.Userdata.Face_Image, Mode=OneWay}" />
+                        <Button.Flyout>
+                            <Flyout
+                                x:Name="UserFlyout"
+                                FlyoutPresenterStyle="{ThemeResource MyFlyoutPresenter}"
+                                ShouldConstrainToRootBounds="False">
+                                <Flyout.SystemBackdrop>
+                                    <DesktopAcrylicBackdrop />
+                                </Flyout.SystemBackdrop>
+                                <Grid Width="250">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <StackPanel>
+                                        <Grid>
+                                            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                                <cm:ImageEx
+                                                    Width="50"
+                                                    Height="50"
+                                                    HorizontalAlignment="Left"
+                                                    CornerRadius="50"
+                                                    Source="{x:Bind ViewModel.Userdata.Face_Image, Mode=OneWay}" />
+                                                <Grid Margin="5,0,0,0">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition />
+                                                        <RowDefinition Height="auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock
+                                                        VerticalAlignment="Top"
+                                                        FontSize="15"
+                                                        FontWeight="Bold"
+                                                        Text="{x:Bind ViewModel.Userdata.Name, Mode=OneWay}" />
+
+                                                    <StackPanel Grid.Row="1" Orientation="Vertical">
+                                                        <TextBlock
+                                                            Margin="0,0,0,0"
+                                                            VerticalAlignment="Bottom"
+                                                            FontSize="13"
+                                                            FontWeight="SemiLight">
+                                                            <Run Text="硬币：" />
+                                                            <Run Foreground="{ThemeResource AccentAAFillColorDefaultBrush}" Text="{x:Bind ViewModel.Userdata.Coin, Mode=OneWay}" />
+                                                        </TextBlock>
+                                                        <TextBlock
+                                                            Margin="0,0,0,0"
+                                                            HorizontalAlignment="Right"
+                                                            VerticalAlignment="Bottom"
+                                                            FontSize="13"
+                                                            FontWeight="SemiLight"
+                                                            Foreground="{ThemeResource AccentAAFillColorDefaultBrush}">
+                                                            <Run Text="{x:Bind ViewModel.Ip.Country, Mode=OneWay}" />
+                                                            <Run Text="{x:Bind ViewModel.Ip.ISP, Mode=OneWay}" />
+                                                            <Run Text="{x:Bind ViewModel.Ip.City, Mode=OneWay}" />
+                                                        </TextBlock>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </StackPanel>
+                                            <StackPanel
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Center"
+                                                Orientation="Vertical">
+                                                <Path
+                                                    Height="13"
+                                                    Data="{x:Bind ViewModel.Userdata.Level, Converter={StaticResource PathConvert}, Mode=OneWay}"
+                                                    Fill="{x:Bind ViewModel.Userdata.Level, Converter={StaticResource BrushConvert}, Mode=OneWay}"
+                                                    Stretch="Uniform" />
+                                                <Border
+                                                    Margin="0,3,0,0"
+                                                    Padding="3"
+                                                    Background="{x:Bind ViewModel.Userdata.MyVIp.Status, Converter={StaticResource VipConvert}, Mode=OneWay}"
+                                                    CornerRadius="5">
+                                                    <TextBlock
+                                                        FontSize="10"
+                                                        Foreground="White"
+                                                        Text="{x:Bind local:BiliResourceLoader.ReadViewResourceString('Main_User_Vip')}" />
+                                                </Border>
+                                            </StackPanel>
+                                        </Grid>
+                                        <Grid />
+                                    </StackPanel>
+                                    <Grid Grid.Row="1" Margin="0,10,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Button
+                                            Margin="5"
+                                            Padding="10"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch"
+                                            Style="{ThemeResource TransparentButtonStyle}">
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="动态" />
+                                                <TextBlock HorizontalAlignment="Center" Text="{x:Bind ViewModel.Userdata.Dynamics, Mode=OneWay}" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button
+                                            Grid.Column="1"
+                                            Margin="5"
+                                            Padding="10"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch"
+                                            Style="{ThemeResource TransparentButtonStyle}">
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="关注" />
+                                                <TextBlock HorizontalAlignment="Center" Text="{x:Bind ViewModel.Userdata.Follows, Mode=OneWay}" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button
+                                            Grid.Column="2"
+                                            Margin="5"
+                                            Padding="10"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch"
+                                            Style="{ThemeResource TransparentButtonStyle}">
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="粉丝" />
+                                                <TextBlock HorizontalAlignment="Center" Text="{x:Bind ViewModel.Userdata.Followers, Mode=OneWay}" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button
+                                            Grid.Column="3"
+                                            Margin="5"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch"
+                                            Style="{ThemeResource TransparentButtonStyle}">
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="消息" />
+                                                <InfoBadge
+                                                    Margin="0,3,0,0"
+                                                    HorizontalAlignment="Center"
+                                                    Value="{x:Bind ViewModel.Messagecount, Mode=OneWay}" />
+                                            </StackPanel>
+                                        </Button>
+                                    </Grid>
+                                    <StackPanel
+                                        Grid.Row="2"
+                                        Margin="0,10,0,0"
+                                        Orientation="Vertical">
+
+                                        <StackPanel Orientation="Vertical">
+                                            <HyperlinkButton
+                                                Padding="7"
+                                                HorizontalAlignment="Stretch"
+                                                HorizontalContentAlignment="Center"
+                                                Command="{x:Bind ViewModel.GoAccountSpaceCommand, Mode=OneWay}"
+                                                FontSize="15">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <FontIcon
+                                                        FontFamily="Segoe Fluent Icons"
+                                                        FontSize="15"
+                                                        Glyph="&#xE7EE;" />
+                                                    <TextBlock Margin="20,0,0,0" Text="{x:Bind local:BiliResourceLoader.ReadViewResourceString('Main_User')}" />
+                                                </StackPanel>
+                                            </HyperlinkButton>
+                                            <HyperlinkButton
+                                                Padding="7"
+                                                HorizontalAlignment="Stretch"
+                                                HorizontalContentAlignment="Center"
+                                                Command="{x:Bind ViewModel.GoDynamicCommand, Mode=OneWay}"
+                                                FontSize="15">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <FontIcon
+                                                        FontFamily="Segoe Fluent Icons"
+                                                        FontSize="15"
+                                                        Glyph="&#xEC80;" />
+                                                    <TextBlock Margin="20,0,0,0" Text="{x:Bind local:BiliResourceLoader.ReadViewResourceString('Main_Dynamic')}" />
+                                                </StackPanel>
+                                            </HyperlinkButton>
+                                            <HyperlinkButton
+                                                Padding="7"
+                                                HorizontalAlignment="Stretch"
+                                                HorizontalContentAlignment="Center"
+                                                FontSize="15">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <FontIcon
+                                                        FontFamily="Segoe Fluent Icons"
+                                                        FontSize="15"
+                                                        Glyph="&#xE00A;" />
+                                                    <TextBlock Margin="20,0,0,0" Text="{x:Bind local:BiliResourceLoader.ReadViewResourceString('Main_User_Fav')}" />
+                                                </StackPanel>
+                                            </HyperlinkButton>
+                                            <HyperlinkButton
+                                                Padding="7"
+                                                HorizontalAlignment="Stretch"
+                                                HorizontalContentAlignment="Center"
+                                                FontSize="15">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <FontIcon
+                                                        FontFamily="Segoe Fluent Icons"
+                                                        FontSize="15"
+                                                        Glyph="&#xF182;" />
+                                                    <TextBlock Margin="20,0,0,0" Text="{x:Bind local:BiliResourceLoader.ReadViewResourceString('Main_User_LastLook')}" />
+                                                </StackPanel>
+                                            </HyperlinkButton>
+                                            <HyperlinkButton
+                                                Padding="7"
+                                                HorizontalAlignment="Stretch"
+                                                HorizontalContentAlignment="Center"
+                                                Command="{x:Bind ViewModel.GoAccountHistoryCommand, Mode=OneWay}"
+                                                FontSize="15">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <FontIcon
+                                                        FontFamily="Segoe Fluent Icons"
+                                                        FontSize="15"
+                                                        Glyph="&#xE81C;" />
+                                                    <TextBlock Margin="20,0,0,0" Text="{x:Bind local:BiliResourceLoader.ReadViewResourceString('Main_User_History')}" />
+                                                </StackPanel>
+                                            </HyperlinkButton>
+                                            <MenuFlyoutSeparator />
+                                            <HyperlinkButton
+                                                Margin="0,10,0,0"
+                                                Padding="7"
+                                                HorizontalAlignment="Stretch"
+                                                HorizontalContentAlignment="Center"
+                                                FontSize="15">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE726;" />
+                                                    <TextBlock Margin="20,0,0,0" Text="{x:Bind ViewModel.Logintext, Mode=OneWay}" />
+                                                </StackPanel>
+                                            </HyperlinkButton>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </Flyout>
+                        </Button.Flyout>
+                        <Button.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Command="{x:Bind ViewModel.ShowAddLoginCommand}" Text="{x:Bind local:BiliResourceLoader.ReadViewResourceString('Main_Token_Add')}">
+                                    <MenuFlyoutItem.Icon>
+                                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE710;" />
+                                    </MenuFlyoutItem.Icon>
+                                </MenuFlyoutItem>
+                                <MenuFlyoutSeparator />
+                                <MenuFlyoutItem Command="{x:Bind ViewModel.ShowTokenDialogCommand}" Text="{x:Bind local:BiliResourceLoader.ReadViewResourceString('Main_Account_Manager')}">
+                                    <MenuFlyoutItem.Icon>
+                                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE178;" />
+                                    </MenuFlyoutItem.Icon>
+                                </MenuFlyoutItem>
+                            </MenuFlyout>
+                        </Button.ContextFlyout>
+                    </Button>
+                </StackPanel>
+            </ui3:TitleBar.Header>
+            <ui3:TitleBar.Title>
+                <StackPanel
+                    x:Name="TitleTextBlock"
+                    Grid.Column="2"
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <StackPanel.ChildrenTransitions>
+                        <TransitionCollection>
+                            <EntranceThemeTransition IsStaggeringEnabled="False" />
+                            <RepositionThemeTransition IsStaggeringEnabled="False" />
+                        </TransitionCollection>
+                    </StackPanel.ChildrenTransitions>
+                    <Path
+                        Height="25"
+                        Data="{x:Bind source:AppSetting.LogoPath}"
+                        Fill="#209FD9"
+                        Stretch="Uniform" />
+                    <TextBlock
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Bottom"
+                        FontSize="10"
+                        Foreground="{ThemeResource SystemChromeGrayColor}">
+                        <Run Text="{x:Bind ViewModel.Current.GetAppVersion(), Mode=OneTime}" />
+                        <Run Text="-" />
+                        <Run FontWeight="Bold" Text="{x:Bind ViewModel.Current.GetAppPublishWay(), Mode=OneTime}" />
+                    </TextBlock>
+                </StackPanel>
+            </ui3:TitleBar.Title>
+            <ui3:TitleBar.Footer>
+                <Button
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Style="{ThemeResource TransparentButtonStyle}"
+                    ToolTipService.ToolTip="BiliBili AI(歪嘴小猫来里！)">
+                    <FontIcon
+                        FontFamily="Segoe UI Emoji"
+                        FontSize="17"
+                        Glyph="&#x1F63C;" />
+                    <Button.Flyout>
+                        <Flyout
+                            FlyoutPresenterStyle="{ThemeResource MyFlyoutPresenter}"
+                            ShouldConstrainToRootBounds="False"
+                            ShowMode="Auto">
+                            <us:BiliChatControlView ViewModel="{x:Bind ViewModel.ChatViewModel, Mode=OneWay}" />
+                            <Flyout.SystemBackdrop>
+                                <DesktopAcrylicBackdrop />
+                            </Flyout.SystemBackdrop>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+            </ui3:TitleBar.Footer>
+            <AutoSuggestBox
+                x:Name="autosuggest"
+                Grid.Column="4"
+                Width="400"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                PlaceholderText="{x:Bind local:BiliResourceLoader.ReadViewResourceString('Main_AutoSuggestBox_Text')}"
+                QueryIcon="Find"
+                TextChanged="AutoSuggestBox_TextChanged"
+                UpdateTextOnSelect="True">
+                <i:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="QuerySubmitted">
+                        <core:InvokeCommandAction Command="{x:Bind ViewModel.GoSearchCommand}" CommandParameter="{x:Bind autosuggest.Text, Mode=OneWay}" />
+                    </core:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
+            </AutoSuggestBox>
+        </ui3:TitleBar>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <ui3:BiliTabView
+                x:Name="tabview"
+                Grid.Row="1"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                AllowDropTabs="False"
+                Background="Transparent"
+                CloseButtonOverlayMode="OnPointerOver"
+                IsAddTabButtonVisible="False"
+                SizeChanged="tabview_SizeChanged"
+                TabVisibility="{x:Bind ViewModel.TabVisibility, Mode=OneWay}" />
+        </Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="DefaultGroup">
+                <VisualState x:Name="Min900">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="900" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="autosuggest.Width" Value="400" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Min700">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="700" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="autosuggest.Width" Value="250" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Min0">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="autosuggest.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</Page>

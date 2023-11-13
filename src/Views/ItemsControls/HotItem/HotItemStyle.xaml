@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:local="using:Views.ItemsControls.HotItem"
+    xmlns:ui3="using:BiliStart.WinUI3.UI.Controls"
+    xmlns:uicon="using:CommunityToolkit.WinUI">
+    <Style x:Key="HotHorizontalStyle" TargetType="local:HotItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:HotItem">
+                    <ui3:UICardBorder
+                        ClickMode="Release"
+                        Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.GoVideoCommand, Mode=OneWay}"
+                        CornerRadius="5">
+                        <Grid Margin="4">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="6*" />
+                                <RowDefinition Height="4*" />
+                            </Grid.RowDefinitions>
+                            <Border uicon:UIElementExtensions.ClipToBounds="True" CornerRadius="5">
+                                <ui3:ImageEx
+                                    uicon:VisualExtensions.NormalizedCenterPoint="0.5"
+                                    CornerRadius="5"
+                                    Source="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.Cover, Mode=OneWay}"
+                                    Stretch="UniformToFill">
+                                    <i:Interaction.Behaviors>
+                                        <core:EventTriggerBehavior EventName="PointerEntered">
+                                            <behaviors:StartAnimationAction Animation="{ThemeResource GridVideoEnter}" />
+                                        </core:EventTriggerBehavior>
+                                        <core:EventTriggerBehavior EventName="PointerExited">
+                                            <behaviors:StartAnimationAction Animation="{ThemeResource GridVideoExit}" />
+                                        </core:EventTriggerBehavior>
+                                    </i:Interaction.Behaviors>
+                                </ui3:ImageEx>
+                            </Border>
+                            <Grid Grid.Row="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock
+                                    Margin="5,10,5,5"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    FontSize="13"
+                                    MaxLines="3"
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.Title, Mode=OneWay}"
+                                    TextTrimming="CharacterEllipsis" />
+                                <StackPanel
+                                    Grid.RowSpan="3"
+                                    Margin="0,0,8,8"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom"
+                                    Orientation="Horizontal">
+                                    <FontIcon
+                                        FontFamily="Segoe Fluent Icons"
+                                        FontSize="12"
+                                        Glyph="&#xEC92;" />
+                                    <TextBlock
+                                        Margin="5,0,0,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="12"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.TimeDuration, Mode=OneWay}" />
+                                </StackPanel>
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Margin="8,0,0,8"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    FontWeight="SemiLight"
+                                    Foreground="{ThemeResource AccentAAFillColorDefaultBrush}"
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.UpName, Mode=OneWay}" />
+                            </Grid>
+                            <Grid
+                                Margin="0,5,5,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top">
+                                <Border
+                                    Padding="5"
+                                    Background="{ThemeResource SystemAltHighColor}"
+                                    CornerRadius="3"
+                                    Opacity="0.5" />
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock
+                                        Margin="5,0,0,0"
+                                        VerticalAlignment="Center"
+                                        FontWeight="Bold"
+                                        Foreground="{ThemeResource AccentAAFillColorDefaultBrush}"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.HotTitle, Mode=OneWay}" />
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </ui3:UICardBorder>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="HotVerticalStyle" TargetType="local:HotItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:HotItem">
+                    <ui3:UICardBorder Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.GoVideoCommand, Mode=OneWay}" CornerRadius="5">
+                        <Grid Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <ui3:ImageEx
+                                Width="150"
+                                Height="100"
+                                CornerRadius="5"
+                                IsCacheEnabled="True"
+                                Source="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.Cover, Mode=OneWay}"
+                                Stretch="UniformToFill" />
+                            <Grid Grid.Column="1" Margin="5,0,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.Title, Mode=OneWay}" TextTrimming="CharacterEllipsis" />
+                                <StackPanel Grid.Row="1" Margin="0,10,0,10">
+                                    <TextBlock
+                                        FontSize="14"
+                                        Foreground="{ThemeResource AccentAAFillColorDefaultBrush}"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.HotTitle, Mode=OneWay}" />
+                                    <TextBlock
+                                        FontSize="14"
+                                        Foreground="{ThemeResource SystemChromeGrayColor}"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.UpName, Mode=OneWay}" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                    <ui3:IconText
+                                        Foreground="{ThemeResource SystemChromeGrayColor}"
+                                        Icon="&#xEc92;"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.TimeDuration, Mode=OneWay}" />
+                                    <ui3:IconText
+                                        Foreground="{ThemeResource SystemChromeGrayColor}"
+                                        Icon="&#xE13B;"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Base.LookCount, Mode=OneWay}" />
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </ui3:UICardBorder>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

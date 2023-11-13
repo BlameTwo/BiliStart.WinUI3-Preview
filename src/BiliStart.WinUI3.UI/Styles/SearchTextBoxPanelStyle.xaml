@@ -1,0 +1,64 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ui="using:BiliStart.WinUI3.UI.Controls">
+    <Style TargetType="ui:SearchTextBoxPanel">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ui:SearchTextBoxPanel">
+                    <Grid HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                        <Popup
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalOffset="{TemplateBinding PopupOffset}"
+                            IsOpen="{TemplateBinding IsPanelShow}"
+                            VerticalOffset="40">
+                            <Popup.Transitions>
+                                <TransitionCollection>
+                                    <PopupThemeTransition />
+                                    <ReorderThemeTransition />
+                                </TransitionCollection>
+                            </Popup.Transitions>
+                            <Grid>
+                                <Grid.Transitions>
+                                    <TransitionCollection>
+                                        <RepositionThemeTransition />
+                                        <PopupThemeTransition />
+                                    </TransitionCollection>
+                                </Grid.Transitions>
+                                <ContentPresenter
+                                    x:Name="PanelContent"
+                                    Margin="10"
+                                    HorizontalContentAlignment="Stretch"
+                                    VerticalContentAlignment="Stretch"
+                                    Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}"
+                                    BorderBrush="{ThemeResource AccentAAFillColorDefaultBrush}"
+                                    BorderThickness="1"
+                                    Content="{TemplateBinding PanelContent}"
+                                    CornerRadius="5"
+                                    Visibility="{TemplateBinding PanelVisibility}" />
+                                <ListView ItemsSource="{TemplateBinding ItemsSource}" Visibility="{TemplateBinding ItemsVisibility}" />
+                            </Grid>
+                        </Popup>
+                        <TextBox
+                            x:Name="TextBoxCentent"
+                            Grid.Row="0"
+                            Margin="5" />
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="PanelContentState">
+                                <VisualState x:Name="PanelShowState">
+                                    <VisualState.Setters />
+                                </VisualState>
+                                <VisualState x:Name="PanelHideState">
+                                    <VisualState.Setters />
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

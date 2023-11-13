@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="AppContractService.LauncherPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cmconvert="using:CommunityToolkit.WinUI.Converters"
+    xmlns:convert="using:BiliStart.WinUI3.UI.Converter"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:imodel="using:IAppContracts.ItemsViewModels"
+    xmlns:local="using:AppContractService"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:source="using:Views"
+    xmlns:ui3="using:BiliStart.WinUI3.UI.Controls"
+    xmlns:us="using:Views.UserControls"
+    SizeChanged="Page_SizeChanged"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <convert:TokenTimeOffsetConverter x:Key="TokenOffsetConvert" />
+        <cmconvert:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Page.Resources>
+    <i:Interaction.Behaviors>
+        <core:EventTriggerBehavior EventName="Loaded">
+            <core:InvokeCommandAction Command="{x:Bind ViewModel.GetLoginCommand}" />
+        </core:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
+        <Border x:Name="BackImage">
+            <ui3:ImageEx Source="{x:Bind ViewModel.WallpaperImage, Mode=OneWay}" Stretch="UniformToFill" />
+            <Border.OpacityTransition>
+                <ScalarTransition />
+            </Border.OpacityTransition>
+        </Border>
+        <Grid
+            x:Name="Switch"
+            Grid.Column="1"
+            Margin="30,0"
+            Padding="20"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Background="Transparent"
+            CornerRadius="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Path
+                Height="40"
+                Data="{x:Bind source:AppSetting.LogoPath}"
+                Fill="#209FD9"
+                Stretch="Uniform" />
+            <Grid Grid.Row="1" Visibility="{x:Bind ViewModel.IsVisibility, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=False}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <FlipView
+                    Grid.Row="0"
+                    Width="200"
+                    Height="180"
+                    Margin="0,25,0,0"
+                    HorizontalAlignment="Center"
+                    Background="Transparent"
+                    ItemsSource="{x:Bind ViewModel.InfoList, Mode=OneWay}"
+                    SelectedItem="{x:Bind ViewModel.TokenSelectItem, Mode=TwoWay}">
+                    <FlipView.ItemContainerStyle>
+                        <Style TargetType="FlipViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        </Style>
+                    </FlipView.ItemContainerStyle>
+                    <FlipView.ItemTemplate>
+                        <DataTemplate x:DataType="imodel:ITokenItemViewModel">
+                            <Grid>
+                                <i:Interaction.Behaviors>
+                                    <core:EventTriggerBehavior EventName="Loaded">
+                                        <core:InvokeCommandAction Command="{Binding LoadedCommand, Mode=OneWay}" />
+                                    </core:EventTriggerBehavior>
+                                </i:Interaction.Behaviors>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                <ui3:ImageEx
+                                    Width="60"
+                                    Height="60"
+                                    CornerRadius="5"
+                                    Source="{Binding MyData.Face_Image, Mode=OneWay}"
+                                    Stretch="UniformToFill" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    HorizontalAlignment="Center"
+                                    FontWeight="Bold"
+                                    Text="{Binding MyData.Name, Mode=OneWay}" />
+                                <Border
+                                    Grid.Row="2"
+                                    Margin="0,10,0,0"
+                                    Padding="3"
+                                    HorizontalAlignment="Center"
+                                    CornerRadius="5">
+                                    <Border.Background>
+                                        <SolidColorBrush Opacity="0.3" Color="{Binding TokenBase, Mode=OneWay, Converter={ThemeResource TokenOffsetConvert}, ConverterParameter='1'}" />
+                                    </Border.Background>
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="15"
+                                        Text="{Binding TokenBase, Mode=OneWay, Converter={ThemeResource TokenOffsetConvert}, ConverterParameter='0'}" />
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </FlipView.ItemTemplate>
+                </FlipView>
+                <CheckBox
+                    x:Name="AutoLoginCheck"
+                    Grid.Row="1"
+                    Margin="0,25,0,0"
+                    HorizontalAlignment="Center"
+                    Checked="CheckBox_Checked"
+                    Content="自动保存上一次的选择结果并登录"
+                    Unchecked="CheckBox_Checked" />
+                <Button
+                    Grid.Row="2"
+                    Margin="0,15,0,0"
+                    HorizontalAlignment="Center"
+                    Command="{x:Bind ViewModel.GoAppMainCommand, Mode=OneWay}"
+                    Content="使用此账号登录" />
+            </Grid>
+            <us:LauncherLoginControlView
+                x:Name="loginView"
+                Grid.Row="1"
+                VerticalAlignment="Center"
+                ViewModel="{x:Bind ViewModel.LauncherLoginVM, Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.IsVisibility, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=True}" />
+        </Grid>
+        <TextBlock
+            x:Name="HeaderText"
+            Grid.Column="1"
+            Margin="10,10,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            FontSize="15"
+            FontWeight="Bold"
+            Foreground="{ThemeResource AccentAAFillColorDefaultBrush}"
+            Text="登录" />
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="Min700">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="700" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="BackImage.Opacity" Value="1" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Min1200">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="BackImage.Opacity" Value="0.1" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</Page>

@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behavoir="using:BiliStart.WinUI3.UI.Behaviors"
+    xmlns:cmu="using:CommunityToolkit.WinUI"
+    xmlns:control="using:BiliStart.WinUI3.UI.Controls"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:i="using:Microsoft.Xaml.Interactivity">
+    <Style TargetType="control:DashMediaPlayerElement">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="control:DashMediaPlayerElement">
+                    <Border>
+                        <Border.Resources>
+                            <control:BoolBackConverter x:Key="BoolBackConverter" />
+                        </Border.Resources>
+                        <Grid
+                            x:Name="LayoutRoot"
+                            cmu:UIElementExtensions.ClipToBounds="True"
+                            Background="Transparent">
+                            <ProgressRing Background="{ThemeResource SystemChromeGrayColor}" IsActive="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=PlayerLoading, Mode=OneWay}" />
+                            <Grid>
+                                <MediaPlayerPresenter
+                                    x:Name="MediaPlayerPresenter"
+                                    MediaPlayer="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay, Path=MediaPlayer}"
+                                    Stretch="{TemplateBinding Stretch}" />
+                                <control:DanmakuControl
+                                    x:Name="DanmakuControl"
+                                    Margin="5"
+                                    Visibility="{TemplateBinding DanmakuControlVisibility}" />
+                            </Grid>
+                            <control:DashMediaTransportControl
+                                x:Name="TransportControlsPresenter"
+                                Margin="25"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Bottom"
+                                IsMediaPlayerLoaded="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPlayerMediaLoaded, Mode=OneWay}"
+                                MediaState="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=MediaState, Mode=OneWay}"
+                                QualityDataTemplate="{TemplateBinding QualityItemTemplate}"
+                                QualityList="{TemplateBinding QualityList}"
+                                QualitySelectItem="{TemplateBinding QualitySelectItem}">
+                                <control:DashMediaTransportControl.RenderTransform>
+                                    <TranslateTransform x:Name="TransportControlsTransform" />
+                                </control:DashMediaTransportControl.RenderTransform>
+                            </control:DashMediaTransportControl>
+                        </Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="VisibleState">
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="TransportControlsPresenter"
+                                            Storyboard.TargetProperty="Opacity"
+                                            To="1"
+                                            Duration="0:0:0.2" />
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="TransportControlsPresenter"
+                                            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                                            From="10"
+                                            To="0"
+                                            Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="HiddenState">
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="TransportControlsPresenter"
+                                            Storyboard.TargetProperty="Opacity"
+                                            To="0"
+                                            Duration="0:0:0.2" />
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="TransportControlsPresenter"
+                                            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                                            From="0"
+                                            To="10"
+                                            Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="MediaStateGroup">
+                                <VisualState x:Name="TopFull">
+                                    <VisualState.Setters>
+                                        <Setter Target="TransportControlsPresenter.HorizontalAlignment" Value="Stretch" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Full" />
+                                <VisualState x:Name="Default">
+                                    <VisualState.Setters>
+                                        <Setter Target="TransportControlsPresenter.HorizontalAlignment" Value="Stretch" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="control:DashMediaTransportControl">
+        <Setter Property="MediaState" Value="Default" />
+        <Setter Property="MediaPlayerType" Value="DashVideo" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="control:DashMediaTransportControl">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <!--  第一行用来显示提示和字母信息  -->
+                        <!--  第二行显示基本的控制按钮  -->
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="7*" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <Border
+                                x:Name="BackBorder"
+                                Grid.RowSpan="2"
+                                Grid.ColumnSpan="3"
+                                Padding="40"
+                                Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                                CornerRadius="5"
+                                Opacity="0.5" />
+                            <StackPanel Margin="10" Orientation="Horizontal">
+                                <Button
+                                    x:Name="StartBth"
+                                    Width="40"
+                                    Height="40"
+                                    Padding="0"
+                                    CornerRadius="40"
+                                    IsEnabled="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMediaPlayerLoaded, Mode=OneWay}"
+                                    Style="{ThemeResource AccentBorderBurshButtonStyle}"
+                                    ToolTipService.ToolTip="开始\暂停">
+                                    <FontIcon
+                                        FontFamily="Segoe Fluent Icons"
+                                        FontSize="14"
+                                        Glyph="{TemplateBinding StartGlyph}" />
+                                </Button>
+                                <Button
+                                    x:Name="SpaceProgress"
+                                    Margin="5,0,0,0"
+                                    Padding="10"
+                                    VerticalAlignment="Center"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=SkipLengthCommand}"
+                                    IsEnabled="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMediaPlayerLoaded, Mode=OneWay}"
+                                    Style="{ThemeResource TransparentButtonStyle}"
+                                    ToolTipService.ToolTip="向前跳5秒">
+                                    <FontIcon
+                                        FontFamily="Segoe Fluent Icons"
+                                        FontSize="10"
+                                        Glyph="&#xE847;" />
+                                </Button>
+                                <Button
+                                    x:Name="RefreshVideo"
+                                    Margin="5,0,0,0"
+                                    Padding="10"
+                                    VerticalAlignment="Center"
+                                    Style="{ThemeResource TransparentButtonStyle}"
+                                    ToolTipService.ToolTip="刷新视频">
+                                    <FontIcon
+                                        FontFamily="Segoe Fluent Icons"
+                                        FontSize="10"
+                                        Glyph="&#xE149;" />
+                                </Button>
+                            </StackPanel>
+                            <Grid
+                                Grid.Column="1"
+                                Margin="10"
+                                VerticalAlignment="Center">
+                                <Grid.Resources>
+                                    <control:DoubleTimeSpanToStringConverter x:Key="DoubleTimeSpan" />
+                                    <control:TimeSpanToStringConverter x:Key="TimeSpanToString" />
+                                </Grid.Resources>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock
+                                    x:Name="TextProgress"
+                                    Margin="0,0,0,-10"
+                                    Padding="0"
+                                    VerticalAlignment="Center"
+                                    FontSize="12">
+                                    <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=NowProgress, Mode=OneWay, Converter={ThemeResource TimeSpanToString}}" />
+                                    <Run FontWeight="Bold" Text=" / " />
+                                    <Run Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=MaxSliderValue, Mode=OneWay, Converter={ThemeResource DoubleTimeSpan}}" />
+                                </TextBlock>
+                                <Slider
+                                    x:Name="VideoProgressSlider"
+                                    Grid.Row="1"
+                                    IsEnabled="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMediaPlayerLoaded, Mode=OneWay}"
+                                    Maximum="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=MaxSliderValue, Mode=OneWay}"
+                                    ThumbToolTipValueConverter="{ThemeResource DoubleTimeSpan}" />
+                            </Grid>
+                            <StackPanel
+                                Grid.Column="2"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                                <StackPanel x:Name="RightControl" Orientation="Horizontal">
+                                    <Button Margin="3" Style="{ThemeResource TransparentButtonStyle}">
+                                        <FontIcon
+                                            FontFamily="Segoe Fluent Icons"
+                                            FontSize="12"
+                                            Glyph="&#xE786;" />
+                                        <Button.Flyout>
+                                            <Flyout FlyoutPresenterStyle="{ThemeResource MyFlyoutPresenter}" ShouldConstrainToRootBounds="False">
+                                                <Flyout.SystemBackdrop>
+                                                    <DesktopAcrylicBackdrop />
+                                                </Flyout.SystemBackdrop>
+                                                <ListView
+                                                    x:Name="QualityListView"
+                                                    ItemTemplate="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=QualityDataTemplate, Mode=OneWay}"
+                                                    ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=QualityList, Mode=OneWay}"
+                                                    SelectedItem="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=QualitySelectItem, Mode=TwoWay}" />
+                                            </Flyout>
+                                        </Button.Flyout>
+                                    </Button>
+                                    <Button
+                                        Margin="3"
+                                        IsEnabled="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMediaPlayerLoaded, Mode=OneWay}"
+                                        Style="{ThemeResource TransparentButtonStyle}"
+                                        ToolTipService.ToolTip="CC字幕">
+                                        <Button.Flyout>
+                                            <MenuFlyout ShouldConstrainToRootBounds="False">
+                                                <MenuFlyout.SystemBackdrop>
+                                                    <DesktopAcrylicBackdrop />
+                                                </MenuFlyout.SystemBackdrop>
+                                                <RadioMenuFlyoutItem Text="开" />
+                                                <RadioMenuFlyoutItem Text="关" />
+                                            </MenuFlyout>
+                                        </Button.Flyout>
+                                        <FontIcon
+                                            FontFamily="Segoe Fluent Icons"
+                                            FontSize="12"
+                                            Glyph="&#xE190;" />
+                                    </Button>
+                                    <Button
+                                        Margin="3"
+                                        IsEnabled="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMediaPlayerLoaded, Mode=OneWay}"
+                                        Style="{ThemeResource TransparentButtonStyle}">
+                                        <FontIcon
+                                            FontFamily="Segoe Fluent Icons"
+                                            FontSize="12"
+                                            Glyph="&#xE15D;" />
+                                        <Button.Flyout>
+                                            <Flyout FlyoutPresenterStyle="{ThemeResource MyFlyoutPresenter}" ShouldConstrainToRootBounds="False">
+                                                <Flyout.SystemBackdrop>
+                                                    <DesktopAcrylicBackdrop />
+                                                </Flyout.SystemBackdrop>
+                                                <Slider
+                                                    x:Name="VolumeSlider"
+                                                    Width="200"
+                                                    Maximum="100"
+                                                    Minimum="0"
+                                                    TickFrequency="0.1"
+                                                    TickPlacement="Outside"
+                                                    Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ControlVolumn, Mode=TwoWay}" />
+                                            </Flyout>
+                                        </Button.Flyout>
+                                    </Button>
+                                    <Button
+                                        Margin="3"
+                                        IsEnabled="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMediaPlayerLoaded, Mode=OneWay}"
+                                        Style="{ThemeResource TransparentButtonStyle}">
+                                        <FontIcon
+                                            FontFamily="Segoe Fluent Icons"
+                                            FontSize="12"
+                                            Glyph="&#xEC48;" />
+                                        <Button.Flyout>
+                                            <Flyout FlyoutPresenterStyle="{ThemeResource MyFlyoutPresenter}" ShouldConstrainToRootBounds="False">
+                                                <Flyout.SystemBackdrop>
+                                                    <DesktopAcrylicBackdrop />
+                                                </Flyout.SystemBackdrop>
+                                                <StackPanel Padding="5">
+                                                    <TextBlock Text="播放速度" />
+                                                    <ListView
+                                                        x:Name="SpendListView"
+                                                        ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay, Path=SpendList}"
+                                                        SelectedIndex="2">
+                                                        <ListView.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <ItemsWrapGrid Orientation="Horizontal" />
+                                                            </ItemsPanelTemplate>
+                                                        </ListView.ItemsPanel>
+                                                    </ListView>
+                                                </StackPanel>
+                                            </Flyout>
+                                        </Button.Flyout>
+                                    </Button>
+                                </StackPanel>
+                                <Button
+                                    Margin="0,0,10,0"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=MaxScreen, Mode=OneWay}"
+                                    Style="{ThemeResource TransparentButtonStyle}">
+                                    <FontIcon
+                                        FontFamily="Segoe Fluent Icons"
+                                        FontSize="12"
+                                        Glyph="&#xE10C;" />
+                                    <Button.Flyout>
+                                        <MenuFlyout ShouldConstrainToRootBounds="False">
+                                            <MenuFlyout.SystemBackdrop>
+                                                <DesktopAcrylicBackdrop />
+                                            </MenuFlyout.SystemBackdrop>
+                                            <MenuFlyoutItem x:Name="MaxScreenButton" Text="全屏">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=MaxContent, Mode=OneWay}" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                            <MenuFlyoutItem x:Name="TopScreenButton" Text="固定到桌面">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=TopContent, Mode=OneWay}" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                        </MenuFlyout>
+                                    </Button.Flyout>
+                                </Button>
+                            </StackPanel>
+                            <Grid
+                                x:Name="DanmakuRow"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="3"
+                                Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <ToggleButton
+                                    x:Name="DanmakuToggleOpen"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=OpenDanmankuControlCommand, Mode=OneWay}"
+                                    CommandParameter="{Binding ElementName=DanmakuToggleOpen, Path=IsChecked, Mode=OneWay}"
+                                    IsChecked="True"
+                                    IsEnabled="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMediaPlayerLoaded, Mode=OneWay}">
+                                    <StackPanel>
+                                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE18F;" />
+                                        <TextBlock
+                                            Margin="0,5,0,0"
+                                            VerticalAlignment="Center"
+                                            Text="弹幕" />
+                                    </StackPanel>
+                                </ToggleButton>
+                                <AutoSuggestBox
+                                    x:Name="danmakuContent"
+                                    Grid.Column="1"
+                                    Margin="5,0,0,0"
+                                    VerticalAlignment="Center"
+                                    IsEnabled="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMediaPlayerLoaded, Mode=OneWay}"
+                                    PlaceholderText="发射一个弹幕吧！"
+                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuContent, Mode=TwoWay}">
+                                    <i:Interaction.Behaviors>
+                                        <core:EventTriggerBehavior EventName="QuerySubmitted">
+                                            <core:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuSendCommand, Mode=OneWay}" />
+                                        </core:EventTriggerBehavior>
+                                    </i:Interaction.Behaviors>
+                                </AutoSuggestBox>
+                                <Button
+                                    Grid.Column="2"
+                                    Margin="5,0,0,0"
+                                    FontSize="12"
+                                    IsEnabled="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMediaPlayerLoaded, Mode=OneWay}"
+                                    Style="{ThemeResource TransparentButtonStyle}">
+                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE115;" />
+                                    <Button.Flyout>
+                                        <Flyout FlyoutPresenterStyle="{ThemeResource MyFlyoutPresenter}" ShouldConstrainToRootBounds="False">
+                                            <Flyout.SystemBackdrop>
+                                                <DesktopAcrylicBackdrop />
+                                            </Flyout.SystemBackdrop>
+                                            <Grid Width="250">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+                                                <TextBlock
+                                                    Grid.Column="0"
+                                                    VerticalAlignment="Center"
+                                                    Text="弹幕速度" />
+                                                <Slider
+                                                    x:Name="spendSlider"
+                                                    Grid.Column="1"
+                                                    Margin="15,0,0,0"
+                                                    LargeChange="1"
+                                                    Maximum="15"
+                                                    Minimum="1"
+                                                    SmallChange="1"
+                                                    Value="7">
+                                                    <i:Interaction.Behaviors>
+                                                        <core:EventTriggerBehavior EventName="ValueChanged">
+                                                            <core:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuSpendChangedCommand}" CommandParameter="{Binding ElementName=spendSlider, Path=Value, Mode=OneWay}" />
+                                                        </core:EventTriggerBehavior>
+                                                    </i:Interaction.Behaviors>
+                                                </Slider>
+                                                <TextBlock
+                                                    Grid.Row="1"
+                                                    Grid.Column="0"
+                                                    VerticalAlignment="Center"
+                                                    Text="弹幕透明度" />
+                                                <Slider
+                                                    x:Name="opacitySlider"
+                                                    Grid.Row="1"
+                                                    Grid.Column="1"
+                                                    Margin="15,0,0,0"
+                                                    Maximum="100"
+                                                    Minimum="1"
+                                                    Value="1">
+                                                    <i:Interaction.Behaviors>
+                                                        <core:EventTriggerBehavior EventName="ValueChanged">
+                                                            <core:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuOpacityChangedCommand}" CommandParameter="{Binding ElementName=opacitySlider, Path=Value, Mode=OneWay}" />
+                                                        </core:EventTriggerBehavior>
+                                                    </i:Interaction.Behaviors>
+                                                </Slider>
+                                                <TextBlock
+                                                    Grid.Row="2"
+                                                    Grid.Column="0"
+                                                    VerticalAlignment="Center"
+                                                    Text="弹幕字体" />
+                                                <ComboBox
+                                                    x:Name="fontfamilycomboBox"
+                                                    Grid.Row="2"
+                                                    Grid.Column="1"
+                                                    Margin="15,0,0,0"
+                                                    HorizontalAlignment="Stretch"
+                                                    ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=FontFamilys, Mode=OneWay}"
+                                                    Text="微软雅黑">
+                                                    <i:Interaction.Behaviors>
+                                                        <core:EventTriggerBehavior EventName="SelectionChanged">
+                                                            <core:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuFontChangedCommand, Mode=OneWay}" CommandParameter="{Binding ElementName=fontfamilycomboBox, Path=SelectedItem, Mode=OneWay}" />
+                                                        </core:EventTriggerBehavior>
+                                                    </i:Interaction.Behaviors>
+                                                </ComboBox>
+                                                <TextBlock
+                                                    Grid.Row="3"
+                                                    Grid.Column="0"
+                                                    VerticalAlignment="Center"
+                                                    Text="弹幕区域" />
+                                                <Slider
+                                                    x:Name="areaslider"
+                                                    Grid.Row="3"
+                                                    Grid.Column="1"
+                                                    Margin="15,0,0,0"
+                                                    HorizontalAlignment="Stretch"
+                                                    Maximum="2"
+                                                    Minimum="1"
+                                                    Value="1">
+                                                    <i:Interaction.Behaviors>
+                                                        <core:EventTriggerBehavior EventName="ValueChanged">
+                                                            <core:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DanmakuAreaChangedCommand, Mode=OneWay}" CommandParameter="{Binding ElementName=areaslider, Path=Value, Mode=OneWay}" />
+                                                        </core:EventTriggerBehavior>
+                                                    </i:Interaction.Behaviors>
+                                                </Slider>
+                                            </Grid>
+                                        </Flyout>
+                                    </Button.Flyout>
+                                </Button>
+                            </Grid>
+                            <ProgressBar
+                                x:Name="BottomProgress"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="3"
+                                VerticalAlignment="Bottom"
+                                Maximum="{Binding ElementName=VideoProgressSlider, Path=Maximum, Mode=OneWay}"
+                                Minimum="{Binding ElementName=VideoProgressSlider, Path=Minimum, Mode=OneWay}"
+                                Value="{Binding ElementName=VideoProgressSlider, Path=Value, Mode=OneWay}" />
+                        </Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="MediaStateGroup">
+                                <VisualState x:Name="TopFull">
+                                    <VisualState.Setters>
+                                        <Setter Target="DanmakuRow.Visibility" Value="Collapsed" />
+                                        <Setter Target="RightControl.Visibility" Value="Collapsed" />
+                                        <Setter Target="VideoProgressSlider.Visibility" Value="Collapsed" />
+                                        <Setter Target="SpaceProgress.Visibility" Value="Collapsed" />
+                                        <Setter Target="RefreshVideo.Visibility" Value="Collapsed" />
+                                        <Setter Target="TextProgress.Visibility" Value="Collapsed" />
+                                        <Setter Target="BottomProgress.Visibility" Value="Visible" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Full">
+                                    <VisualState.Setters>
+                                        <Setter Target="BottomProgress.Visibility" Value="Collapsed" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Default">
+                                    <VisualState.Setters>
+                                        <Setter Target="DanmakuRow.Visibility" Value="Visible" />
+                                        <Setter Target="RightControl.Visibility" Value="Visible" />
+                                        <Setter Target="VideoProgressSlider.Visibility" Value="Visible" />
+                                        <Setter Target="SpaceProgress.Visibility" Value="Visible" />
+                                        <Setter Target="RefreshVideo.Visibility" Value="Visible" />
+                                        <Setter Target="TextProgress.Visibility" Value="Visible" />
+                                        <Setter Target="BottomProgress.Visibility" Value="Collapsed" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+</ResourceDictionary>

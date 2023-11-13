@@ -1,0 +1,67 @@
+
+<local:PlayerReply
+    x:Class="Views.UserControls.PlayerReplaysControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:biliui="using:BiliStart.WinUI3.UI.Controls"
+    xmlns:control="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:converter="using:BiliStart.WinUI3.UI.Converter"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:local="using:Views.Models.ViewControl"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="main"
+    mc:Ignorable="d">
+    <local:PlayerReply.Resources>
+        <converter:UnixTimeConverter x:Key="UnixTimeConverter" />
+        <converter:RichTextConverter x:Key="RichTextConverter" />
+    </local:PlayerReply.Resources>
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <TextBlock VerticalAlignment="Center" FontSize="15">
+            <Run Text="共" />
+            <Run FontWeight="Bold" Text="{x:Bind ViewModel.ReplyData.Count, Mode=OneWay}" />
+            <Run Text="条评论" />
+        </TextBlock>
+        <ComboBox
+            Grid.Row="0"
+            HorizontalAlignment="Right"
+            ItemsSource="{x:Bind ViewModel.OrderList, Mode=OneWay}"
+            SelectedItem="{x:Bind ViewModel.OrderSelecter, Mode=TwoWay}" />
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox PlaceholderText="{x:Bind ViewModel.ReplyData.TipText, Mode=OneWay}" />
+            <Button
+                x:Name="SendBth"
+                Grid.Column="1"
+                Margin="5,0,0,0"
+                Style="{ThemeResource AccentButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon
+                        FontFamily="Segoe Fluent Icons"
+                        FontSize="12"
+                        Glyph="&#xE724;" />
+                    <TextBlock Margin="5,0,0,0" Text="Send" />
+                </StackPanel>
+            </Button>
+        </Grid>
+        <biliui:BiliItemControls
+            Grid.Row="1"
+            Margin="0,15,0,15"
+            AddDataCommand="{x:Bind ViewModel.AddDataCommand, Mode=OneWay}"
+            Background="Transparent"
+            IsItemClickEnabled="False"
+            ItemContainerStyle="{ThemeResource BiliDefaultListViewItem}"
+            ItemTemplate="{StaticResource DefaultReplyItem}"
+            ItemsSource="{x:Bind ViewModel.ReplyItems, Mode=OneWay}"
+            SelectionMode="None" />
+    </Grid>
+</local:PlayerReply>

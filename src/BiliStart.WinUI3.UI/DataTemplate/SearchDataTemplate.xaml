@@ -1,0 +1,323 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
+    xmlns:biliui="using:BiliStart.WinUI3.UI.Controls"
+    xmlns:cm="using:CommunityToolkit.WinUI"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:i="using:Microsoft.Xaml.Interactivity">
+    <DataTemplate x:Key="VideoSearchItem">
+        <biliui:UICardBorder
+            Margin="5"
+            Command="{Binding GoActionCommand}"
+            CornerRadius="5">
+            <Grid cm:UIElementExtensions.ClipToBounds="True" ToolTipService.ToolTip="{Binding Base.VideoItem.PublishTimeString, Mode=OneWay}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="9*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <biliui:ImageEx
+                    Grid.RowSpan="2"
+                    cm:VisualExtensions.NormalizedCenterPoint="0.5"
+                    CornerRadius="5"
+                    Source="{Binding Base.Cover, Mode=OneWay}"
+                    Stretch="UniformToFill">
+                    <i:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="PointerEntered">
+                            <behaviors:StartAnimationAction Animation="{ThemeResource GridVideoEnter}" />
+                        </core:EventTriggerBehavior>
+                        <core:EventTriggerBehavior EventName="PointerExited">
+                            <behaviors:StartAnimationAction Animation="{ThemeResource GridVideoExit}" />
+                        </core:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </biliui:ImageEx>
+                <Border
+                    Grid.Row="1"
+                    Margin="10"
+                    VerticalAlignment="Bottom"
+                    Background="{ThemeResource ContentDialogBackground}"
+                    BorderBrush="{ThemeResource CheckBoxBorderThemeBrush}"
+                    BorderThickness="0.2"
+                    CornerRadius="5">
+                    <Grid Margin="5">
+                        <TextBlock
+                            MaxLines="2"
+                            Text="{Binding Base.Title, Mode=OneWay}"
+                            TextTrimming="CharacterEllipsis"
+                            TextWrapping="Wrap" />
+                    </Grid>
+                </Border>
+                <Border
+                    Margin="5,5,0,0"
+                    Padding="5"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Background="{ThemeResource AccentAAFillColorDefaultBrush}"
+                    CornerRadius="3">
+                    <TextBlock Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}" Text="{Binding Base.Type, Mode=OneWay}" />
+                </Border>
+                <Border
+                    Margin="0,5,5,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Background="{ThemeResource ContentDialogBackground}"
+                    BorderBrush="{ThemeResource CheckBoxBorderThemeBrush}"
+                    BorderThickness="0.2"
+                    CornerRadius="5">
+                    <biliui:IconText
+                        FontWeight="Bold"
+                        Icon="&#xE116;"
+                        Text="{Binding Base.VideoItem.ShareTitle}" />
+                </Border>
+            </Grid>
+        </biliui:UICardBorder>
+    </DataTemplate>
+
+    <DataTemplate x:Key="LiveSearchItem">
+        <biliui:UICardBorder
+            Margin="5"
+            Command="{Binding GoActionCommand}"
+            CornerRadius="5">
+            <Grid>
+                <Grid cm:UIElementExtensions.ClipToBounds="True">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5*" />
+                        <RowDefinition Height="5*" />
+                    </Grid.RowDefinitions>
+                    <Grid Margin="4" cm:UIElementExtensions.ClipToBounds="True">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*" />
+                            <RowDefinition Height="5*" />
+                        </Grid.RowDefinitions>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </biliui:UICardBorder>
+    </DataTemplate>
+
+    <DataTemplate x:Key="UserSearchItem">
+        <biliui:UICardBorder
+            Margin="5"
+            Command="{Binding GoActionCommand}"
+            CornerRadius="5">
+            <Border
+                Height="250"
+                cm:UIElementExtensions.ClipToBounds="True"
+                CornerRadius="5">
+                <Grid>
+                    <Border cm:UIElementExtensions.ClipToBounds="True" CornerRadius="5">
+                        <biliui:ImageEx Source="{Binding Base.Cover, Mode=OneWay}" Stretch="Fill" />
+                    </Border>
+                    <Border Grid.RowSpan="2" CornerRadius="5">
+                        <Border.Background>
+                            <AcrylicBrush TintColor="{ThemeResource SystemChromeGrayColor}" TintOpacity="0.5" />
+                        </Border.Background>
+                    </Border>
+                    <Border
+                        Height="150"
+                        cm:UIElementExtensions.ClipToBounds="True"
+                        BorderBrush="{ThemeResource CheckBoxBorderThemeBrush}"
+                        BorderThickness="0.2"
+                        CornerRadius="5">
+                        <biliui:ImageEx
+                            Width="80"
+                            Height="80"
+                            cm:VisualExtensions.NormalizedCenterPoint="0.5"
+                            CornerRadius="80"
+                            Source="{Binding Base.Cover, Mode=OneWay}" />
+                    </Border>
+                    <Border
+                        Margin="0,0,0,5"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        Background="{ThemeResource ContentDialogBackground}"
+                        BorderBrush="{ThemeResource CheckBoxBorderThemeBrush}"
+                        CornerRadius="5">
+                        <Grid Margin="5">
+                            <TextBlock
+                                MaxLines="2"
+                                Text="{Binding Base.Title, Mode=OneWay}"
+                                TextTrimming="CharacterEllipsis"
+                                TextWrapping="Wrap" />
+                        </Grid>
+                    </Border>
+                    <Border
+                        Margin="5,5,0,0"
+                        Padding="8"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Background="{ThemeResource AccentAAFillColorDefaultBrush}"
+                        CornerRadius="3">
+                        <TextBlock Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}" Text="用户" />
+                    </Border>
+                    <Border
+                        Margin="0,5,5,0"
+                        Padding="3"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Background="{ThemeResource ContentDialogBackground}"
+                        BorderBrush="{ThemeResource CheckBoxBorderThemeBrush}"
+                        CornerRadius="3">
+                        <StackPanel
+                            Padding="5,0"
+                            HorizontalAlignment="Center"
+                            Orientation="Horizontal">
+                            <biliui:IconText Icon="&#xE116;" Text="{Binding Base.User.VideoCount, Mode=OneWay}" />
+                            <TextBlock
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                MaxLines="2"
+                                Text="{Binding Base.User.Favs, Mode=OneWay}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+        </biliui:UICardBorder>
+    </DataTemplate>
+
+    <DataTemplate x:Key="MovieSearchItem">
+        <biliui:UICardBorder Command="{Binding GoActionCommand}" CornerRadius="5">
+            <Grid>
+                <Grid cm:UIElementExtensions.ClipToBounds="True">
+                    <Border
+                        cm:UIElementExtensions.ClipToBounds="True"
+                        BorderBrush="{ThemeResource CheckBoxBorderThemeBrush}"
+                        BorderThickness="0.2"
+                        CornerRadius="5">
+                        <Grid>
+                            <biliui:ImageEx
+                                MaxWidth="180"
+                                cm:VisualExtensions.NormalizedCenterPoint="0.5"
+                                CornerRadius="5"
+                                Source="{Binding Base.Cover, Mode=OneWay}"
+                                Stretch="UniformToFill">
+                                <i:Interaction.Behaviors>
+                                    <core:EventTriggerBehavior EventName="PointerEntered">
+                                        <behaviors:StartAnimationAction Animation="{ThemeResource GridVideoEnter}" />
+                                    </core:EventTriggerBehavior>
+                                    <core:EventTriggerBehavior EventName="PointerExited">
+                                        <behaviors:StartAnimationAction Animation="{ThemeResource GridVideoExit}" />
+                                    </core:EventTriggerBehavior>
+                                </i:Interaction.Behaviors>
+                            </biliui:ImageEx>
+                            <Border
+                                Margin="0,10,5,0"
+                                Padding="5"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Background="{ThemeResource AccentAAFillColorDefaultBrush}"
+                                CornerRadius="3">
+                                <TextBlock Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}" Text="{Binding Base.MovieItem.Rating, Mode=OneWay}" />
+                            </Border>
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                                <Border
+                                    Margin="0,0,0,10"
+                                    Padding="4"
+                                    Background="{ThemeResource ContentDialogBackground}"
+                                    BorderThickness="0.2"
+                                    CornerRadius="5">
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        FontSize="12"
+                                        FontWeight="Light"
+                                        Text="{Binding Base.MovieItem.MovieType, Mode=OneWay}"
+                                        TextWrapping="Wrap" />
+                                </Border>
+                                <Border
+                                    Margin="0,0,0,10"
+                                    Padding="5"
+                                    Background="{ThemeResource ContentDialogBackground}"
+                                    BorderThickness="0.2"
+                                    CornerRadius="5">
+                                    <TextBlock
+                                        MaxWidth="100"
+                                        HorizontalAlignment="Center"
+                                        MaxLines="2"
+                                        Text="{Binding Base.Title, Mode=OneWay}"
+                                        TextTrimming="CharacterEllipsis"
+                                        TextWrapping="Wrap" />
+                                </Border>
+                            </StackPanel>
+
+                            <Border
+                                Margin="10,10,0,0"
+                                Padding="5"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Background="{ThemeResource AccentAAFillColorDefaultBrush}"
+                                CornerRadius="3">
+                                <TextBlock Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}" Text="{Binding Type, Mode=OneWay}" />
+                            </Border>
+
+
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
+        </biliui:UICardBorder>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ArtcleSearchItem">
+        <biliui:UICardBorder
+            Margin="10"
+            Command="{Binding GoActionCommand}"
+            CornerRadius="5">
+            <Grid>
+                <Grid cm:UIElementExtensions.ClipToBounds="True">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5*" />
+                        <RowDefinition Height="5*" />
+                    </Grid.RowDefinitions>
+                    <Grid Margin="4" cm:UIElementExtensions.ClipToBounds="True">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*" />
+                            <RowDefinition Height="5*" />
+                        </Grid.RowDefinitions>
+                        <biliui:ImageEx
+                            cm:VisualExtensions.NormalizedCenterPoint="0.5"
+                            CornerRadius="5,5,0,0"
+                            Source="{Binding Base.Cover, Mode=OneWay}" />
+                        <Border
+                            Grid.Row="1"
+                            Padding="5"
+                            Background="{ThemeResource CardBackgroundFillColorDefault}"
+                            BorderBrush="{ThemeResource CheckBoxBorderThemeBrush}"
+                            BorderThickness="0.2"
+                            CornerRadius="0 0 5 5">
+                            <Grid Margin="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <TextBlock
+                                    MaxLines="2"
+                                    Text="{Binding Base.Title, Mode=OneWay}"
+                                    TextTrimming="CharacterEllipsis"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    FontSize="12"
+                                    Foreground="{ThemeResource SystemChromeGrayColor}"
+                                    MaxLines="20"
+                                    Text="{Binding Base.Article.Desc, Mode=OneWay}"
+                                    TextWrapping="Wrap" />
+                            </Grid>
+                        </Border>
+                        <Border
+                            Margin="5,5,0,0"
+                            Padding="5"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Background="{ThemeResource AccentAAFillColorDefaultBrush}"
+                            CornerRadius="3">
+                            <TextBlock Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}" Text="专栏" />
+                        </Border>
+                        <Border />
+                    </Grid>
+                </Grid>
+            </Grid>
+        </biliui:UICardBorder>
+    </DataTemplate>
+</ResourceDictionary>

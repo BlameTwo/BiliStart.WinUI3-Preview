@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:a="using:CommunityToolkit.WinUI.Animations"
+    xmlns:b="using:CommunityToolkit.WinUI.Behaviors"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:ui="using:BiliStart.WinUI3.UI.Controls">
+    <ResourceDictionary.MergedDictionaries>
+
+        <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+    </ResourceDictionary.MergedDictionaries>
+    <Style TargetType="ui:UICardBorder">
+        <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+        <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ui:UICardBorder">
+                    <Border
+                        x:Name="CardContainer"
+                        Margin="5"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                        <Border.Transitions>
+                            <TransitionCollection>
+                                <PaneThemeTransition />
+                            </TransitionCollection>
+                        </Border.Transitions>
+                        <Border.RenderTransform>
+                            <TransformGroup>
+                                <TranslateTransform Y="0" />
+                            </TransformGroup>
+                        </Border.RenderTransform>
+                        <Border.Resources>
+                            <Storyboard x:Key="MouseOverMove">
+                                <DoubleAnimation
+                                    Storyboard.TargetName="CardContainer"
+                                    Storyboard.TargetProperty="(ContentPresenter.RenderTransform).(TransfromGroup.Children)[0].(TranslateTransform.Y)"
+                                    From="0"
+                                    To="-4"
+                                    Duration="0:0:0.1" />
+                            </Storyboard>
+                            <Storyboard x:Key="MouseOutMove">
+                                <DoubleAnimation
+                                    Storyboard.TargetName="CardContainer"
+                                    Storyboard.TargetProperty="(ContentPresenter.RenderTransform).(TransfromGroup.Children)[0].(TranslateTransform.Y)"
+                                    From="-5"
+                                    To="0"
+                                    Duration="0:0:0.1" />
+                            </Storyboard>
+                        </Border.Resources>
+                        <ContentPresenter
+                            x:Name="ContentPresenter"
+                            Margin="{TemplateBinding Padding}"
+                            Content="{TemplateBinding Content}"
+                            IsHitTestVisible="True" />
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CardContainer" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ControlFillColorTertiaryBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CardContainer" Storyboard.TargetProperty="BorderBrush">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ControlStrokeColorDefault}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                    <VisualState.Setters>
+                                        <Setter Target="ContentPresenter.(AnimatedIcon.State)" Value="PointerOver" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <Setter Target="ContentPresenter.(AnimatedIcon.State)" Value="Pressed" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemChromeGrayColor}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Border>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

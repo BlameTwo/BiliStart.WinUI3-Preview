@@ -1,0 +1,83 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>AppContractService</RootNamespace>
+    <RuntimeIdentifiers>win10-x86;win10-x64</RuntimeIdentifiers>
+    <UseWinUI>true</UseWinUI>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Contracts\**" />
+    <Compile Remove="Controls\**" />
+    <Compile Remove="Helper\**" />
+    <Compile Remove="Models\**" />
+    <Content Remove="Contracts\**" />
+    <Content Remove="Controls\**" />
+    <Content Remove="Helper\**" />
+    <Content Remove="Models\**" />
+    <EmbeddedResource Remove="Contracts\**" />
+    <EmbeddedResource Remove="Controls\**" />
+    <EmbeddedResource Remove="Helper\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Contracts\**" />
+    <None Remove="Controls\**" />
+    <None Remove="Helper\**" />
+    <None Remove="Models\**" />
+    <Page Remove="Contracts\**" />
+    <Page Remove="Controls\**" />
+    <Page Remove="Helper\**" />
+    <Page Remove="Models\**" />
+    <PRIResource Remove="Contracts\**" />
+    <PRIResource Remove="Controls\**" />
+    <PRIResource Remove="Helper\**" />
+    <PRIResource Remove="Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+      <PackageReference Include="CommunityToolkit.WinUI.Animations" Version="8.0.230907" />
+      <PackageReference Include="CommunityToolkit.WinUI.Behaviors" Version="8.0.230907" />
+      <PackageReference Include="CommunityToolkit.WinUI.Controls.Primitives" Version="8.0.230907" />
+      <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.0.230907" />
+      <PackageReference Include="CommunityToolkit.WinUI.Helpers" Version="8.0.230907" />
+      <PackageReference Include="CommunityToolkit.WinUI.Media" Version="8.0.230907" />
+      <PackageReference Include="H.NotifyIcon" Version="2.0.118" />
+      <PackageReference Include="H.NotifyIcon.WinUI" Version="2.0.118" />
+      <PackageReference Include="LanguageExt.Core" Version="4.4.6" />
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0-preview.7.23375.6" />
+      <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0-preview.7.23375.6" />
+      <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.231008000" />
+      <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
+      <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
+	  <PackageReference Include="CommunityToolkit.WinUI.Controls.Segmented" Version="8.0.230907" />
+      <PackageReference Include="QRCoder" Version="1.4.3" />
+      <PackageReference Include="Serilog" Version="3.0.2-dev-02044" />
+      <PackageReference Include="Serilog.Sinks.File" Version="5.0.1-dev-00947" />
+      <PackageReference Include="WinUIEx" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\App.Models\App.Models.csproj" />
+    <ProjectReference Include="..\AppContracts\IAppContracts.csproj" />
+    <ProjectReference Include="..\Bili.Grpc\BiliStart.Grpc.Models.csproj" />
+    <ProjectReference Include="..\BiliNetWork\BiliNetWork.csproj" />
+    <ProjectReference Include="..\BiliStart.WinUI3.UI\BiliStart.WinUI3.UI.csproj" />
+    <ProjectReference Include="..\IViewConverter\IViewConverter.csproj" />
+    <ProjectReference Include="..\Lib.Helper\Lib.Helper.csproj" />
+    <ProjectReference Include="..\ViewConverter\ViewConverter.csproj" />
+    <ProjectReference Include="..\ViewModels\ViewModels.csproj" />
+    <ProjectReference Include="..\Views\Views.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <CustomAdditionalCompileInputs Remove="LauncherPage.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="LauncherPage.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Remove="LauncherPage.xaml" />
+  </ItemGroup>
+</Project>

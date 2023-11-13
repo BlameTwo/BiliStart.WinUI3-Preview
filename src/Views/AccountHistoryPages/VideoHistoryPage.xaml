@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="Views.AccountHistoryPages.VideoHistoryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:itemus="using:Views.ItemsControls.AccountVideoHistoryItem"
+    xmlns:itemvm="using:IAppContracts.ItemsViewModels"
+    xmlns:local="using:Views.AccountHistoryPages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui3="using:BiliStart.WinUI3.UI.Controls"
+    Margin="25"
+    mc:Ignorable="d">
+    <i:Interaction.Behaviors>
+        <core:EventTriggerBehavior EventName="Loaded">
+            <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand, Mode=OneWay}" />
+        </core:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Grid>
+        <ui3:AdaptiveView
+            AddDataCommand="{x:Bind ViewModel.AddDataCommand}"
+            ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+            MinItemVerticalValue="555.5"
+            OpenVerticalChanged="True">
+            <ui3:AdaptiveView.UniformGridLayout>
+                <UniformGridLayout
+                    ItemsJustification="Start"
+                    ItemsStretch="Uniform"
+                    MinItemHeight="180"
+                    MinItemWidth="250" />
+            </ui3:AdaptiveView.UniformGridLayout>
+            <ui3:AdaptiveView.ItemTemplate>
+                <DataTemplate x:DataType="itemvm:IAccountVideoHistoryItemViewModel">
+                    <itemus:AccountVideoHistoryItem ViewModel="{x:Bind}" />
+                </DataTemplate>
+            </ui3:AdaptiveView.ItemTemplate>
+        </ui3:AdaptiveView>
+    </Grid>
+</Page>

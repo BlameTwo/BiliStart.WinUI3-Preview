@@ -1,0 +1,424 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>Views</RootNamespace>
+    <RuntimeIdentifiers>win10-x86;win10-x64</RuntimeIdentifiers>
+    <UseWinUI>true</UseWinUI>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Behaviors\**" />
+    <Compile Remove="UserControls\ItemControls\**" />
+    <Compile Remove="UserControls\ItemsControls\**" />
+    <Content Remove="Behaviors\**" />
+    <Content Remove="UserControls\ItemControls\**" />
+    <Content Remove="UserControls\ItemsControls\**" />
+    <EmbeddedResource Remove="Behaviors\**" />
+    <EmbeddedResource Remove="UserControls\ItemControls\**" />
+    <EmbeddedResource Remove="UserControls\ItemsControls\**" />
+    <None Remove="Behaviors\**" />
+    <None Remove="UserControls\ItemControls\**" />
+    <None Remove="UserControls\ItemsControls\**" />
+    <Page Remove="Behaviors\**" />
+    <Page Remove="UserControls\ItemControls\**" />
+    <Page Remove="UserControls\ItemsControls\**" />
+    <PRIResource Remove="Behaviors\**" />
+    <PRIResource Remove="UserControls\ItemControls\**" />
+    <PRIResource Remove="UserControls\ItemsControls\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="AboutPage.xaml" />
+    <None Remove="AccountHistoryPages\LiveHistoryPage.xaml" />
+    <None Remove="AccountHistoryPages\VideoHistoryPage.xaml" />
+    <None Remove="ContentPopups\ImagePopup.xaml" />
+    <None Remove="Dialogs\AddDownloadDialog.xaml" />
+    <None Remove="Dialogs\DownloadItemDIalog.xaml" />
+    <None Remove="Dialogs\LoginDialog.xaml" />
+    <None Remove="Dialogs\TokenDialog.xaml" />
+    <None Remove="DownloadView.xaml" />
+    <None Remove="HomePage.xaml" />
+    <None Remove="ItemsControls\AccountDynamicItem\AccountDynamicItemUserControl.xaml" />
+    <None Remove="ItemsControls\AccountHistoryItem\AccountLiveHistoryItemStyle.xaml" />
+    <None Remove="ItemsControls\AccountVideoHistoryItem\AccountVideoHistoryItemStyle.xaml" />
+    <None Remove="ItemsControls\HomeItem\HomeItemStyle.xaml" />
+    <None Remove="ItemsControls\HotItem\HotItemStyle.xaml" />
+    <None Remove="ItemsControls\LiveItem\LiveItemStyle.xaml" />
+    <None Remove="ItemsControls\LiveItem\LiveTagIndexStyle.xaml" />
+    <None Remove="ItemsControls\PgcItem\PgcItemStyle.xaml" />
+    <None Remove="ItemsControls\RankVideoItem\RankVideoItemStyle.xaml" />
+    <None Remove="LivePage.xaml" />
+    <None Remove="MorePages\DownloadPage.xaml" />
+    <None Remove="MoviePage.xaml" />
+    <None Remove="PgcPage.xaml" />
+    <None Remove="RootPage.xaml" />
+    <None Remove="SettingPage.xaml" />
+    <None Remove="ShellPage.xaml" />
+    <None Remove="TabViews\AccountDynamicControlView.xaml" />
+    <None Remove="TabViews\AccountHistoryControlView.xaml" />
+    <None Remove="TabViews\AccountSpaceControlView.xaml" />
+    <None Remove="TabViews\LivePlayerControlView.xaml" />
+    <None Remove="TabViews\LiveTagControlView.xaml" />
+    <None Remove="TabViews\MainControlView.xaml" />
+    <None Remove="TabViews\PgcPlayerControlView.xaml" />
+    <None Remove="TabViews\PlayerControlView.xaml" />
+    <None Remove="TabViews\SearchControlView.xaml" />
+    <None Remove="TotalPage.xaml" />
+    <None Remove="TotalPages\HotHistoryPage.xaml" />
+    <None Remove="TotalPages\HotPage.xaml" />
+    <None Remove="TotalPages\MusicRankPage.xaml" />
+    <None Remove="TotalPages\RankPage.xaml" />
+    <None Remove="TotalPages\SearchRankPage.xaml" />
+    <None Remove="UserControls\BiliChatControlView.xaml" />
+    <None Remove="UserControls\BiliStartNotifyView.xaml" />
+    <None Remove="UserControls\LauncherLoginControlView.xaml" />
+    <None Remove="UserControls\LiveTagControl.xaml" />
+    <None Remove="UserControls\PgcControls\PgcPagesControl.xaml" />
+    <None Remove="UserControls\PgcControls\PgcSessionControl.xaml" />
+    <None Remove="UserControls\PlayerPagesControl.xaml" />
+    <None Remove="UserControls\PlayerRelatesControl.xaml" />
+    <None Remove="UserControls\PlayerReplaysControl.xaml" />
+    <None Remove="UserControls\PlayerReplyCommonControl.xaml" />
+    <None Remove="ViewTestPage.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <!--新版v8-->
+	  <PackageReference Include="CommunityToolkit.WinUI.Animations" Version="8.0.230907" />
+	  <PackageReference Include="CommunityToolkit.WinUI.Behaviors" Version="8.0.230907" />
+	  <PackageReference Include="CommunityToolkit.WinUI.Controls.Primitives" Version="8.0.230907" />
+	  <PackageReference Include="CommunityToolkit.WinUI.Controls.Segmented" Version="8.0.230907" />
+	  <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.0.230907" />
+	  <PackageReference Include="CommunityToolkit.WinUI.Helpers" Version="8.0.230907" />
+	  <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.0.230907" />
+	  <PackageReference Include="CommunityToolkit.WinUI.Media" Version="8.0.230907" />
+      <!--v8结束-->
+	  <PackageReference Include="H.NotifyIcon" Version="2.0.118" />
+	  <PackageReference Include="H.NotifyIcon.WinUI" Version="2.0.118" />
+	  <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
+	  <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.231008000" />
+	  <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
+	  <PackageReference Include="System.Resources.Extensions" Version="7.0.0" />
+	  <PackageReference Include="WinUIEx" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AppContracts\IAppContracts.csproj" />
+    <ProjectReference Include="..\BiliStart.WinUI3.UI\BiliStart.WinUI3.UI.csproj" />
+    <ProjectReference Include="..\ViewModels\ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="MoviePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Dialogs\DownloadItemDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Dialogs\AddDownloadDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="DownloadView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="TabViews\AccountSpaceControlView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="TabViews\MainControlView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="TabViews\PlayerControlView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\PlayerPagesControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="UserControls\PlayerReplyCommonControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="UserControls\PlayerReplaysControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Dialogs\LoginDialog.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Dialogs\TokenDialog.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="TotalPages\SearchRankPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="HomePage.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ShellPage.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="RootPage.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SettingPage.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="TotalPage.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="TotalPages\HotPage.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="TotalPages\MusicRankPage.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="TotalPages\RankPage.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="UserControls\PlayerRelatesControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="MorePages\DownloadPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="MorePages\DownloadPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="PgcPages\" />
+    <Folder Include="UserControls\LiveControls\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ViewResource\BiliResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>BiliResource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="ViewResource\BiliResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>BiliResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="ItemsControls\AccountHistoryItem\AccountLiveHistoryItemStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="ItemsControls\PgcItem\PgcItemStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="ItemsControls\LiveItem\LiveTagIndexStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="ItemsControls\LiveItem\LiveItemStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="ItemsControls\RankVideoItem\RankVideoItemStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="ItemsControls\HotItem\HotItemStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="ItemsControls\HomeItem\HomeItemStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="AboutPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="ViewTestPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="UserControls\LiveTagControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="LivePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="TotalPages\HotHistoryPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="UserControls\BiliStartNotifyView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="UserControls\PgcControls\PgcSessionControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="UserControls\PgcControls\PgcPagesControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="PgcPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="AccountHistoryPages\LiveHistoryPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="ItemsControls\AccountDynamicItem\AccountDynamicItemUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="ContentPopups\ImagePopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="ContentPopup\ImagePopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="UserControls\LauncherLoginControlView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="TabViews\AccountDynamicControlView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="TabViews\LivePlayerControlView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="TabViews\LiveTagControlView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="TabViews\AccountHistoryControlView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="TabViews\SearchControlView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="TabViews\PgcPlayerControlView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="UserControls\BiliChatControlView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="AccountHistoryPages\VideoHistoryPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+</Project>

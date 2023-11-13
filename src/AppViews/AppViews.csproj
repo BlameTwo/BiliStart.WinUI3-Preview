@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>AppViews</RootNamespace>
+    <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
+    <UseWinUI>true</UseWinUI>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<!--新版v8-->
+		<PackageReference Include="CommunityToolkit.WinUI.Animations" Version="8.0.230907" />
+		<PackageReference Include="CommunityToolkit.WinUI.Behaviors" Version="8.0.230907" />
+		<PackageReference Include="CommunityToolkit.WinUI.Controls.Primitives" Version="8.0.230907" />
+		<PackageReference Include="CommunityToolkit.WinUI.Controls.Segmented" Version="8.0.230907" />
+		<PackageReference Include="CommunityToolkit.WinUI.Helpers" Version="8.0.230907" />
+		<PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.0.230907" />
+		<!--v8结束-->
+		<PackageReference Include="H.NotifyIcon" Version="2.0.117" />
+		<PackageReference Include="H.NotifyIcon.WinUI" Version="2.0.117" />
+		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.230822000" />
+		<PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
+		<PackageReference Include="System.Resources.Extensions" Version="7.0.0" />
+		<PackageReference Include="WinUIEx" Version="2.3.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\App.Models\App.Models.csproj" />
+	  <ProjectReference Include="..\BiliStart.WinUI3.UI\BiliStart.WinUI3.UI.csproj" />
+	  <ProjectReference Include="..\Lib.Helper\Lib.Helper.csproj" />
+	  <ProjectReference Include="..\ViewModels\ViewModels.csproj" />
+	</ItemGroup>
+</Project>

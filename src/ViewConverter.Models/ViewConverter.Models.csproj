@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Pgc\**" />
+    <Compile Remove="ViewModels\**" />
+    <EmbeddedResource Remove="Pgc\**" />
+    <EmbeddedResource Remove="ViewModels\**" />
+    <None Remove="Pgc\**" />
+    <None Remove="ViewModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bili.Grpc\BiliStart.Grpc.Models.csproj" />
+    <ProjectReference Include="..\Network.Models\Network.Models.csproj" />
+  </ItemGroup>
+
+</Project>

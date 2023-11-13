@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>BiliStart.WinUI3.UI</RootNamespace>
+    <RuntimeIdentifiers>win10-x86;win10-x64</RuntimeIdentifiers>
+    <UseWinUI>true</UseWinUI>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Models\**" />
+    <Content Remove="Models\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Models\**" />
+    <Page Remove="Models\**" />
+    <PRIResource Remove="Models\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Controls\DanmakuControl.xaml" />
+    <None Remove="Controls\ErrorCard.xaml" />
+    <None Remove="DataTemplate\DynamicDataTemplate.xaml" />
+    <None Remove="DataTemplate\LiveMessageDataTemplate.xaml" />
+    <None Remove="DataTemplate\MovieDataTemplate.xaml" />
+    <None Remove="DataTemplate\ReplyDataTemplate.xaml" />
+    <None Remove="DataTemplate\SearchDataTemplate.xaml" />
+    <None Remove="DynamicSelecter\DynamicContentPresenter.xaml" />
+    <None Remove="DynamicSelecter\DynamicTypeTemplate.xaml" />
+    <None Remove="Styles\AdaptiveViewStyle.xaml" />
+    <None Remove="Styles\BaseStyle.xaml" />
+    <None Remove="Styles\BiliTabView.xaml" />
+    <None Remove="Styles\Button.xaml" />
+    <None Remove="Styles\ContentPopup.xaml" />
+    <None Remove="Styles\FlyoutPresenterStyle.xaml" />
+    <None Remove="Styles\IconTestSeparatorStyle.xaml" />
+    <None Remove="Styles\IconText.xaml" />
+    <None Remove="Styles\ListViewItemStyle.xaml" />
+    <None Remove="Styles\LiveMediaPlayer.xaml" />
+    <None Remove="Styles\PageBaseStyle\DefaultItemsPageBase.xaml" />
+    <None Remove="Styles\SearchTextBoxPanelStyle.xaml" />
+    <None Remove="Styles\TitleBar.xaml" />
+    <None Remove="Styles\UICardStyle.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+    <PackageReference Include="CommunityToolkit.WinUI.Animations" Version="8.0.230907" />
+    <PackageReference Include="CommunityToolkit.WinUI.Behaviors" Version="8.0.230907" />
+    <PackageReference Include="CommunityToolkit.WinUI.Controls.Primitives" Version="8.0.230907" />
+    <PackageReference Include="CommunityToolkit.WinUI.Media" Version="8.0.230907" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.231008000" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
+	  <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.0.230907" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\App.Models\App.Models.csproj" />
+    <ProjectReference Include="..\AppContracts\IAppContracts.csproj" />
+    <ProjectReference Include="..\Lib.Helper\Lib.Helper.csproj" />
+    <ProjectReference Include="..\Network.Models\Network.Models.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Styles\ListViewItemStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\ErrorCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="SearchDataTemplate\SearchDataTemplate.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\IconText.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomAdditionalCompileInputs Remove="DataTemplate\ReplyDataTemplate.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Remove="Controls\ImageEx\ImageEx.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Remove="DataTemplate\ReplyDataTemplate.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\DanmakuControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controls\DashMediaTransportControl\" />
+    <Folder Include="MicaSystemBackdrop\" />
+    <Folder Include="TransitionProviders\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Styles\BaseStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Styles\FlyoutPresenterStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Styles\BiliTabView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Styles\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Styles\ContentPopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="DataTemplate\DynamicDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="DynamicSelecter\DynamicTypeTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="DynamicSelecter\DynamicContentPresenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <None Update="Styles\ImageEx.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <Page Update="Styles\SearchTextBoxPanelStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Styles\TitleBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Styles\PageBaseStyle\DefaultItemsPageBase.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Styles\AdaptiveViewStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Styles\UICardStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="DataTemplate\LiveMessageDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Styles\LiveMediaPlayer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="DataTemplate\MovieDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Styles\IconTestSeparatorStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+</Project>
