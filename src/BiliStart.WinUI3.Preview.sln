@@ -48,7 +48,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiliStart", "BiliStart\Bili
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiliStart.Test", "BiliStart.Test\BiliStart.Test.csproj", "{BFA56131-6BBE-46AE-87A6-E9CB3CA19B31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiliTool", "BiliTool\BiliTool.csproj", "{CE03BEB1-BD50-4ADD-AB5A-8D4D98AA6B27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiliTool", "BiliTool\BiliTool.csproj", "{CE03BEB1-BD50-4ADD-AB5A-8D4D98AA6B27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

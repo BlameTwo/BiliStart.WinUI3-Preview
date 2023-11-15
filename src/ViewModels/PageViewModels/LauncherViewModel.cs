@@ -1,9 +1,7 @@
 ﻿using IAppContracts.ItemsViewModels;
-using LanguageExt.Common;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Windowing;
-using Windows.UI.WebUI;
-using WinUIEx.Messaging;
+using ViewModels.ToolViewModels;
 
 namespace ViewModels.PageViewModels;
 
@@ -15,6 +13,7 @@ public partial class LauncherViewModel : ObservableRecipient, IRecipient<LoginMe
         ILocalSetting localSetting,
         ICurrent current,
         IAccountProvider accountProvider,
+        IAppActivationService<BiliApplication> appActivationService,
         IDialogManager dialogManager,
         ITokenManager tokenManager,
         IUserControlViewModelFactory userControlViewModelFactory,
@@ -27,6 +26,7 @@ public partial class LauncherViewModel : ObservableRecipient, IRecipient<LoginMe
         LocalSetting = localSetting;
         Current = current;
         AccountProvider = accountProvider;
+        AppActivationService = appActivationService;
         DialogManager = dialogManager;
         TokenManager = tokenManager;
         UserControlViewModelFactory = userControlViewModelFactory;
@@ -42,6 +42,7 @@ public partial class LauncherViewModel : ObservableRecipient, IRecipient<LoginMe
     public ILocalSetting LocalSetting { get; }
     public ICurrent Current { get; }
     public IAccountProvider AccountProvider { get; }
+    public IAppActivationService<BiliApplication> AppActivationService { get; }
     public IDialogManager DialogManager { get; }
     public ITokenManager TokenManager { get; }
     public IUserControlViewModelFactory UserControlViewModelFactory { get; }
@@ -108,7 +109,7 @@ public partial class LauncherViewModel : ObservableRecipient, IRecipient<LoginMe
             var result = (await LocalSetting.ReadConfig(App.Models.SettingName.Token));
             if (result != null)
                 Current.TokenName = Convert.ToInt64(result.ToString());
-            NavigationService.NavigationTo(typeof(ShellViewModel).FullName);
+            GoAction();
         }
     }
 
@@ -119,13 +120,27 @@ public partial class LauncherViewModel : ObservableRecipient, IRecipient<LoginMe
     void GoAppMain()
     {
         this.Current.TokenName = this.TokenSelectItem.MyData.Mid;
-        NavigationService.NavigationTo(typeof(ShellViewModel).FullName);
+        GoAction();
     }
 
     //这里用来接收登录返回的信息
     public void Receive(LoginMessager message)
     {
         this.Current.TokenName = message.token.Mid;
-        NavigationService.NavigationTo(typeof(ShellViewModel).FullName);
+        GoAction();
+    }
+
+
+    void GoAction()
+    {
+        switch (AppActivationService.GetSetupType())
+        {
+            case App.Models.Enum.SetupEnum.App:
+                NavigationService.NavigationTo(typeof(ShellViewModel).FullName);
+                break;
+            case App.Models.Enum.SetupEnum.Tool:
+                NavigationService.NavigationTo(typeof(ToolRootViewModel).FullName);
+                break;
+        }
     }
 }

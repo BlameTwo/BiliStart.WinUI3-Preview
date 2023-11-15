@@ -10,6 +10,7 @@ using Serilog;
 using LanguageExt;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using App.Models.MediaPlayerArgs;
+using App.Models.Enum;
 namespace BiliStart;
 
 public partial class App:BiliApplication
@@ -51,7 +52,7 @@ public partial class App:BiliApplication
             AppService.GetService<IAppResources<BiliApplication>>().InitResouces(this);
             var result = AppService.GetService<IAppActivationService<BiliApplication>>();
             result.ActivationProtocolSetup(eventargs);
-            await result.ActivationAsync(this);
+            await result.ActivationAsync(this, SetupEnum.App);
         }
         else
         {

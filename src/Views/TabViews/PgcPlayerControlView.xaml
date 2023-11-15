@@ -19,7 +19,7 @@
         Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="350" />
+            <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
         <ui3:DashMediaPlayerElement
             x:Name="element"
@@ -55,6 +55,7 @@
         <Grid
             x:Name="RightControl"
             Grid.Column="1"
+            Width="350"
             Margin="15,-10,15,15">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
@@ -92,5 +93,25 @@
                 ViewModel="{x:Bind ViewModel.PgcPlayerCommonsViewModel, Mode=OneWay}"
                 Visibility="{x:Bind ViewModel.PgcReplyCommentVisibility, Mode=OneWay}" />
         </Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="DefaultGroup">
+                <VisualState x:Name="MinZero">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RightControl.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Min850">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="850" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RightControl.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </bases:PgcPlayerControlBase>

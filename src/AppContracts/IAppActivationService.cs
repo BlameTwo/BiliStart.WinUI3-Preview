@@ -1,4 +1,5 @@
 ﻿using App.Models;
+using App.Models.Enum;
 using IAppExtension.Contract;
 using Microsoft.Windows.AppLifecycle;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ public interface IAppActivationService<T>
     /// </summary>
     /// <param name="app"></param>
     /// <returns></returns>
-    Task ActivationAsync(T app);
+    Task ActivationAsync(T app, SetupEnum type);
 
     /// <summary>
     /// 处理启动参数
@@ -30,4 +31,6 @@ public interface IAppActivationService<T>
     /// <param name="args"></param>
     /// <returns></returns>
     void ActivationProtocolSetup(AppActivationArguments args);
+
+    SetupEnum GetSetupType();
 }

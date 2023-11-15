@@ -28,6 +28,7 @@ public static partial class AppService
             .RegisterItemVM()
             .RegisterLog()
             .RegisterPopup()
+            .RegisterToolApp()
             .Build();
     }
 

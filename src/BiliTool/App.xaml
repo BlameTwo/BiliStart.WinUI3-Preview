@@ -1,16 +1,44 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Application
+<?xml version="1.0" encoding="utf-8" ?>
+<app:BiliApplication
     x:Class="BiliTool.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:IAppContracts"
     xmlns:local="using:BiliTool">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
-                <!-- Other merged dictionaries here -->
+                <ResourceDictionary Source="ms-appx:///BiliStart.WinUI3.UI/Styles/VideoGridViewItemStyle.xaml" />
+                <ResourceDictionary Source="ms-appx:///BiliStart.WinUI3.UI/Styles/ListViewItemStyle.xaml" />
+                <ResourceDictionary Source="ms-appx:///BiliStart.WinUI3.UI/Styles/MediaPlayerElement.xaml" />
+                <ResourceDictionary Source="ms-appx:///BiliStart.WinUI3.UI/Styles/IconTestSeparatorStyle.xaml" />
+                <ResourceDictionary Source="ms-appx:///BiliStart.WinUI3.UI/Styles/IconText.xaml" />
+                <ResourceDictionary Source="ms-appx:///BiliStart.WinUI3.UI/Styles/LiveMediaPlayer.xaml" />
+                <ResourceDictionary Source="ms-appx:///BiliStart.WinUI3.UI/Styles/AdaptiveViewStyle.xaml" />
+                <ResourceDictionary Source="ms-appx:///BiliStart.WinUI3.UI/Styles/UICardStyle.xaml" />
+                <ResourceDictionary Source="ms-appx:///BiliStart.WinUI3.UI/Styles/TitleBar.xaml" />
+                <ResourceDictionary Source="ms-appx:///BiliStart.WinUI3.UI/Styles/ImageEx.xaml" />
+                <ResourceDictionary Source="ms-appx:///BiliStart.WinUI3.UI/Styles/BiliTabView.xaml" />
+                <ResourceDictionary Source="ms-appx:///BiliStart.WinUI3.UI/Styles/BaseStyle.xaml" />
+                <ResourceDictionary Source="ms-appx:///BiliStart.WinUI3.UI/Styles/FlyoutPresenterStyle.xaml" />
+                <ResourceDictionary Source="ms-appx:///BiliStart.WinUI3.UI/Styles/Button.xaml" />
+                <ResourceDictionary Source="ms-appx:///BiliStart.WinUI3.UI/Styles/SearchTextBoxPanelStyle.xaml" />
+                <ResourceDictionary Source="ms-appx:///BiliStart.WinUI3.UI/Styles/ContentPopup.xaml" />
+                <ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.Segmented/Segmented/Segmented.xaml" />
+                <!--  数据模板  -->
+                <ResourceDictionary Source="ms-appx:///BiliStart.WinUI3.UI/DataTemplate/SearchDataTemplate.xaml" />
+                <ResourceDictionary Source="ms-appx:///BiliStart.WinUI3.UI/DataTemplate/ReplyDataTemplate.xaml" />
+                <ResourceDictionary Source="ms-appx:///BiliStart.WinUI3.UI/DataTemplate/MovieDataTemplate.xaml" />
+                <ResourceDictionary Source="ms-appx:///BiliStart.WinUI3.UI/DataTemplate/LiveMessageDataTemplate.xaml" />
+                <ResourceDictionary Source="ms-appx:///BiliStart.WinUI3.UI/DataTemplate/DynamicDataTemplate.xaml" />
+
+                <!--  模板内容  -->
+                <ResourceDictionary Source="ms-appx:///BiliStart.WinUI3.UI/DynamicSelecter/DynamicTypeTemplate.xaml" />
+
+                <!--  页面Base  -->
+                <ResourceDictionary Source="ms-appx:///BiliStart.WinUI3.UI/Styles/PageBaseStyle/DefaultItemsPageBase.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <!-- Other app resources here -->
         </ResourceDictionary>
     </Application.Resources>
-</Application>
+</app:BiliApplication>

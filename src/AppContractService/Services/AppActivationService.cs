@@ -7,6 +7,7 @@ AppActivationService功能：
 2023.7.28
 加入了启动模式LauncerMode，现分为插件管理器模式和应用模式启动
  */
+using App.Models.Enum;
 using Bilibili.Polymer.App.Search.V1;
 using Microsoft.Windows.AppLifecycle;
 using Microsoft.Windows.AppNotifications;
@@ -18,6 +19,8 @@ namespace AppContractService.Services;
 public sealed class AppActivationService<T> : IAppActivationService<T>
     where T : BiliApplication, IAppService
 {
+    private SetupEnum _setupType;
+
     public AppActivationService(
         IThemeService<T> themeService,
         [FromKeyedServices(NavHostingConfig.RootNav)] INavigationService navigationService,
@@ -37,13 +40,15 @@ public sealed class AppActivationService<T> : IAppActivationService<T>
     public ILogger Logger { get; }
     public IAppProtocolSetupService AppProtocolSetup { get; }
 
-    public async Task ActivationAsync(T app)
+    public async Task ActivationAsync(T app, SetupEnum type)
     {
+        this._setupType = type;
         await StartupApplication(app);
     }
 
     async Task StartupApplication(T app)
     {
+
         Logger.LogWrite<AppActivationService<BiliApplication>>("容器注入完毕窗体开始加载");
         ILocalSetting Setting = AppService.GetService<ILocalSetting>();
         Dictionary<string, object> values = new();
@@ -53,7 +58,7 @@ public sealed class AppActivationService<T> : IAppActivationService<T>
         values.Add(SettingName.AutoLoginCheck, false);
         values.Add(SettingName.SearchItems, 30);
         await Setting.InitSetting(values);
-        var page = AppService.GetService<RootPage>();
+        Page page = AppService.GetService<RootPage>();
         app.MainWindow.Content = null;
         app.MainWindow.Content = page;
         app.MainWindow.Activate();
@@ -115,4 +120,6 @@ public sealed class AppActivationService<T> : IAppActivationService<T>
             AppProtocolSetup.SaveUri((args.Data as ProtocolActivatedEventArgs).Uri);
         }
     }
+
+    public SetupEnum GetSetupType() => _setupType;
 }

@@ -8,6 +8,7 @@
 
 
 using ViewModels;
+using ViewModels.ToolViewModels;
 using Views.AccountHistoryPages;
 
 namespace AppContractService.Services;
@@ -54,6 +55,11 @@ public sealed class PageService : IPageService, IAppService
         #region 历史记录分页面
         Register<VideoHistoryPage, AccountHistoryVideoViewModel>();
         Register<LiveHistoryPage, LiveHistoryViewModel>();
+        #endregion
+
+
+        #region 工具页面
+        Register<ToolRootPage, ToolRootViewModel>();
         #endregion
     }
 

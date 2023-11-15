@@ -1,50 +1,56 @@
 ﻿using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
+using IAppContracts;
 using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using Microsoft.UI.Xaml.Shapes;
+using Microsoft.Windows.AppLifecycle;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel;
-using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+using AppContractService;
+using System.Diagnostics;
+using App.Models.Enum;
 
 namespace BiliTool
 {
-    /// <summary>
-    /// Provides application-specific behavior to supplement the default Application class.
-    /// </summary>
-    public partial class App : Application
+    public partial class App : BiliApplication
     {
-        /// <summary>
-        /// Initializes the singleton application object.  This is the first line of authored code
-        /// executed, and as such is the logical equivalent of main() or WinMain().
-        /// </summary>
+        private AppInstance appInstance;
+
         public App()
         {
             this.InitializeComponent();
         }
 
-        /// <summary>
-        /// Invoked when the application is launched.
-        /// </summary>
-        /// <param name="args">Details about the launch request and process.</param>
-        protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
+        protected async override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
-            m_window = new MainWindow();
-            m_window.Activate();
+            appInstance = AppInstance.FindOrRegisterForKey(
+            "BiliStartTool"
+        );
+            appInstance.Activated += AppInstance_Activated;
+            if (appInstance.IsCurrent)
+            {
+                var eventargs = Microsoft.Windows.AppLifecycle.AppInstance
+                   .GetCurrent()
+                   .GetActivatedEventArgs();
+                this.MainWindow = new WinUIEx.WindowEx();
+                AppService.InitService(this);
+                AppService.GetService<IWindowManager>().InitWindow(this.MainWindow);
+                AppService.GetService<IWindowManager>().BiliApplication = this;
+                AppService.GetService<IAppResources<BiliApplication>>().InitResouces(this);
+                var result = AppService.GetService<IAppActivationService<BiliApplication>>();
+                result.ActivationProtocolSetup(eventargs);
+                await result.ActivationAsync(this,SetupEnum.Tool);
+            }
+            else
+            {
+                var eventargs = AppInstance
+                    .GetCurrent()
+                    .GetActivatedEventArgs();
+                await appInstance.RedirectActivationToAsync(eventargs);
+                Process.GetCurrentProcess().Kill();
+            }
         }
 
-        private Window m_window;
+        private void AppInstance_Activated(object sender, AppActivationArguments e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

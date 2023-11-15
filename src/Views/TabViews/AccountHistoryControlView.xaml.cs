@@ -11,6 +11,7 @@ public sealed partial class AccountHistoryControlView : AccountHistoryControlBas
 
     public override void OnViewModelChanged()
     {
+        if (this.ViewModel == null) return;
         this.ViewModel.AccountHistoryNavigationViewService.RegisterView(labelSegmented);
         this.ViewModel.AccountHistoryNavigationService.BaseFrame = _frameBase;
         this.ViewModel.AccountHistoryNavigationViewService.NavigationPage(0);

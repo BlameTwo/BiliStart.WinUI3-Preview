@@ -6,3 +6,8 @@ public enum MediaState
     Default,
     TopFull
 }
+
+public enum SetupEnum
+{
+    App,Tool
+}

@@ -72,6 +72,8 @@ public sealed partial class PlayerControlView : PlayerVideoControlBase
     {
         if (isflage)
         {
+
+            //隐藏元素化
             RightControl.Visibility = Visibility.Collapsed;
             PlayerSession.Visibility = Visibility.Collapsed;
             Grid.SetRowSpan(playerelement, 2);
@@ -79,10 +81,10 @@ public sealed partial class PlayerControlView : PlayerVideoControlBase
             Grid.SetRow(content, 0);
             Grid.SetRowSpan(content, 2);
             content.Padding = new Thickness(0);
-
         }
         else
         {
+            //显示元素
             RightControl.Visibility = Visibility.Visible;
             PlayerSession.Visibility = Visibility.Visible;
             Grid.SetRowSpan(playerelement, 1);

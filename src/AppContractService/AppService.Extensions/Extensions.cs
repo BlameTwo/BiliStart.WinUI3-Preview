@@ -9,6 +9,7 @@ using ViewModels;
 using ViewModels.AppTabViewModels;
 using ViewModels.ContentPopupViewModels;
 using ViewModels.ItemViewModels.Dynamics;
+using ViewModels.ToolViewModels;
 using Views.AccountHistoryPages;
 using Views.ContentPopups;
 using Views.TabViews;
@@ -408,6 +409,11 @@ static partial class AppService
         return hostBuilder;
     }
 
+    /// <summary>
+    /// 注册弹出框
+    /// </summary>
+    /// <param name="hostBuilder"></param>
+    /// <returns></returns>
     public static IHostBuilder RegisterPopup(this IHostBuilder hostBuilder)
     {
         hostBuilder.ConfigureServices(
@@ -418,6 +424,21 @@ static partial class AppService
                 service.AddTransient<IPopupManagerService, PopupManagerService>();
             }
         );
+        return hostBuilder;
+    }
+
+    /// <summary>
+    /// 注册工具应用
+    /// </summary>
+    /// <param name="hostBuilder"></param>
+    /// <returns></returns>
+    public static IHostBuilder RegisterToolApp(this IHostBuilder hostBuilder)
+    {
+        hostBuilder.ConfigureServices((context, service) =>
+        {
+            service.AddTransient<ToolRootPage>();
+            service.AddTransient<ToolRootViewModel>();
+        });
         return hostBuilder;
     }
 }
