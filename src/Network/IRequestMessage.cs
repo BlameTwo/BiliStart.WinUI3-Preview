@@ -57,4 +57,10 @@ public interface IRequestMessage
         TokenThird tokenThird,
         CancellationToken canceltoken = default
     );
+
+    public int MaxCache { get; set; }
+
+    public List<Tuple<HttpRequestMessage, HttpResponseMessage>> GetHistoryRequest();
+
+    public void AddRequest(HttpRequestMessage request, HttpResponseMessage httpResponseMessage);
 }

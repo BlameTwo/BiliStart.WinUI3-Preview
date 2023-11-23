@@ -4,9 +4,16 @@ public sealed class HttpClientProvider : IHttpClientProvider
 {
     private HttpClient _client;
 
+    public IRequestMessage RequestMessage { get; }
+
     ~HttpClientProvider()
     {
         _client.Dispose();
+    }
+
+    public HttpClientProvider(IRequestMessage requestMessage)
+    {
+        RequestMessage = requestMessage;
     }
 
     public void InitClient()
@@ -53,7 +60,9 @@ public sealed class HttpClientProvider : IHttpClientProvider
     {
         try
         {
-            return await _client.SendAsync(message, token);
+            var reponse =  await _client.SendAsync(message, token);
+            this.RequestMessage.AddRequest(message, reponse);
+            return reponse;
         }
         catch (Exception)
         {

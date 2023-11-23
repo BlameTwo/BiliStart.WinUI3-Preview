@@ -20,8 +20,7 @@
             <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand}" />
         </core:EventTriggerBehavior>
     </i:Interaction.Behaviors>
-    <ScrollViewer>
-
+    <ScrollView>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
@@ -113,7 +112,6 @@
                     <labs:SettingsCard.HeaderIcon>
                         <FontIcon FontFamily="Segoe UI Emoji" Glyph="&#x1F9E1;" />
                     </labs:SettingsCard.HeaderIcon>
-
                     <ComboBox x:Name="lifeSelection" SelectedIndex="{x:Bind ViewModel.LifeIndex, Mode=TwoWay}">
                         <i:Interaction.Behaviors>
                             <core:EventTriggerBehavior EventName="SelectionChanged">
@@ -219,5 +217,5 @@
                 </Grid>
             </StackPanel>
         </Grid>
-    </ScrollViewer>
+    </ScrollView>
 </Page>

@@ -18,7 +18,7 @@
 	  <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
 	  <AppxBundle>Always</AppxBundle>
 	  <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-	  <DefaultLanguage>zh-cn</DefaultLanguage>
+	  <DefaultLanguage>zh-CN</DefaultLanguage>
 	  <AppxPackageDir>D:\BiliStart.Build\BiliStart.WinUI3-Preview\AppPackages\</AppxPackageDir>
 	  <PackageCertificateThumbprint>2661FF339972BD5AF44BE0B495218D4F4E47E79A</PackageCertificateThumbprint>
 	  <AppxBundlePlatforms>x64</AppxBundlePlatforms>

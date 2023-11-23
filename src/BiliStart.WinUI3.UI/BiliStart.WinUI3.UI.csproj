@@ -8,12 +8,24 @@
     <UseWinUI>true</UseWinUI>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="MicaSystemBackdrop\**" />
     <Compile Remove="Models\**" />
+    <Compile Remove="TransitionProviders\**" />
+    <Content Remove="MicaSystemBackdrop\**" />
     <Content Remove="Models\**" />
+    <Content Remove="TransitionProviders\**" />
+    <EmbeddedResource Remove="MicaSystemBackdrop\**" />
     <EmbeddedResource Remove="Models\**" />
+    <EmbeddedResource Remove="TransitionProviders\**" />
+    <None Remove="MicaSystemBackdrop\**" />
     <None Remove="Models\**" />
+    <None Remove="TransitionProviders\**" />
+    <Page Remove="MicaSystemBackdrop\**" />
     <Page Remove="Models\**" />
+    <Page Remove="TransitionProviders\**" />
+    <PRIResource Remove="MicaSystemBackdrop\**" />
     <PRIResource Remove="Models\**" />
+    <PRIResource Remove="TransitionProviders\**" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Controls\DanmakuControl.xaml" />
@@ -92,8 +104,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\DashMediaTransportControl\" />
-    <Folder Include="MicaSystemBackdrop\" />
-    <Folder Include="TransitionProviders\" />
   </ItemGroup>
   <ItemGroup>
     <Page Update="Styles\BaseStyle.xaml">

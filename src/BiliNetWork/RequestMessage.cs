@@ -14,9 +14,13 @@ public sealed class RequestMessage : IRequestMessage, IAppService
     }
 
     public string ServiceID { get; set; } = nameof(RequestMessage);
+
     public ICurrent Current { get; }
     public IHttpExtensions HttpExtensions { get; }
     public ITokenManager TokenManager { get; }
+    public int MaxCache { get; set; } = 25;
+
+    public readonly List<Tuple<HttpRequestMessage, HttpResponseMessage>> _historyHistory = new();
 
     public async Task<HttpRequestMessage> GetAccessTokenAsync(
         TokenThird tokenThird,
@@ -28,6 +32,11 @@ public sealed class RequestMessage : IRequestMessage, IAppService
         if (canceltoken.IsCancellationRequested == true)
             return default;
         return message;
+    }
+
+    public List<Tuple<HttpRequestMessage, HttpResponseMessage>> GetHistoryRequest()
+    {
+        return _historyHistory;
     }
 
     public async Task<HttpRequestMessage> GetHttpRequestMessageAsync(
@@ -180,5 +189,10 @@ public sealed class RequestMessage : IRequestMessage, IAppService
             return default;
         requestmessage.RequestUri = new(Apis.BILIBILI_TV_Third);
         return requestmessage;
+    }
+
+    public void AddRequest(HttpRequestMessage request, HttpResponseMessage httpResponseMessage)
+    {
+        this._historyHistory.Add(new(request, httpResponseMessage));
     }
 }
