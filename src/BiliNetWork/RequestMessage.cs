@@ -1,4 +1,6 @@
-﻿namespace BiliNetWork;
+﻿using Bilibili.Main.Community.Reply.V1;
+
+namespace BiliNetWork;
 
 public sealed class RequestMessage : IRequestMessage, IAppService
 {
@@ -52,7 +54,7 @@ public sealed class RequestMessage : IRequestMessage, IAppService
         requestMessage.Version = HttpVersion.Version20;
         var grpcConfig = new gRpcConfig(token);
         var userAgent =
-            $"bili-universal/62800300 "
+            $"bili-universal/{Apis.Build} "
             + $"os/ios model/{gRpcConfig.Model} mobi_app/iphone "
             + $"osVer/{gRpcConfig.OSVersion} "
             + $"network/{gRpcConfig.NetworkType} "
@@ -118,7 +120,7 @@ public sealed class RequestMessage : IRequestMessage, IAppService
         { //这里增加一个UA来法昂之鉴权失败，与Grpc的请求UA基本一致，不过有些不同。
             message.Headers.Add(
                 "User-Agent",
-                "Mozilla/5.0 BiliDroid/7.43.0 (bbcallen@gmail.com) os/android model/ALA-AN70 mobi_app/android build/7430300 channel/bili innerVer/7430300 osVer/12 network/2"
+                $"Mozilla/5.0 BiliDroid/7.43.0 (bbcallen@gmail.com) os/android model/ALA-AN70 mobi_app/android build/{Apis.Build} channel/bili innerVer/7430300 osVer/12 network/2"
             );
         }
         var cookie = await Current.GetAccessCookieAsync();
@@ -194,5 +196,46 @@ public sealed class RequestMessage : IRequestMessage, IAppService
     public void AddRequest(HttpRequestMessage request, HttpResponseMessage httpResponseMessage)
     {
         this._historyHistory.Add(new(request, httpResponseMessage));
+    }
+
+    public async Task<HttpRequestMessage> GetHttpRequestMesageAsync(RequestArgs args, CancellationToken token = default)
+    {
+         HttpRequestMessage message = new();
+        if(args.RequestType == RequestType.Android)
+        {
+            message.Headers.Add(
+                "User-Agent",
+                $"Mozilla/5.0 BiliDroid/7.43.0 (bbcallen@gmail.com) os/android model/ALA-AN70 mobi_app/android build/{Apis.Build} channel/bili innerVer/7430300 osVer/12 network/2"
+            );
+        }
+        if (args.IsCookie)
+        {
+            var cookie = await Current.GetAccessCookieAsync();
+            if (token.IsCancellationRequested == true)
+                return null;
+            message.Headers.Add("Cookie", cookie);
+        }
+        var quest = await HttpExtensions.GetClientType(
+                args.Arguments,
+                args.RequestType,
+                args.IsLogin,
+                args.IsLogin
+            );
+        var url = args.Host;
+        if (args.HttpMethod == HttpMethod.Get)
+        {
+            url += $"?{quest}";
+        }
+        else if (args.HttpMethod == HttpMethod.Post)
+        {
+            message.Content = new StringContent(
+                quest,
+                Encoding.UTF8,
+                "application/x-www-form-urlencoded"
+            );
+        }
+        message.RequestUri = new Uri(url);
+        message.Method = args.HttpMethod;
+        return message;
     }
 }

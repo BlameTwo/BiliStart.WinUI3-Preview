@@ -212,6 +212,7 @@ public class Apis
         "https://app.bilibili.com/bilibili.app.dynamic.v2.Dynamic/DynVideo";
     #endregion
 
+    public const string Build = "7430300";
 
     public const string APP_SPLASH = "https://app.bilibili.com/x/v2/splash/brand/config";
 }

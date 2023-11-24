@@ -10,7 +10,7 @@ public sealed class Current : ICurrent
     public Current(ITokenManager tokenManager)
     {
         LocalID = Guid.NewGuid().ToString();
-        Build = "5520400";
+        Build = "7430300";
         TokenManager = tokenManager;
         TokenName = 0;
     }

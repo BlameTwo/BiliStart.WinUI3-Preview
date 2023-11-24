@@ -1,7 +1,7 @@
 ﻿namespace Network.Models;
 
 /// <summary>
-/// 客户积累性
+/// 客户端性质
 /// </summary>
 public enum RequestType
 {

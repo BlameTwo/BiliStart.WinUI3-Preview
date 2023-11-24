@@ -33,6 +33,8 @@ public interface IRequestMessage
         CancellationToken token = default
     );
 
+    public Task<HttpRequestMessage> GetHttpRequestMesageAsync(RequestArgs args,CancellationToken token = default);
+
     /// <summary>
     /// 获得Grpc请求方式
     /// </summary>

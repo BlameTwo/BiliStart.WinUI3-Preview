@@ -23,8 +23,6 @@ public class gRpcConfig
 
     public const string AppVersion = "6.7.0";
 
-    public const int Build = 7480200;
-
     public const string Channel = "bilibili140";
 
     public const int NetworkType = 2;

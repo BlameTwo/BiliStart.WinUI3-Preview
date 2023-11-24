@@ -27,7 +27,7 @@ public sealed class HttpExtensions : IHttpExtensions
             case RequestType.Android:
                 keyvalues.Add("appkey", ApiKey.AndroidKey.Key);
                 keyvalues.Add("mobi_app", "android");
-                keyvalues.Add("build", gRpcConfig.Build.ToString());
+                keyvalues.Add("build", Apis.Build);
                 keyvalues.Add("device", "android");
                 keyvalues.Add("channel", "bili");
                 keyvalues.Add("c_locale", "zh_CN");
@@ -41,7 +41,7 @@ public sealed class HttpExtensions : IHttpExtensions
                 break;
             case RequestType.IOS:
                 keyvalues.Add("appkey", ApiKey.IOSKey.Key);
-                keyvalues.Add("build", gRpcConfig.Build.ToString());
+                keyvalues.Add("build", Apis.Build);
                 keyvalues.Add("mobi_app", "iphone");
                 keyvalues.Add("channel", "bili");
                 //这里的c_locale 可能可以更改数据源返回语言
