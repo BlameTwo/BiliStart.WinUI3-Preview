@@ -62,7 +62,7 @@ public class gRpcConfig
         var msg = new Metadata();
         msg.AccessKey = AccessToken;
         msg.MobiApp = MobileApp;
-        msg.Build = Build;
+        msg.Build = 7430300;
         msg.Channel = Channel;
         msg.Buvid = Buvid;
         msg.Platform = Platform;
@@ -74,7 +74,7 @@ public class gRpcConfig
         var msg = new Device();
         msg.AppId = AppId;
         msg.MobiApp = MobileApp;
-        msg.Build = Build;
+        msg.Build = 7430300;
         msg.Channel = Channel;
         msg.Buvid = Buvid;
         msg.Platform = Platform;

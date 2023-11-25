@@ -45,7 +45,11 @@
                         <TextBox
                             x:Name="TextBoxCentent"
                             Grid.Row="0"
-                            Margin="5" />
+                            Margin="5">
+                            <TextBox.ContextFlyout>
+                                <MenuFlyout x:Name="TextFlyout" />
+                            </TextBox.ContextFlyout>
+                        </TextBox>
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="PanelContentState">
                                 <VisualState x:Name="PanelShowState">

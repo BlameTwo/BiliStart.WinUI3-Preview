@@ -1,7 +1,10 @@
-﻿using Microsoft.UI.Xaml;
+﻿using CommunityToolkit.Mvvm.Input;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Markup;
 using System;
+using System.Diagnostics;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Devices.Enumeration;
 
 namespace BiliStart.WinUI3.UI.Controls;
@@ -106,7 +109,7 @@ public partial class SearchTextBoxPanel : Control
     #region 私有变量
     private TextBox _textContent;
     private ContentPresenter _flyoutPresenter;
-    private TextCommandBarFlyout textfly;
+    private MenuFlyout textfly;
     #endregion
 
 
@@ -137,7 +140,16 @@ public partial class SearchTextBoxPanel : Control
         _textContent.GettingFocus += _textContent_GettingFocus;
         _textContent.LostFocus += _textContent_LostFocus;
         this.SizeChanged += SearchTextBoxPanel_SizeChanged;
-        this.textfly = (TextCommandBarFlyout)GetTemplateChild("TextFlyout");
+        this.textfly = (MenuFlyout)GetTemplateChild("TextFlyout");
+        InitUI();
+    }
+
+    private void InitUI()
+    {
+        var copy = new MenuFlyoutItem() { Text = "复制", Command = Copy, KeyboardAcceleratorTextOverride = "Ctrl + C", Icon = new SymbolIcon { Symbol = Symbol.Copy } };
+        var paste = new MenuFlyoutItem() { Text = "粘贴", Command = Paste, KeyboardAcceleratorTextOverride = "Ctrl + V", Icon = new SymbolIcon { Symbol = Symbol.Paste } };
+        var cut = new MenuFlyoutItem() { Text = "剪切", Command = Cut, KeyboardAcceleratorTextOverride = "Ctrl + X", Icon = new SymbolIcon { Symbol = Symbol.Cut } };
+        textfly.Items.Add(copy); textfly.Items.Add(paste); textfly.Items.Add(cut);
     }
 
     private void SearchTextBoxPanel_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -157,5 +169,80 @@ public partial class SearchTextBoxPanel : Control
     {
         this.PopupOffset = (this.ActualWidth / 2) - _flyoutPresenter.ActualWidth / 2;
         this.IsPanelShow = true;
+    }
+
+
+
+    public  IRelayCommand Copy => new RelayCommand(() =>
+    {
+        copy();
+    });
+
+
+    public  IRelayCommand Paste => new RelayCommand(() =>
+    {
+        paste();
+    });
+
+    public IRelayCommand Cut => new RelayCommand(() =>
+    {
+        cut();
+    });
+
+    private  void copy()
+    {
+        try
+        {
+            DataPackage dataPackage = new DataPackage();
+            dataPackage.SetText(_textContent.SelectedText);
+            dataPackage.RequestedOperation = DataPackageOperation.Copy;
+            Clipboard.SetContent(dataPackage);
+        }
+        catch (OutOfMemoryException)
+        {
+            return;
+        }
+    }
+
+    private  async void paste()
+    {
+        try
+        {
+            DataPackageView dataPackageView = Clipboard.GetContent();
+            if (dataPackageView.Contains(StandardDataFormats.Text))
+            {
+                string text = null;
+                try
+                {
+                    text = await dataPackageView.GetTextAsync();
+                    _textContent.Text += text;
+                }
+                catch (Exception ex) //When longer holding Ctrl + V the clipboard may throw an exception:
+                {
+                    Debug.WriteLine("Clipboard exception: " + ex.Message);
+                    return;
+                }
+            }
+        }
+        catch (OutOfMemoryException)
+        {
+
+        }
+    }
+
+    private void cut(bool handleException = true)
+    {
+        try
+        {
+            DataPackage dataPackage = new DataPackage();
+            dataPackage.SetText(_textContent.SelectedText);
+            dataPackage.RequestedOperation = DataPackageOperation.Move;
+            Clipboard.SetContent(dataPackage);
+            _textContent.Text = _textContent.Text.Replace(_textContent.SelectedText, "");
+        }
+        catch (OutOfMemoryException)
+        {
+            
+        }
     }
 }
