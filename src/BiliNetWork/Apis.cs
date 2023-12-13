@@ -194,9 +194,9 @@ public class Apis
 
     #region Chat
     public const string CHAT_SUBTITLE =
-        "https://app.bilibili.com/bilibili.app.search.v2.Search/SubmitChatTask";
+        "https://grpc.biliapi.net/bilibili.app.search.v2.Search/SubmitChatTask";
     public const string CHAT_RESULT =
-        "https://app.bilibili.com/bilibili.app.search.v2.Search/GetChatResult";
+        "https://grpc.biliapi.net/bilibili.app.search.v2.Search/GetChatResult";
     #endregion
 
 
