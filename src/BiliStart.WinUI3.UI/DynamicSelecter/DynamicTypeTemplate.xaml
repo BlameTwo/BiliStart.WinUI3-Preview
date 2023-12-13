@@ -79,8 +79,8 @@
                         Foreground="{ThemeResource AccentAAFillColorDefaultBrush}"
                         Text="{Binding Bvid, Mode=OneTime}" />
                 </StackPanel>
-            </Grid>
 
+            </Grid>
         </Grid>
     </DataTemplate>
 

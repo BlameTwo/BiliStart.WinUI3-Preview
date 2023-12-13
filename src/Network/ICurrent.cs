@@ -15,6 +15,8 @@ public interface ICurrent
     /// </summary>
     public long TimeSpanSeconds { get; }
 
+    public long TimeSpanMilliSeconds { get; }
+
     public long TokenName { get; set; }
 
     /// <summary>

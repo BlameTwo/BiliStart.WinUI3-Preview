@@ -7,6 +7,7 @@ public class GrpcHeaders
     public const string FormUrlEncodedContentType = "application/x-www-form-urlencoded";
     public const string JsonContentType = "application/json";
     public const string GRPCContentType = "application/grpc";
+    public const string Buvid = "XZFD48CFF1E68E637D0DF11A562468A8DC314";
     public const string UserAgent = "User-Agent";
     public const string Referer = "Referer";
     public const string AppKey = "APP-KEY";
@@ -22,8 +23,12 @@ public class GrpcHeaders
     public const string GRPCTimeOutKey = "grpc-timeout";
     public const string GRPCTimeOutValue = "20100m";
     public const string Envoriment = "env";
+    public const string AuroraEid = "x-bili-aurora-eid";
+    public const string Envorienment = "prod";
     public const string TransferEncodingKey = "Transfer-Encoding";
     public const string TransferEncodingValue = "chunked";
     public const string TEKey = "TE";
     public const string TEValue = "trailers";
+    public const string TraceId = "x-bili-trace-id";
+    public const string BiliMid = "x-bili-mid";
 }

@@ -57,26 +57,26 @@ public class gRpcConfig
         return ToBase64(msg.ToByteArray());
     }
 
-    public string GetMetadataBin()
+    public string GetMetadataBin(string buvid)
     {
         var msg = new Metadata();
         msg.AccessKey = AccessToken;
         msg.MobiApp = MobileApp;
         msg.Build = 7430300;
         msg.Channel = Channel;
-        msg.Buvid = Buvid;
+        msg.Buvid = buvid;
         msg.Platform = Platform;
         return ToBase64(msg.ToByteArray());
     }
 
-    public string GetDeviceBin()
+    public string GetDeviceBin(string buvid)
     {
         var msg = new Device();
         msg.AppId = AppId;
         msg.MobiApp = MobileApp;
         msg.Build = 7430300;
         msg.Channel = Channel;
-        msg.Buvid = Buvid;
+        msg.Buvid = buvid;
         msg.Platform = Platform;
         msg.Brand = Brand;
         msg.Model = Model;

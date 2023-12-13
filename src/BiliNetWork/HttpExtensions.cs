@@ -44,7 +44,6 @@ public sealed class HttpExtensions : IHttpExtensions
                 keyvalues.Add("build", Apis.Build);
                 keyvalues.Add("mobi_app", "iphone");
                 keyvalues.Add("channel", "bili");
-                //这里的c_locale 可能可以更改数据源返回语言
                 keyvalues.Add("c_locale", "zh_CN");
                 keyvalues.Add("s_locale", "zh_CN");
                 keyvalues.Add("device", "phone");
@@ -52,11 +51,9 @@ public sealed class HttpExtensions : IHttpExtensions
                 keyvalues.Add("ts", Current.TimeSpanSeconds.ToString());
                 break;
             case RequestType.Login:
-                keyvalues.Add("appkey", ApiKey.LoginKey.Key);
-                keyvalues.Add("ts", Current.TimeSpanSeconds.ToString());
-                keyvalues.Add("device", "android");
-                keyvalues.Add("platform", "android");
-                keyvalues.Add("mobi_app", "android");
+                keyvalues.Add("appkey", ApiKey.IOSKey.Key);
+                keyvalues.Add("ts", Current.TimeSpanMilliSeconds.ToString());
+                keyvalues.Add("build", Apis.Build);
                 break;
             case RequestType.Third:
                 keyvalues.Add("appkey", ApiKey.IOSKey.Key);
@@ -125,7 +122,7 @@ public sealed class HttpExtensions : IHttpExtensions
                 apisecret = ApiKey.IOSKey.Secret;
                 break;
             case RequestType.Login:
-                apisecret = ApiKey.LoginKey.Secret;
+                apisecret = ApiKey.IOSKey.Secret;
                 break;
             case RequestType.Third:
                 apisecret = ApiKey.IOSKey.Secret;

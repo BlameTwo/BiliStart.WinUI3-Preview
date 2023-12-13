@@ -122,15 +122,21 @@ namespace BiliNetWork
         )
             where T : IMessage<T>
         {
-            var result = ParseMessageOptionAsync<T>(response, parser);
-            if (result == null) return default;
-            return await result.Match(
-                Some: val =>
-                {
-                    return val;
-                },
-                None: () => default
-            );
+            try
+            {
+                var result = ParseMessageOptionAsync<T>(response, parser);
+                return await result.Match(
+                    Some: val =>
+                    {
+                        return val;
+                    },
+                    None: () => default(T)
+                );
+            }
+            catch (Exception ex)
+            {
+                return default(T);
+            }
         }
 
 
@@ -145,7 +151,6 @@ namespace BiliNetWork
                 return Option<T>.None;
             //读取返回的byte
             var bytes = await response.Content.ReadAsByteArrayAsync();
-            
             if (bytes.Length < 5)
                 return Option<T>.None;
             // 使用grpc生成类对比特进行转换并跳过前五位（必须跳过）

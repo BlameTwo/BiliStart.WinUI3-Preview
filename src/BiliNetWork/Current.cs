@@ -9,7 +9,7 @@ public sealed class Current : ICurrent
 {
     public Current(ITokenManager tokenManager)
     {
-        LocalID = Guid.NewGuid().ToString();
+        LocalID = Guid.NewGuid().ToString("N");
         Build = "7430300";
         TokenManager = tokenManager;
         TokenName = 0;
@@ -20,6 +20,11 @@ public sealed class Current : ICurrent
     public long TimeSpanSeconds
     {
         get { return DateTimeOffset.Now.ToLocalTime().ToUnixTimeSeconds(); }
+    }
+
+    public long TimeSpanMilliSeconds
+    {
+        get { return DateTimeOffset.Now.ToLocalTime().ToUnixTimeMilliseconds(); }
     }
 
     public ITokenManager TokenManager { get; }

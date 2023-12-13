@@ -45,7 +45,7 @@ public sealed class HttpClientProvider : IHttpClientProvider
             NoStore = false
         };
         if( ifGrpc )
-            client.DefaultRequestHeaders.Connection.Add("keep-alive");
+            client.DefaultRequestHeaders.Connection.Add("Keep-Alive");
         client.DefaultRequestHeaders.Add(
             "accept",
             "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"

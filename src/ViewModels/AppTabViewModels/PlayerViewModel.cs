@@ -121,23 +121,22 @@ public partial class PlayerViewModel
     {
         this.key = $"{typeof(PlayerViewModel).FullName}+{value.Aid}";
         this.TabViewService.UpDateTitle(key, "正在加载视频……");
-        if (value.Aid == null)
-        {
-            this.ViewReply = await VideoProvider.GetVideoViewAsync(
-                Network.Models.Enum.VideoTypeEnum.Bv,
-                value.Bvid,
-                this.TokenSource.Token
-            );
-        }
-        else
+        if (value.Aid != null)
         {
             this.ViewReply = await VideoProvider.GetVideoViewAsync(
                 Network.Models.Enum.VideoTypeEnum.Av,
                 value.Aid.ToString(),
+                this.TokenSource.Token
+            );
+        }
+        if(ViewReply == null)
+        {
+            this.ViewReply = await VideoProvider.GetVideoViewAsync(
+                Network.Models.Enum.VideoTypeEnum.Bv,
+                value.Bvid,
                 TokenSource.Token
             );
         }
-
         if (ViewReply.PlayerPages.Count == 1)
         {
             this.PlayerPageNavitemVisibility = Visibility.Visible;

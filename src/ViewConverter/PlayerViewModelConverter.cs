@@ -13,6 +13,7 @@ public sealed class PlayerViewModelConverter : IPlayerViewModelConverter
     {
         return await Task.Run(() =>
         {
+            if (view == null) return null;
             var Session = GetPlayerSession(view);
             var state = GetPlayerStat(view);
             var pages = GetPlayerPages(view);

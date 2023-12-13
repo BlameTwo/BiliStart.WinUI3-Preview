@@ -49,4 +49,6 @@ public interface IDynamicItemViewModel: IItemControlVMBase<Bilibili.App.Dynamic.
 
     IRelayCommand<object> DrawImageCommand { get; }
 
+    IRelayCommand GoActionCommand { get; }
+
 }

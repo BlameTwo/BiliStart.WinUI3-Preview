@@ -13,12 +13,14 @@ public partial class DynamicItemViewModel : ObservableObject, IDynamicItemViewMo
     public DynamicItemViewModel(
         IPopupManagerService popupManagerService,
         IAppResources<BiliApplication> appResources,
-        IAccountFactory accountFactory
+        IAccountFactory accountFactory,
+        ITabCreateMethodService tabCreateMethodService
     )
     {
         PopupManagerService = popupManagerService;
         AppResources = appResources;
         AccountFactory = accountFactory;
+        TabCreateMethodService = tabCreateMethodService;
     }
 
     [ObservableProperty]
@@ -26,7 +28,6 @@ public partial class DynamicItemViewModel : ObservableObject, IDynamicItemViewMo
 
     [ObservableProperty]
     ModuleAuthor _ModuleAuthor;
-
 
     [ObservableProperty]
     ModuleDynamic _ModuleDynamic;
@@ -56,6 +57,7 @@ public partial class DynamicItemViewModel : ObservableObject, IDynamicItemViewMo
     public IAppResources<BiliApplication> AppResources { get; }
 
     public IAccountFactory AccountFactory { get; }
+    public ITabCreateMethodService TabCreateMethodService { get; }
 
     public void SetData(Bilibili.App.Dynamic.V2.DynamicItem value)
     {
@@ -72,6 +74,46 @@ public partial class DynamicItemViewModel : ObservableObject, IDynamicItemViewMo
             args.Add(new(item.Src, item.Width, item.Height));
         }
         PopupManagerService.ShowImagePopup(args);
+    }
+
+    [RelayCommand]
+    void GoAction()
+    {
+        if (this.ModuleDynamic.Type == ModuleDynamicType.MdlDynArchive)
+        {
+            TabCreateMethodService.GoNavigationPlayer(
+                new()
+                {
+                    Aid = this.ModuleDynamic.DynArchive.Avid,
+                    Bvid = this.ModuleDynamic.DynArchive.Bvid,
+                    SpaceCid = this.ModuleDynamic.DynArchive.Cid
+                }
+            );
+        }
+        GoForward();
+    }
+
+    private void GoForward()
+    {
+        if (this.ModuleDynamic.Type == ModuleDynamicType.MdlDynForward)
+        {
+            foreach (var item in ModuleDynamic.DynForward.Item.Modules)
+            {
+                if (item.ModuleType != DynModuleType.ModuleDynamic)
+                    continue;
+                if (item.ModuleDynamic.Type == ModuleDynamicType.MdlDynArchive)
+                {
+                    TabCreateMethodService.GoNavigationPlayer(
+                        new()
+                        {
+                            Aid = item.ModuleDynamic.DynArchive.Avid,
+                            Bvid = item.ModuleDynamic.DynArchive.Bvid,
+                            SpaceCid = item.ModuleDynamic.DynArchive.Cid
+                        }
+                    );
+                }
+            }
+        }
     }
 
     public void RefreshData(DynamicItem item)

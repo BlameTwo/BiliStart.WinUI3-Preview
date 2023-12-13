@@ -100,7 +100,7 @@ public sealed class AccountProvider : IAccountProvider
     {
         var result = await RequestMessage.GetHttpRequestMessageAsync(
             Apis.ACCOUNT_MY_DATA,
-            RequestType.Android,
+            RequestType.IOS,
             HttpMethod.Get,
             new(),
             true,
@@ -169,7 +169,7 @@ public sealed class AccountProvider : IAccountProvider
 
         var content = await HttpClientProvider.SendAsync(request);
         var result = await BIliDocument.ParseMessageAsync<DynAllReply>(content, DynAllReply.Parser);
-
+        if (result == null) return null;
         return AccountDynamicConverter.FormatUserAllModel(result);
     }
 

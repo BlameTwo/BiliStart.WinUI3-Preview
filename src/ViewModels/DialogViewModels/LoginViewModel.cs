@@ -57,8 +57,8 @@ public sealed partial class LoginViewModel : ObservableRecipient, ILauncherLogin
             return;
         qrkey = qrresult.Data.QRKey;
         this.QRImage = await QrConverter.Convert(qrresult.Data.PicUrl);
-        timer.Start();
         timer.Tick += Timer_Tick;
+        timer.Start();
     }
 
     [ObservableProperty]
@@ -103,9 +103,10 @@ public sealed partial class LoginViewModel : ObservableRecipient, ILauncherLogin
         await TokenManager.SaveToken(token);
         Current.TokenName = token.Mid;
         Savetoken(token.Mid);
-        var result = await AccountTokenSet.GotoThird();
-        var newaccess = await AccountTokenSet.GetAccessKeyToken(result);
-        sourcetoken.AccessToken = newaccess;
+        //ToDo B站修改了Third 获取
+        //var result = await AccountTokenSet.GotoThird();
+        //var newaccess = await AccountTokenSet.GetAccessKeyToken(result);
+        sourcetoken.AccessToken = token.SECCDATA;
         sourcetoken.LastTokenSaveTime = DateTimeOffset.Now.ToString();
         //第二次为刷新的token
         await TokenManager.SaveToken(sourcetoken);

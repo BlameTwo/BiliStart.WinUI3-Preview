@@ -6,10 +6,10 @@ public class Apis
 {
     #region 登录
     public static string BILIBILI_TV_LOGIN =
-        "https://passport.bilibili.com/x/passport-tv-login/qrcode/auth_code";
+        "https://passport.snm0516.aisee.tv/x/passport-tv-login/qrcode/auth_code";
 
     public static string BILIBILI_TV_QR_POLL =
-        "https://passport.bilibili.com/x/passport-tv-login/qrcode/poll";
+        "https://passport.snm0516.aisee.tv/x/passport-tv-login/qrcode/poll";
 
     public static string BILIBILI_TV_Third_API = "http://link.acg.tv/forum.php";
 
@@ -166,7 +166,7 @@ public class Apis
 
 
     #region PGC
-    public const string PGC_VIEW = "https://api.bilibili.com/pgc/view/v2/app/season";
+    public const string PGC_VIEW = "https://grpc.biliapi.net/pgc/view/v2/app/season";
 
     public const string PGC_PAGE = "https://api.bilibili.com/pgc/page";
 
@@ -203,13 +203,13 @@ public class Apis
     #region 动态相关
 
     public const string DYNAMICA_TOP_TAB =
-        "https://app.bilibili.com/bilibili.app.dynamic.v2.Dynamic/DynTab";
+        "https://grpc.biliapi.net/bilibili.app.dynamic.v2.Dynamic/DynTab";
 
     public const string DYNAMIC_ALL_TYPE =
-        "https://app.bilibili.com/bilibili.app.dynamic.v2.Dynamic/DynAll";
+        "https://grpc.biliapi.net/bilibili.app.dynamic.v2.Dynamic/DynAll";
 
     public const string DYNAMIC_VIDEO_TYPE =
-        "https://app.bilibili.com/bilibili.app.dynamic.v2.Dynamic/DynVideo";
+        "https://grpc.biliapi.net/bilibili.app.dynamic.v2.Dynamic/DynVideo";
     #endregion
 
     public const string Build = "7430300";

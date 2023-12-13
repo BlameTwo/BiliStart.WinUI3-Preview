@@ -1,4 +1,6 @@
 ﻿using Bilibili.Main.Community.Reply.V1;
+using System.Net.NetworkInformation;
+using System;
 
 namespace BiliNetWork;
 
@@ -48,42 +50,40 @@ public sealed class RequestMessage : IRequestMessage, IAppService
     )
     {
         var requestMessage = new HttpRequestMessage(HttpMethod.Post, url);
-        var token = (await TokenManager.GetToken(Current.TokenName)).AccessToken;
+        var token = (await TokenManager.GetToken(Current.TokenName));
         if (canceltoken.IsCancellationRequested == true)
             return default;
         requestMessage.Version = HttpVersion.Version20;
-        var grpcConfig = new gRpcConfig(token);
+        var grpcConfig = new gRpcConfig(token.AccessToken);
         var userAgent =
-            $"bili-universal/{Apis.Build} "
+            $"bili-universal/62800300 "
             + $"os/ios model/{gRpcConfig.Model} mobi_app/iphone "
             + $"osVer/{gRpcConfig.OSVersion} "
             + $"network/{gRpcConfig.NetworkType} "
             + $"grpc-objc/1.32.0 grpc-c/12.0.0 (ios; cronet_http)";
-        if (!string.IsNullOrWhiteSpace(token))
+        if (!string.IsNullOrWhiteSpace(token.AccessToken))
         {
             requestMessage.Headers.Authorization = new AuthenticationHeaderValue(
                 "identify_v1",
-                token
+                token.AccessToken
             );
             ;
         }
+        var buvid = GetBuvid();
         requestMessage.Headers.Add(GrpcHeaders.UserAgent, userAgent);
         requestMessage.Headers.Add(GrpcHeaders.AppKey, gRpcConfig.MobileApp);
-        requestMessage.Headers.Add(GrpcHeaders.BiliDevice, grpcConfig.GetDeviceBin());
+        requestMessage.Headers.Add("buvid", buvid);
+        requestMessage.Headers.Add(GrpcHeaders.BiliDevice, grpcConfig.GetDeviceBin(buvid));
         requestMessage.Headers.Add(GrpcHeaders.BiliFawkes, grpcConfig.GetFawkesreqBin());
         requestMessage.Headers.Add(GrpcHeaders.BiliLocale, grpcConfig.GetLocaleBin());
-        requestMessage.Headers.Add(GrpcHeaders.BiliMeta, grpcConfig.GetMetadataBin());
+        requestMessage.Headers.Add(GrpcHeaders.GRPCTimeOutKey, GrpcHeaders.GRPCTimeOutValue);
+        requestMessage.Headers.Add(GrpcHeaders.Envoriment, GrpcHeaders.Envorienment);
+        requestMessage.Headers.Add(GrpcHeaders.BiliMeta, grpcConfig.GetMetadataBin(buvid));
         requestMessage.Headers.Add(GrpcHeaders.BiliNetwork, grpcConfig.GetNetworkBin());
         requestMessage.Headers.Add(GrpcHeaders.BiliRestriction, grpcConfig.GetRestrictionBin());
         requestMessage.Headers.Add(
             GrpcHeaders.GRPCAcceptEncodingKey,
             GrpcHeaders.GRPCAcceptEncodingValue
-        );
-        requestMessage.Headers.Add(GrpcHeaders.GRPCTimeOutKey, GrpcHeaders.GRPCTimeOutValue);
-        requestMessage.Headers.Add(GrpcHeaders.Envoriment, gRpcConfig.Envorienment);
-        requestMessage.Headers.Add(
-            GrpcHeaders.TransferEncodingKey,
-            GrpcHeaders.TransferEncodingValue
         );
         requestMessage.Headers.Add(GrpcHeaders.TEKey, GrpcHeaders.TEValue);
         var messageBytes = grpcmessage.ToByteArray();
@@ -99,6 +99,75 @@ public sealed class RequestMessage : IRequestMessage, IAppService
         byteArrayContent.Headers.ContentLength = bodyBytes.Length;
         requestMessage.Content = byteArrayContent;
         return requestMessage;
+    }
+
+    private string GetBuvid()
+    {
+        var macAddress = NetworkInterface
+            .GetAllNetworkInterfaces()
+            .Where(
+                nic =>
+                    nic.OperationalStatus == OperationalStatus.Up
+                    && nic.NetworkInterfaceType != NetworkInterfaceType.Loopback
+            )
+            .Select(nic => nic.GetPhysicalAddress().ToString())
+            .FirstOrDefault();
+        var buvidObj = new Buvid(macAddress);
+        return buvidObj.Generate();
+    }
+
+    private string GenRandomString(int length)
+    {
+        var random = new Random();
+        const string charset = "0123456789abcdefghijklmnopqrstuvwxyz";
+        var randomString = new StringBuilder(length);
+        for (var i = 0; i < length; i++)
+        {
+            _ = randomString.Append(charset[random.Next(charset.Length)]);
+        }
+
+        return randomString.ToString();
+    }
+
+    public string GetTraceId()
+    {
+        var random_id = GenRandomString(32);
+        var random_trace_id = new StringBuilder(40);
+        _ = random_trace_id.Append(random_id[..24]);
+        var b_arr = new sbyte[3];
+        var ts = DateTimeOffset.Now.ToUnixTimeSeconds();
+        for (var i = 2; i >= 0; i--)
+        {
+            ts >>= 8;
+            b_arr[i] = ((ts / 128) % 2) == 0 ? (sbyte)(ts % 256) : (sbyte)((ts % 256) - 256);
+        }
+        for (var i = 0; i < 3; i++)
+        {
+            _ = random_trace_id.Append(b_arr[i].ToString("x2"));
+        }
+        _ = random_trace_id.Append(random_id.Substring(30, 2));
+        var random_trace_id_final = new StringBuilder(64);
+        _ = random_trace_id_final.Append(random_trace_id);
+        _ = random_trace_id_final.Append(":");
+        _ = random_trace_id_final.Append(random_trace_id.ToString(16, 16));
+        _ = random_trace_id_final.Append(":0:0");
+        return random_trace_id_final.ToString();
+    }
+
+    public string GetAuroraEid(long uid)
+    {
+        if (uid == 0)
+        {
+            return string.Empty;
+        }
+
+        var resultByte = new List<byte>(64);
+        var midByte = Encoding.UTF8.GetBytes(uid.ToString());
+        for (var i = 0; i < midByte.Length; i++)
+        {
+            resultByte.Add((byte)(midByte[i] ^ Encoding.UTF8.GetBytes("ad1va46a7lza")[i % 12]));
+        }
+        return Convert.ToBase64String(resultByte.ToArray()).TrimEnd('=');
     }
 
     public async Task<HttpRequestMessage> GetHttpRequestMessageAsync(
@@ -198,10 +267,13 @@ public sealed class RequestMessage : IRequestMessage, IAppService
         this._historyHistory.Add(new(request, httpResponseMessage));
     }
 
-    public async Task<HttpRequestMessage> GetHttpRequestMesageAsync(RequestArgs args, CancellationToken token = default)
+    public async Task<HttpRequestMessage> GetHttpRequestMesageAsync(
+        RequestArgs args,
+        CancellationToken token = default
+    )
     {
-         HttpRequestMessage message = new();
-        if(args.RequestType == RequestType.Android)
+        HttpRequestMessage message = new();
+        if (args.RequestType == RequestType.Android)
         {
             message.Headers.Add(
                 "User-Agent",
@@ -216,11 +288,11 @@ public sealed class RequestMessage : IRequestMessage, IAppService
             message.Headers.Add("Cookie", cookie);
         }
         var quest = await HttpExtensions.GetClientType(
-                args.Arguments,
-                args.RequestType,
-                args.IsLogin,
-                args.IsLogin
-            );
+            args.Arguments,
+            args.RequestType,
+            args.IsLogin,
+            args.IsLogin
+        );
         var url = args.Host;
         if (args.HttpMethod == HttpMethod.Get)
         {
