@@ -190,5 +190,5 @@ public class Level_Exp
     /// 下一个等级需要多少经验
     /// </summary>
     [JsonPropertyName("next_exp")]
-    public double Next_Exp { get; set; }
+    public object Next_Exp { get; set; }
 }
