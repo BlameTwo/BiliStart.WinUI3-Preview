@@ -39,4 +39,10 @@ public partial class AccountSpaceViewModel : PageViewModelBase
     [ObservableProperty]
     MySpace _Space;
 
+
+    [RelayCommand]
+    void GoChangedSing()
+    {
+
+    }
 }

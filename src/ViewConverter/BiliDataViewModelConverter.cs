@@ -245,6 +245,7 @@ public class BiliDataViewModelConverter : IBiliDataViewModelConverter
     /// <returns></returns>
     public IEnumerable<DanmakuSession> ConverterDanmaku(DmSegMobileReply reply)
     {
+        if (reply == null) return null;
         List<DanmakuSession> list = new List<DanmakuSession>();
         foreach (var item in reply.Elems)
         {

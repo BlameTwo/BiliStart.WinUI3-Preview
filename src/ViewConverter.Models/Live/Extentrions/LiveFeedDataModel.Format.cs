@@ -26,7 +26,10 @@ public static class LiveFeedDataModelFormat
 
     public static LiveCardList FormatHotTag(this LiveFeedDataModel model)
     {
-        var result = model.LiveCardList.Where((val) => val.CardType == "area_entrance_v3").First();
+        var list = model.LiveCardList.Where((val) => val.CardType == "area_entrance_v3");
+        if (list == null || list.Count() == 0)
+            return default;
+        var result = list.First();
         if (result == null)
             return default;
         return result;

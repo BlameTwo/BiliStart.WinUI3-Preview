@@ -21,123 +21,83 @@
             <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Border
-            Margin="10"
-            Padding="10"
-            Background="{ThemeResource CardBackgroundFillColorDefault}"
-            CornerRadius="3">
+        <Border Margin="10" CornerRadius="3">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition />
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
-                <Button
-                    Grid.Column="3"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Top"
-                    FontSize="12">
-                    <StackPanel Orientation="Horizontal">
-                        <FontIcon
-                            FontFamily="Segoe UI Emoji"
-                            FontSize="14"
-                            Glyph="&#x1F504;" />
-                        <TextBlock Margin="10,0,0,0" Text="{x:Bind bilireader:BiliResourceLoader.ReadViewResourceString('Page_Refersh')}" />
-                    </StackPanel>
-                </Button>
-                <PersonPicture ProfilePicture="{Binding Space.Card.Face, Mode=OneWay}" />
-                <StackPanel
-                    Grid.Column="1"
-                    Margin="10,0,0,0"
-                    Orientation="Vertical">
-                    <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-                        <TextBlock
-                            FontSize="20"
-                            FontWeight="Bold"
-                            Text="{Binding Space.Card.Name, Mode=OneWay}" />
-                        <Path
-                            Height="13"
-                            Margin="10,10,0,0"
-                            Data="{Binding Space.Card.LevelInfo.Level, Converter={StaticResource PathConvert}, Mode=OneWay}"
-                            Fill="{Binding Space.Card.LevelInfo.Level, Converter={StaticResource BrushConvert}, Mode=OneWay}"
-                            Stretch="Uniform" />
-                    </StackPanel>
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Margin="0,10,0,0" Text="{x:Bind ViewModel.Space.Card.Sign, Mode=OneWay}" />
-                        <ProgressBar
-                            Width="200"
-                            Margin="0,25,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            VerticalContentAlignment="Center"
-                            Maximum="{Binding Space.Card.LevelInfo.Next_Exp, Mode=OneWay}"
-                            Minimum="{Binding Space.Card.LevelInfo.Crrent_Min, Mode=OneWay}"
-                            Value="{Binding Space.Card.LevelInfo.Current_Exp, Mode=OneWay}" />
-                        <TextBlock>
-                            <Run
-                                FontWeight="Bold"
-                                Foreground="{ThemeResource AccentAAFillColorDefaultBrush}"
-                                Text="{Binding Space.Card.LevelInfo.Current_Exp, Mode=OneWay}" />
-                            <Run Text="/" />
-                            <Run Text="{Binding Space.Card.LevelInfo.Next_Exp, Mode=OneWay}" />
-                        </TextBlock>
-                    </StackPanel>
-                    <TextBlock />
-                </StackPanel>
-                <Grid
-                    Grid.Column="2"
-                    Margin="10"
-                    Padding="25">
+                <ui3:ImageEx
+                    Grid.ColumnSpan="3"
+                    Height="90"
+                    CornerRadius="5"
+                    Opacity="0.7"
+                    Source="{Binding Space.Images.TopImage, Mode=OneWay}"
+                    Stretch="UniformToFill" />
+                <Grid Margin="15,0,0,15" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
+                        <ColumnDefinition Width="auto" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock
-                            Margin="0,0,0,5"
-                            HorizontalAlignment="Center"
-                            Text="{x:Bind bilireader:BiliResourceLoader.ReadViewResourceString('Root_User_F')}" />
-                        <Rectangle Height="1" Fill="Gray" />
-                        <TextBlock
+                    <PersonPicture
+                        Grid.Column="0"
+                        Height="60"
+                        ProfilePicture="{Binding Space.Card.Face, Mode=OneWay}" />
+                    <Grid Grid.Column="1" Margin="10,0,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                Margin="0,3,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                FontWeight="Bold"
+                                Foreground="{ThemeResource AccentAAFillColorDefaultBrush}"
+                                Text="{Binding Space.Card.Name, Mode=OneWay}" />
+                            <Path
+                                Height="10"
+                                Margin="5,0,0,0"
+                                HorizontalAlignment="Left"
+                                Data="{Binding Space.Card.LevelInfo.Level, Converter={StaticResource PathConvert}, Mode=OneWay}"
+                                Fill="{Binding Space.Card.LevelInfo.Level, Converter={StaticResource BrushConvert}, Mode=OneWay}"
+                                Stretch="Uniform" />
+                        </StackPanel>
+                        <TextBox
+                            Grid.Row="1"
                             Margin="0,3,0,0"
-                            HorizontalAlignment="Center"
-                            Text="{Binding Space.Card.Fans, Mode=OneWay}" />
-                    </StackPanel>
-                    <StackPanel
-                        Grid.Column="1"
-                        Margin="5,0,0,0"
-                        Orientation="Vertical">
-                        <TextBlock
-                            Margin="0,0,0,5"
-                            HorizontalAlignment="Center"
-                            Text="{x:Bind bilireader:BiliResourceLoader.ReadViewResourceString('Root_User_L')}" />
-                        <Rectangle Height="1" Fill="Gray" />
-                        <TextBlock
-                            Margin="0,3,0,0"
-                            HorizontalAlignment="Center"
-                            Text="{Binding Space.Card.Attention, Mode=OneWay}" />
-                    </StackPanel>
-                    <StackPanel
-                        Grid.Column="2"
-                        Margin="5,0,0,0"
-                        Orientation="Vertical">
-                        <TextBlock
-                            Margin="0,0,0,5"
-                            HorizontalAlignment="Center"
-                            Text="{x:Bind bilireader:BiliResourceLoader.ReadViewResourceString('Root_User_TL')}" />
-                        <Rectangle Height="1" Fill="Gray" />
-                        <TextBlock
-                            Margin="0,3,0,0"
-                            HorizontalAlignment="Center"
-                            Text="{Binding Space.Card.Likes.LikeCount, Mode=OneWay}" />
-                    </StackPanel>
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Text="{x:Bind ViewModel.Space.Card.Sign, Mode=OneWay}" />
+                    </Grid>
                 </Grid>
             </Grid>
         </Border>
-        <Pivot Grid.Row="1">
-            <PivotItem Header="{x:Bind bilireader:BiliResourceLoader.ReadViewResourceString('Root_User_Pivot_Item1')}" />
-            <PivotItem Header="{x:Bind bilireader:BiliResourceLoader.ReadViewResourceString('Root_User_Pivot_Item2')}" />
-        </Pivot>
+        <Border
+            Grid.Row="1"
+            Margin="10,0"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="5">
+            <StackPanel
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <FontIcon
+                    HorizontalAlignment="Center"
+                    FontFamily="Segoe UI Emoji"
+                    FontSize="60"
+                    Glyph="&#x1F6A7;" />
+                <TextBlock
+                    Margin="0,5,0,0"
+                    HorizontalAlignment="Center"
+                    Text="Working……" />
+            </StackPanel>
+        </Border>
     </Grid>
 </local:AccountSpaceControlBase>

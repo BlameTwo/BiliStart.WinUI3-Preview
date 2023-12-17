@@ -58,7 +58,7 @@ public class LiveProvider : ILiveProvider
             };
         var request = await RequestMessage.GetHttpRequestMessageAsync(
             Apis.LIVE_PAGE_FEED,
-            RequestType.Android,
+            RequestType.IOS,
             HttpMethod.Get,
             values,
             true,
@@ -85,7 +85,7 @@ public class LiveProvider : ILiveProvider
     {
         var request = await RequestMessage.GetHttpRequestMessageAsync(
             Apis.LIVE_TAG_DATA,
-            RequestType.Android,
+            RequestType.IOS,
             HttpMethod.Get,
             new(),
             true,
@@ -124,7 +124,7 @@ public class LiveProvider : ILiveProvider
     {
         var request = await RequestMessage.GetHttpRequestMessageAsync(
             Apis.LIVE_TAG_DATA_ITEM,
-            RequestType.Android,
+            RequestType.IOS,
             HttpMethod.Get,
             values,
             true,
@@ -163,7 +163,7 @@ public class LiveProvider : ILiveProvider
         Dictionary<string, string> values = new() { { "room_id", roomId.ToString() } };
         var request = await RequestMessage.GetHttpRequestMessageAsync(
             Apis.LIVE_ROOM_GetByINFO,
-            RequestType.Android,
+            RequestType.IOS,
             HttpMethod.Get,
             values,
             true,
@@ -231,7 +231,7 @@ public class LiveProvider : ILiveProvider
     {
         var request = await RequestMessage.GetHttpRequestMessageAsync(
             Apis.LIVE_ROOM_GETPLAYINFO,
-            RequestType.Android,
+            RequestType.IOS,
             HttpMethod.Get,
             values,
             true,

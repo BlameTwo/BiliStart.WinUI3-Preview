@@ -14,6 +14,7 @@ public static class ObjectHelper
     public static ObservableCollection<T> ToObservableCollection<T>(this IEnumerable<T> list)
     {
         ObservableCollection<T> values = new();
+        if (list == null) return new();
         foreach (var item in list)
         {
             values.Add(item);
