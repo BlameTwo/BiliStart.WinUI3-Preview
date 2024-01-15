@@ -16,7 +16,7 @@
 
 <div align="center">
 
-<h4> 此版本为*BiliStart*的衍生版本，为 <a href="https://www.bilibili.com">BiliBili</a> 网站的第三方Windows本地客户端。</h4>
+<h4> 此版本为BiliStart的衍生版本，为 <a href="https://www.bilibili.com">BiliBili</a> 网站的第三方Windows本地客户端。</h4>
 
 </div>
 <hr/>
