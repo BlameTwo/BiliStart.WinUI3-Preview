@@ -1,53 +1,34 @@
-## BiliStart v2
-
-完全重写以及优化应用架构的V2版本，有安装包，详细请到[更新日志](./docs/Version-Build.md)查看，其他未完善。
-
-
-
-此仓库进行过一次重发，因此旧提交记录和过时的release已经删除。
-
-
-
-BiliStart 为主应用
-
-
-
-BiliTool 为B站工具应用
-
-
-
-路线图：
-
-1. FFmpeg（工具）
+<div align="center">
+   <h1>BiliStart.WinUI3</h1>
+   <image align="center" height="400" src="https://github.com/BlameTwo/BiliStart.WinUI3-Preview/assets/65759143/d7c66560-cbaa-4675-a787-272c58745254"/>
+   <br/>
+   <br/>
+      
+   [![NET 6.0](https://img.shields.io/badge/dotnet-7.0-purple.svg?style=flat-square&color=512bd4)](https://learn.microsoft.com/zh-cn/dotnet/core/whats-new/dotnet-7)
+   [![Window-WinUI3](https://img.shields.io/badge/WindowsAppSDK-v1.4-blue)](https://learn.microsoft.com/en-us/windows/apps/windows-app-sdk/)
+   [![CommunityToolkit.Window](https://img.shields.io/badge/CommunityToolkit-v8.0-green)](https://learn.microsoft.com/zh-cn/dotnet/communitytoolkit/)
+   [![H.NotifyIcon](https://img.shields.io/badge/H.NotifyIcon-v2.0-SlateBlue)](https://github.com/HavenDV/H.NotifyIcon)
+   [![Net Extnetions](https://img.shields.io/badge/NetExtentions-v8.0-Purple)](https://dot.net)
+   [![Serilog](https://img.shields.io/badge/Serilog-v3.0-CadetBlue)](https://serilog.net/)
    
-   1. 转码解码视频
-   
-   2. 无损压缩视频
-   
-   3. 合成视频
+</div>
 
-2. Up主工具（工具）
-   
-   1. 数据可视化
-   
-   2. 自定义任务爬取（B站一切有规律可循的数据源记录）
-   
-   3. 稿件详情
-   
-   4. Up主工具不包含任何修改Post功能（避嫌
 
-3. 下载模块（工具）
-   
-   1. 普通视频
-   
-   2. 限制（会员下载资源）
+<div align="center">
 
-4. 社区内容（主应用）
+<h4> 此版本为*BiliStart*的衍生版本，为 <a href="https://www.bilibili.com">BiliBili</a> 网站的第三方Windows本地客户端。</h4>
+
+</div>
+<hr/>
+相对于普通功能而言增加了以下特色功能：
    
-   1. 评论图片
-   
-   2. 动态图片
-   
-   3. 可选中一段文字进行AI语音转换并播放（实验性
-   
-   4. 弹幕点赞和举报（尽力
+   - [x] B站AI(预览)
+   - [x] 多账号切换
+   - [x] 以网页的形式浏览B站，并采用WindowsAppSDK带来原生快速低消耗的应用体验。
+### 如何开始
+
+#### 作为感兴趣的开发者
+
+#### 作为一个普通的用户
+
+
