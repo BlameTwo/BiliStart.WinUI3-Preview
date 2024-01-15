@@ -40,8 +40,13 @@
 
 #### 🖼其他截图
 <div align="center">
- <image align="center" height="400" src="https://github.com/BlameTwo/BiliStart.WinUI3-Preview/assets/65759143/1b96b03e-04a8-4b40-81c2-deaf2f1a8b77"/>
- <image align="center" height="400" src="https://github.com/BlameTwo/BiliStart.WinUI3-Preview/assets/65759143/856c7efa-30cf-4234-a15d-add7d7876d80"/>
- <image align="center" height="400" src="https://github.com/BlameTwo/BiliStart.WinUI3-Preview/assets/65759143/99f339c5-f66f-42ed-a7bd-d75d55d96348"/>
+   
+ <image align="center" width="70%"  src="https://github.com/BlameTwo/BiliStart.WinUI3-Preview/assets/65759143/1b96b03e-04a8-4b40-81c2-deaf2f1a8b77"/>
+ <hr/>
+ <image align="center" width="70%"  src="https://github.com/BlameTwo/BiliStart.WinUI3-Preview/assets/65759143/856c7efa-30cf-4234-a15d-add7d7876d80"/>
+ <hr/>
+ <image align="center"  width="70%" src="https://github.com/BlameTwo/BiliStart.WinUI3-Preview/assets/65759143/99f339c5-f66f-42ed-a7bd-d75d55d96348"/>
+ <hr/>
+ 
 
 </div>
