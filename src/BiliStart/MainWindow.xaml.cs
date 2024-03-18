@@ -14,6 +14,7 @@ public sealed partial class MainWindow : WindowEx
         this.SetTitleBar(null);
         this.AppWindow.SetIcon(FilePath.AppPath + "/Assets/icon.ico");
         this.AppWindow.Closing += AppWindow_Closing;
+
     }
     private async void AppWindow_Closing(
     Microsoft.UI.Windowing.AppWindow sender,

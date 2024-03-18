@@ -220,7 +220,7 @@ public sealed class VideoProvider : IVideoProvider
         };
         var request = await RequestMessage.GetHttpRequestMessageAsync(
             Apis.HOT_HISTORY_Model,
-            RequestType.Android,
+            RequestType.IOS,
             HttpMethod.Get,
             dict,
             true,

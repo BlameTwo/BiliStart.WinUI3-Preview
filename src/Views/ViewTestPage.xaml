@@ -19,12 +19,7 @@
         </core:EventTriggerBehavior>
     </i:Interaction.Behaviors>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
-        <TextBlock Text="this is a new SearchTextBox Control" />
-        <ui:SearchTextBoxPanel Grid.Row="1">
+        <!--<ui:SearchTextBoxPanel Grid.Row="1">
             <Grid
                 Margin="100"
                 HorizontalAlignment="Stretch"
@@ -40,6 +35,6 @@
                     FontWeight="Bold"
                     Text="HistoryPanel" />
             </Grid>
-        </ui:SearchTextBoxPanel>
+        </ui:SearchTextBoxPanel>-->
     </Grid>
 </Page>
